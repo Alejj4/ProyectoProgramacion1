@@ -3,11 +3,11 @@
 toyota_hatchback = [[]]
 toyota_sedan = [[]]
 toyota_suv =[[]]
-toyota_pickUp =[[]]
+toyota_pickup =[[]]
 honda_hatchback = [[]]
 honda_sedan = [[]]
 honda_suv=[[]]
-honda_pickUp=[[]]
+honda_pickup=[[]]
 chevrolet_hatchback = [[]]
 chevrolet_sedan = [[]]
 chevrolet_suv = [[]]
@@ -15,9 +15,9 @@ chevrolet_pickup = [[]]
 ford_hatchback = [[]]
 ford_sedan = [[]]
 ford_suv =[[]]
-ford_pickUp =[[]]
+ford_pickup =[[]]
 
-Matriz_principal =[[toyota_hatchback,toyota_sedan,toyota_suv,toyota_pickUp],
-                   [honda_hatchback, honda_sedan, honda_suv, honda_pickUp],
+Matriz_principal =[[toyota_hatchback,toyota_sedan,toyota_suv,toyota_pickup],
+                   [honda_hatchback, honda_sedan, honda_suv, honda_pickup],
                    [chevrolet_hatchback, chevrolet_sedan, chevrolet_suv, chevrolet_pickup],
-                   [ford_hatchback, ford_sedan, ford_suv, ford_pickUp]]
+                   [ford_hatchback, ford_sedan, ford_suv, ford_pickup]]

@@ -1,7 +1,7 @@
 def mostrar_matriz(matriz):
     esquina = 'Marcas/Autos'
     columnas = ['Hatchback','Sedan','Suv','PickUp']
-    filas = ['Toyota', 'Honda', 'chevrolet', 'ford']
+    filas = ['Toyota', 'Honda', 'Chevrolet', 'Ford']
     ancho = 15
     print(esquina.ljust(ancho), end='')
     for col in columnas:
