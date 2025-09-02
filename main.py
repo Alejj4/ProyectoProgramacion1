@@ -13,8 +13,7 @@ matriz = [
 
 
 def main():
-    
-    print('bienvenido a shcipani motors sport esta es nuestra disponibilidad ')
+    print('Bienvenido a schipani motors sport esta es nuestra disponibilidad ')
     funcion.mostrar_matriz(matriz)
 
 main()
