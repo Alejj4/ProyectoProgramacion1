@@ -26,7 +26,7 @@ def main():
     while modelo not in (range(1,5)):
         print("Opción incorrecta! Intente de nuevo.")
         modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-
+    funcion.mostrar_autos(modelo - 1,marca - 1)
 
 main()
     
