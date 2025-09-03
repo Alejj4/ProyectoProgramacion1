@@ -1,6 +1,7 @@
 # la idea aca es guardar todas las matrices de marca/modelo
 
-toyota_hatchback = [[]]
+toyota_hatchback = [[1,2,3],
+                    [ 28,31,33]]  #xs xls s
 toyota_sedan = [[]]
 toyota_suv =[[]]
 toyota_pickup =[[]]
