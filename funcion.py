@@ -12,3 +12,6 @@ def mostrar_matriz(matriz):
         for fil in fila:
             print(str(fil).ljust(ancho),end ='')
         print()
+
+def desglozar_matriz(matriz):  # Esto lo va a hacer tiago, no lo toquen
+    for i in range(len(matriz))
