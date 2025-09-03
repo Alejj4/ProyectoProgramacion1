@@ -15,7 +15,7 @@ matriz = [
 def main():
     print('Bienvenido a schipani motors sport esta es nuestra disponibilidad ')
     funcion.mostrar_matriz(matriz)
-    #Alejo va a hacer la verificacion de datos
+    #Alejo va a hacer la verificacion de datos ok?
     print('Seleccione la marca que le gustaria ver')
     marca = int(input('ingrese 1 para Toyota, 2 para Honda, 3 para Chevrolet y 4 para Ford '))
     print('ahora seleccione los modelos que quiere ver')
