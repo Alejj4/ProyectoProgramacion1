@@ -3,16 +3,17 @@ import funcion
 
 
 
-matriz = [
-    [1,2,3,4],
-    [5,6,7,8],
-    [9,10,4,5],
-    [3,5,6,8]
-]
+
 
 
 
 def main():
+    matriz = [
+    [1,2,3,4],
+    [5,6,7,8],
+    [9,10,4,5],
+    [3,5,6,8]
+    ]
     print('Bienvenido a schipani motors sport esta es nuestra disponibilidad ')
     funcion.mostrar_matriz(matriz)
     #Alejo va a hacer la verificacion de datos ok?
