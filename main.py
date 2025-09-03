@@ -1,6 +1,5 @@
 import random as schipani
-import funcion
-import matrices as mt
+from funcion import verificar_marca,mostrar_matriz,verificar_modelo
 
 
 
@@ -34,6 +33,12 @@ def main():
         modelo = modelo -1
         funcion.mostrar_autos(marca,modelo)
         
+    mostrar_matriz(matriz)
+    print('Seleccione la marca que le gustaria ver')
+    verificar_marca()
+    print('Ahora seleccione los modelos que quiere ver.')
+    verificar_modelo()
+
 
 main()
     
