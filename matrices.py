@@ -1,4 +1,5 @@
 # la idea aca es guardar todas las matrices de marca/modelo
+# Esta funcion lo que hace es en base a una fila dada y una columna dada(marca y modelo elegido por el usuario) nos devuelve la sub matriz de vehiculos requerida
 def llamar_matriz(fila,columna):
     toyota_hatchback = [[1,2,3],
                         [ 28,31,33]]  #yaris-xs, yaris-xls yaris-s
@@ -27,7 +28,7 @@ def llamar_matriz(fila,columna):
             [43,76,85]]
     ford_pickup =[[2,3,3],      # maverick, ranger raptor, f150 lariat hibrido
                 [51,116, 124]]
-
+        #Gran matriz con todas las submatrices
     Matriz_principal =[[toyota_hatchback,toyota_sedan,toyota_suv,toyota_pickup],
                     [schipani_hatchback, schipani_sedan, schipani_suv, schipani_pickup],
                     [chevrolet_hatchback, chevrolet_sedan, chevrolet_suv, chevrolet_pickup],

@@ -8,7 +8,7 @@ import funcion
 
 
 def main():
-
+    #matriz display para el usuario
     matriz = [
     [1,2,3,4],
     [5,6,7,8],

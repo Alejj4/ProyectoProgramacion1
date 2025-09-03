@@ -13,12 +13,14 @@ def mostrar_matriz(matriz):
         for fil in fila:
             print(str(fil).ljust(ancho),end ='')
         print()
-
+#Funcion que printea la matriz del auto y marca seleccionado 
 def mostrar_autos(columna,fila):
     matriz = mt.llamar_matriz(columna ,fila)
     
-    # Nombre de los diferentes tipos de autos
+    # Palabras que van a estar en cada submatriz
+
     info = ['equipamento', 'precio']
+    # Nombre de los diferentes tipos de autos, las vacias es porque no tiene stock
     esquina = 'caracteristicas/nombre'
     ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
     ToSe = []
@@ -39,20 +41,20 @@ def mostrar_autos(columna,fila):
 
 
 
-
+    #Matriz de nombres declarados previamente
     nombres = [[ToHa,ToSe,ToSu,ToPi],
                [ScHa,ScSe,ScSu,ScPi],
                [ChHa,ChSe,ChSu,ChPi],
                [FoHa,FoSe,FoSu,FoPi]]
-    ancho = 30
+    ancho = 30 #ancho que quiero que haya entre cada palabra
     print('')
-    print(esquina.ljust(ancho), end ='')
-    for col in nombres[columna][fila]:
-        print(col.ljust(ancho), end='')
+    print(esquina.ljust(ancho), end ='')#printea esquina con espacio de 30 a su derecha y que lo siguiente lo anote al lado
+    for col in nombres[columna][fila]:#Selecciona la lista de nombres que va a usar en base a lo ingresado por el usuario
+        print(col.ljust(ancho), end='')#printea los nombres igual que la esquina
     print()
     print('')
-    for nombre,fila in zip(info, matriz):
-        print(nombre.ljust(ancho),end='')
+    for infom,fila in zip(info, matriz):# nos permite printear primero el dato de la lista info y a su lado con el siguiente for los datos requeridos por el usuario
+        print(infom.ljust(ancho),end='')
         for fil in fila:
             print(str(fil).ljust(ancho),end ='')
         print()
