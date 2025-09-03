@@ -13,3 +13,15 @@ def mostrar_matriz(matriz):
             print(str(fil).ljust(ancho),end ='')
         print()
 
+def verificar_marca():
+    marca = int(input('Ingrese 1 para Toyota, 2 para Honda, 3 para Chevrolet y 4 para Ford: '))
+    while marca not in (range(1,5)):
+        print("Opción incorrecta! Intente de nuevo.")
+        marca = int(input('Ingrese 1 para Toyota, 2 para Honda, 3 para Chevrolet y 4 para Ford: '))
+    return marca
+def verificar_modelo():
+    modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+    while modelo not in (range(1,5)):
+        print("Opción incorrecta! Intente de nuevo.")
+        modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+    return modelo
