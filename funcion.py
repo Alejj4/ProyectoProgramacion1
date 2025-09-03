@@ -2,7 +2,7 @@ import matrices as mt
 def mostrar_matriz(matriz):
     esquina = 'Marcas/Autos'
     columnas = ['Hatchback','Sedan','Suv','PickUp']
-    filas = ['Toyota', 'Honda', 'Chevrolet', 'Ford']
+    filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
     ancho = 15
     print(esquina.ljust(ancho), end='')
     for col in columnas:
@@ -15,16 +15,35 @@ def mostrar_matriz(matriz):
         print()
 
 def mostrar_autos(columna,fila):
-    matriz = mt.llamar_matriz(fila,columna)
+    matriz = mt.llamar_matriz(columna ,fila)
     
     # Nombre de los diferentes tipos de autos
     info = ['equipamento', 'precio']
     esquina = 'caracteristicas/nombre'
-    ToHa = ['yaris xs', 'yaris xls', 'yaris s']
+    ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
     ToSe = []
-    ToSu =['cross xli', 'cross sed']
+    ToSu = ['Cross xli', 'Cross seG']
     ToPi = ['Hilux dx4x4','Hiluxsr4x4']
-    nombres = [[ToHa,ToSe,ToSu]]
+    ScHa = []
+    ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
+    ScSu = ['schipani chipa', 'schipani bochoQuemado']
+    ScPi = ['Schipani Pipani']
+    ChHa = []
+    ChSe = ['Onixplus']
+    ChSu = ['Spring', 'Tracker']
+    ChPi = ['Montana', 'S10', 'Silverado']
+    FoHa = []
+    FoSe = []
+    FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
+    FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
+
+
+
+
+    nombres = [[ToHa,ToSe,ToSu,ToPi],
+               [ScHa,ScSe,ScSu,ScPi],
+               [ChHa,ChSe,ChSu,ChPi],
+               [FoHa,FoSe,FoSu,FoPi]]
     ancho = 30
     print('')
     print(esquina.ljust(ancho), end ='')

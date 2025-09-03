@@ -7,29 +7,29 @@ def llamar_matriz(fila,columna):
                 [44,52]]
     toyota_pickup =[[1,3],   #hilux dx4x4, hiluxsr4x4
                     [53,61]]
-    honda_hatchback = [[0]]
-    honda_sedan = [[3], #honda civic
-                [28]] 
-    honda_suv=[[2,3],   #hr-v, cr-v
+    schipani_hatchback = [[0]]
+    schipani_sedan = [[1,2], #schipani uade Seminuevo, Schipani Schiziano
+                [28,35]] 
+    schipani_suv=[[2,3],   #schipani chipa, schipani bochoQuemado
             [25,30]]
-    honda_pickup=[[3],   #ridgeline
+    schipani_pickup=[[3],   #Schipani Pipani
                 [48]]
     chevrolet_hatchback = [[0]]
     chevrolet_sedan = [[2], #onixplus
                     [27]]
-    chevrolet_suv = [[1,2],  #sping, tracker
+    chevrolet_suv = [[1,2],  #spring, tracker
                     [31,32]]
     chevrolet_pickup = [[1,2,3],  #montana, S10, silverado
                         [34,43,102]]
     ford_hatchback = [[0]]
     ford_sedan = [[0]]
-    ford_suv =[[2,3,3],   #nueva territory, kuga hibrido, nueva Everest
+    ford_suv =[[2,3,3],   # territory, kuga hibrido,  Everest
             [43,76,85]]
-    ford_pickup =[[2,3,3],      #nueva maverick, ranger raptor, f150 lariat hibrido
+    ford_pickup =[[2,3,3],      # maverick, ranger raptor, f150 lariat hibrido
                 [51,116, 124]]
 
     Matriz_principal =[[toyota_hatchback,toyota_sedan,toyota_suv,toyota_pickup],
-                    [honda_hatchback, honda_sedan, honda_suv, honda_pickup],
+                    [schipani_hatchback, schipani_sedan, schipani_suv, schipani_pickup],
                     [chevrolet_hatchback, chevrolet_sedan, chevrolet_suv, chevrolet_pickup],
                     [ford_hatchback, ford_sedan, ford_suv, ford_pickup]]
     return Matriz_principal[fila][columna]
