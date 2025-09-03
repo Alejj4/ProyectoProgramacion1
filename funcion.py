@@ -1,3 +1,4 @@
+import matrices as mt
 def mostrar_matriz(matriz):
     esquina = 'Marcas/Autos'
     columnas = ['Hatchback','Sedan','Suv','PickUp']
@@ -14,16 +15,15 @@ def mostrar_matriz(matriz):
         print()
 
 def mostrar_autos(columna,fila):
+    matriz = mt.llamar_matriz(fila,columna)
     
-    toyota_hatchback = [[1,2,3],
-                        [ 28,31,33]]  #xs xls s
-    matriz = toyota_hatchback
     # Nombre de los diferentes tipos de autos
     info = ['equipamento', 'precio']
     esquina = 'caracteristicas/nombre'
     ToHa = ['yaris xs', 'yaris xls', 'yaris s']
     ToSe = []
     ToSu =['cross xli', 'cross sed']
+    ToPi = ['Hilux dx4x4','Hiluxsr4x4']
     nombres = [[ToHa,ToSe,ToSu]]
     ancho = 30
     print('')
