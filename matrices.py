@@ -42,5 +42,5 @@ def matriz_compra(fila, columna,matriz):
     matriz[fila][columna] += 1
     return(fn.mostrar_matriz(matriz))
     
-def carga_ventas():
+#def carga_ventas():
     

@@ -19,6 +19,11 @@ def main():
                          [0,0,0,0],
                          [0,0,0,0],
                          [0,0,0,0]]
+    Vtoyota = []
+    Vschipani = []
+    VChevrolet =[]
+    Vford =[]
+    
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
     funcion.mostrar_matriz(matriz)
     marca = 0
