@@ -1,5 +1,19 @@
 import matrices as mt
+
+def precios(matriz):
+       for columna in range(4):
+              for fila in range(4):
+                     promedio_autos = mt.llamar_matriz(columna ,fila)
+                     if len(promedio_autos)>1:
+                            preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
+                     else:
+                            preciospromedios = 0
+                     matriz[columna][fila]=preciospromedios
+       return matriz
+
+
 def mostrar_matriz(matriz):
+    matriz2 = precios(matriz)
     esquina = 'Marcas/Autos'
     columnas = ['Hatchback','Sedan','Suv','PickUp']
     filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
@@ -8,7 +22,7 @@ def mostrar_matriz(matriz):
     for col in columnas:
         print(col.ljust(ancho),end = '')
     print()
-    for nombre,fila in zip(filas, matriz):
+    for nombre,fila in zip(filas, matriz2):
         print(nombre.ljust(ancho),end='')
         for fil in fila:
             print(str(fil).ljust(ancho),end ='')

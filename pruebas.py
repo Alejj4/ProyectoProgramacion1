@@ -1,34 +1,24 @@
 # Archivo de pruebas para experimentar fuera de los archivos principales
 # Borrar cuando el proyecto este terminado
+import matrices as mt
 
-columna = 0
-fila = 0
-aux = 2
-
-ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
-ToSe = []
-ToSu = ['Cross xli', 'Cross seG']
-ToPi = ['Hilux dx4x4','Hiluxsr4x4']
-ScHa = []
-ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
-ScSu = ['schipani chipa', 'schipani bochoQuemado']
-ScPi = ['Schipani Pipani']
-ChHa = []
-ChSe = ['Onixplus']
-ChSu = ['Spring', 'Tracker']
-ChPi = ['Montana', 'S10', 'Silverado']
-FoHa = []
-FoSe = []
-FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
-FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
+matriz = [
+    [1,2,3,4],
+    [5,6,7,8],
+    [9,10,4,5],
+    [3,5,6,8]
+    ]
 
 
+def precios(matriz):
+       for columna in range(4):
+              for fila in range(4):
+                     promedio_autos = mt.llamar_matriz(columna ,fila)
+                     if len(promedio_autos)>1:
+                            preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
+                     else:
+                            preciospromedios = 0
+                     matriz[columna][fila]=preciospromedios
+       return matriz
 
-#Matriz de nombres declarados previamente
-nombres = [[ToHa,ToSe,ToSu,ToPi],
-       [ScHa,ScSe,ScSu,ScPi],
-       [ChHa,ChSe,ChSu,ChPi],
-       [FoHa,FoSe,FoSu,FoPi]]
-elegido = nombres[columna][fila]
-elegidoNom = elegido[aux]
-print(elegidoNom)
+print(precios(matriz))
