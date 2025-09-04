@@ -4,10 +4,6 @@ import matrices as mt
 
 
 
-
-
-
-
 def main():
     #matriz display para el usuario
     matriz = [
@@ -61,7 +57,7 @@ def main():
 
             funcion.mostrar_autos(marca, modelo)
                 
-            # funcion.compra_auto(marca, modelo, vehiculos_comprados)
+            funcion.compra_auto(marca, modelo, vehiculos_comprados)
             
                 
 

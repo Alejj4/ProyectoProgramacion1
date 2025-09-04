@@ -1,6 +1,7 @@
 import matrices as mt
 
 def modelos_de_autos():
+    #rearmar esto en el archivo matrices
     ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
     ToSe = []
     ToSu = ['Cross xli', 'Cross seG']
@@ -17,8 +18,11 @@ def modelos_de_autos():
     FoSe = []
     FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
     FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
-
-    return [ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi]
+    nombres = [[ToHa,ToSe,ToSu,ToPi],
+               [ScHa,ScSe,ScSu,ScPi],
+               [ChHa,ChSe,ChSu,ChPi],
+               [FoHa,FoSe,FoSu,FoPi]]
+    return nombres
 
 def precios(matriz):
     for columna in range(4):
@@ -55,15 +59,12 @@ def mostrar_autos(columna,fila):
 
     info = ['equipamento', 'precio']
     esquina = 'caracteristicas/nombre'
-    ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = modelos_de_autos()
+    nombres = modelos_de_autos()
 
 
 
     #Matriz de nombres declarados previamente
-    nombres = [[ToHa,ToSe,ToSu,ToPi],
-               [ScHa,ScSe,ScSu,ScPi],
-               [ChHa,ChSe,ChSu,ChPi],
-               [FoHa,FoSe,FoSu,FoPi]]
+    
     ancho = 30 #ancho que quiero que haya entre cada palabra
     print('')
     print(esquina.ljust(ancho), end ='')#printea esquina con espacio de 30 a su derecha y que lo siguiente lo anote al lado
@@ -82,15 +83,12 @@ def nomAu(columna, fila, eleccion):
    # Cuando se llama a un vehiculo cuya lista esta vacia da error, hay que corregir eso
     # Esta funcion funciona igual que mostrar matriz solo que sin la parte de mostrarla, te busca los nombres en base a lo eleigod por el usuario y luego agarra el auto en la posicion que eligio el usuario
     
-    ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = modelos_de_autos()
+    nombres = modelos_de_autos()
 
 
 
     #Matriz de nombres declarados previamente
-    nombres = [[ToHa,ToSe,ToSu,ToPi],
-        [ScHa,ScSe,ScSu,ScPi],
-        [ChHa,ChSe,ChSu,ChPi],
-        [FoHa,FoSe,FoSu,FoPi]]
+   
     elegido = nombres[columna][fila]
     elegidoNom = elegido[eleccion -1]
     return(elegidoNom)
