@@ -1,5 +1,6 @@
 import random as schipani
 import funcion
+import matrices as mt
 
 
 
@@ -38,21 +39,33 @@ def main():
         else:
             while marca not in (range(1,5)):
                 print("Opción incorrecta! Intente de nuevo.")
-                marca = int(input('ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
+                marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
 
-            marca -= 1
             print('Ahora seleccione los modelos que quiere ver.')
             modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
 
             while modelo not in (range(1,5)):
                 print("Opción incorrecta! Intente de nuevo.")
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-            modelo -= 1
-            funcion.mostrar_autos(marca,modelo)
+
+            matriz = mt.llamar_matriz(marca, modelo)
+
+
+            while len(matriz) == 0: # Esto quiere decir que no hay stock de la marca y modelo elegido
+                print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
+                print("----------------------------------------------")
+                
+                modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+                matriz = mt.llamar_matriz(marca, modelo)
+                print(matriz)
+
+            funcion.mostrar_autos(marca, modelo)
+                
+            # funcion.compra_auto(marca, modelo, vehiculos_comprados)
             
-            funcion.compra_auto(marca,modelo,vehiculos_comprados)
-            
-            #una vez salido del bucle queria hacer listas con datos tipo cantidad de plata que hizo cada marca. autos vendidos(ya que hice una funcion para sacar el nombre individual de cada auto comprado podemos hacer una lista de cuantos autos de cada tipo se vendio etc y demas cosas)
+                
+
+            # Una vez salido del bucle queria hacer listas con datos tipo cantidad de plata que hizo cada marca. autos vendidos(ya que hice una funcion para sacar el nombre individual de cada auto comprado podemos hacer una lista de cuantos autos de cada tipo se vendio etc y demas cosas)
             #no use lambda todavia
             #soy medio autista
             #solo 2 personas sabian como hice el codigo, dios y yo, ahora solo lo sabe dios, asi que si no entienden algo preguntenle a chatgtp
