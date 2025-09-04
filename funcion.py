@@ -1,15 +1,35 @@
 import matrices as mt
 
+def modelos_de_autos():
+    ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
+    ToSe = []
+    ToSu = ['Cross xli', 'Cross seG']
+    ToPi = ['Hilux dx4x4','Hiluxsr4x4']
+    ScHa = []
+    ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
+    ScSu = ['schipani chipa', 'schipani bochoQuemado']
+    ScPi = ['Schipani Pipani']
+    ChHa = []
+    ChSe = ['Onixplus']
+    ChSu = ['Spring', 'Tracker']
+    ChPi = ['Montana', 'S10', 'Silverado']
+    FoHa = []
+    FoSe = []
+    FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
+    FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
+
+    return [ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi]
+
 def precios(matriz):
-       for columna in range(4):
-              for fila in range(4):
-                     promedio_autos = mt.llamar_matriz(columna ,fila)
-                     if len(promedio_autos)>1:
-                            preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
-                     else:
-                            preciospromedios = 0
-                     matriz[columna][fila]=preciospromedios
-       return matriz
+    for columna in range(4):
+        for fila in range(4):
+            promedio_autos = mt.llamar_matriz(columna, fila)
+            if len(promedio_autos)>1:
+                preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
+            else:
+                preciospromedios = 0
+            matriz[columna][fila]=preciospromedios
+    return matriz
 
 
 def mostrar_matriz(matriz):
@@ -34,24 +54,8 @@ def mostrar_autos(columna,fila):
     # Palabras que van a estar en cada submatriz
 
     info = ['equipamento', 'precio']
-    # Nombre de los diferentes tipos de autos, las vacias es porque no tiene stock
     esquina = 'caracteristicas/nombre'
-    ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
-    ToSe = []
-    ToSu = ['Cross xli', 'Cross seG']
-    ToPi = ['Hilux dx4x4','Hiluxsr4x4']
-    ScHa = []
-    ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
-    ScSu = ['schipani chipa', 'schipani bochoQuemado']
-    ScPi = ['Schipani Pipani']
-    ChHa = []
-    ChSe = ['Onixplus']
-    ChSu = ['Spring', 'Tracker']
-    ChPi = ['Montana', 'S10', 'Silverado']
-    FoHa = []
-    FoSe = []
-    FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
-    FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
+    ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = modelos_de_autos()
 
 
 
@@ -77,22 +81,8 @@ def mostrar_autos(columna,fila):
 def nomAu(columna, fila, eleccion):
    # Cuando se llama a un vehiculo cuya lista esta vacia da error, hay que corregir eso
     # Esta funcion funciona igual que mostrar matriz solo que sin la parte de mostrarla, te busca los nombres en base a lo eleigod por el usuario y luego agarra el auto en la posicion que eligio el usuario
-    ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
-    ToSe = []
-    ToSu = ['Cross xli', 'Cross seG']
-    ToPi = ['Hilux dx4x4','Hiluxsr4x4']
-    ScHa = []
-    ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
-    ScSu = ['schipani chipa', 'schipani bochoQuemado']
-    ScPi = ['Schipani Pipani']
-    ChHa = []
-    ChSe = ['Onixplus']
-    ChSu = ['Spring', 'Tracker']
-    ChPi = ['Montana', 'S10', 'Silverado']
-    FoHa = []
-    FoSe = []
-    FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
-    FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
+    
+    ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = modelos_de_autos()
 
 
 
@@ -107,9 +97,12 @@ def nomAu(columna, fila, eleccion):
 
 
 def compra_auto(columna,fila,matrizcompra):
-  
+
     # funcion para compra de autos
-    matriz = mt.llamar_matriz(columna ,fila)#llamo la matriz de vehiculos que quise comprar
+    matriz = mt.llamar_matriz(columna, fila)#llamo la matriz de vehiculos que quise comprar
+
+    
+
     for i in range(len(matriz[1])):
         i += 1
          
