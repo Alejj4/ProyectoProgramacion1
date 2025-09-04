@@ -22,6 +22,7 @@ def main():
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
     funcion.mostrar_matriz(matriz)
     marca = 0
+    # por algun motivo no se puede salir del bucle
     while marca != -1:
         print('Seleccione la marca que le gustaria ver')
         marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
@@ -38,6 +39,10 @@ def main():
         funcion.mostrar_autos(marca,modelo)
         
         funcion.compra_auto(marca,modelo,vehiculos_comprados)
+        #una vez salido del bucle queria hacer listas con datos tipo cantidad de plata que hizo cada marca. autos vendidos(ya que hice una funcion para sacar el nombre individual de cada auto comprado podemos hacer una lista de cuantos autos de cada tipo se vendio etc y demas cosas)
+        #no use lambda todavia
+        #soy medio autista
+        #solo 2 personas sabian como hice el codigo, dios y yo, ahora solo lo sabe dios, asi que si no entienden algo preguntenle a chatgtp
   
 
 
