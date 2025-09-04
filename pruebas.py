@@ -1,44 +1,34 @@
 # Archivo de pruebas para experimentar fuera de los archivos principales
 # Borrar cuando el proyecto este terminado
 
+columna = 0
+fila = 0
+aux = 2
 
-    
+ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
+ToSe = []
+ToSu = ['Cross xli', 'Cross seG']
+ToPi = ['Hilux dx4x4','Hiluxsr4x4']
+ScHa = []
+ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
+ScSu = ['schipani chipa', 'schipani bochoQuemado']
+ScPi = ['Schipani Pipani']
+ChHa = []
+ChSe = ['Onixplus']
+ChSu = ['Spring', 'Tracker']
+ChPi = ['Montana', 'S10', 'Silverado']
+FoHa = []
+FoSe = []
+FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
+FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
 
-def llamar_matriz(fila,columna):
-    toyota_hatchback = [[1,2,3],
-                        [ 28,31,33]]  #yaris-xs, yaris-xls yaris-s
-    toyota_sedan = [[0]]
-    toyota_suv =[[1,3],  #cross xli, cross seg
-                [44,52]]
-    toyota_pickup =[[1,3],   #hilux dx4x4, hiluxsr4x4
-                    [53,61]]
-    schipani_hatchback = [[0]]
-    schipani_sedan = [[1,2], #schipani uade Seminuevo, Schipani Schiziano
-                [28,35]] 
-    schipani_suv=[[2,3],   #schipani chipa, schipani bochoQuemado
-            [25,30]]
-    schipani_pickup=[[3],   #Schipani Pipani
-                [48]]
-    chevrolet_hatchback = [[0]]
-    chevrolet_sedan = [[2], #onixplus
-                    [27]]
-    chevrolet_suv = [[1,2],  #spring, tracker
-                    [31,32]]
-    chevrolet_pickup = [[1,2,3],  #montana, S10, silverado
-                        [34,43,102]]
-    ford_hatchback = [[0]]
-    ford_sedan = [[0]]
-    ford_suv =[[2,3,3],   # territory, kuga hibrido,  Everest
-            [43,76,85]]
-    ford_pickup =[[2,3,3],      # maverick, ranger raptor, f150 lariat hibrido
-                [51,116, 124]]
 
-    Matriz_principal =[[toyota_hatchback,toyota_sedan,toyota_suv,toyota_pickup],
-                    [schipani_hatchback, schipani_sedan, schipani_suv, schipani_pickup],
-                    [chevrolet_hatchback, chevrolet_sedan, chevrolet_suv, chevrolet_pickup],
-                    [ford_hatchback, ford_sedan, ford_suv, ford_pickup]]
-    return Matriz_principal[fila][columna]
 
-a = int(input(''))
-b = int(input(''))
-print(llamar_matriz(a -1,b -1))
+#Matriz de nombres declarados previamente
+nombres = [[ToHa,ToSe,ToSu,ToPi],
+       [ScHa,ScSe,ScSu,ScPi],
+       [ChHa,ChSe,ChSu,ChPi],
+       [FoHa,FoSe,FoSu,FoPi]]
+elegido = nombres[columna][fila]
+elegidoNom = elegido[aux]
+print(elegidoNom)

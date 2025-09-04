@@ -1,5 +1,7 @@
 # la idea aca es guardar todas las matrices de marca/modelo
 # Esta funcion lo que hace es en base a una fila dada y una columna dada(marca y modelo elegido por el usuario) nos devuelve la sub matriz de vehiculos requerida
+import funcion as fn
+# en este archivo las filas y columnas estan bien
 def llamar_matriz(fila,columna):
     toyota_hatchback = [[1,2,3],
                         [ 28,31,33]]  #yaris-xs, yaris-xls yaris-s
@@ -34,3 +36,10 @@ def llamar_matriz(fila,columna):
                     [chevrolet_hatchback, chevrolet_sedan, chevrolet_suv, chevrolet_pickup],
                     [ford_hatchback, ford_sedan, ford_suv, ford_pickup]]
     return Matriz_principal[fila][columna]
+
+def matriz_compra(fila, columna,matriz):
+    # llama la matriz compravehiculos que la arrastre y suma 1 cuando hay una venta en base a lo ingresado por el usuario
+    matriz[fila][columna] += 1
+    return(fn.mostrar_matriz(matriz))
+    
+    

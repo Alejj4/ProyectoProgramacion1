@@ -15,10 +15,14 @@ def main():
     [9,10,4,5],
     [3,5,6,8]
     ]
+    vehiculos_comprados=[[0,0,0,0],
+                         [0,0,0,0],
+                         [0,0,0,0],
+                         [0,0,0,0]]
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
     funcion.mostrar_matriz(matriz)
     marca = 0
-    while marca != -2:
+    while marca != -1:
         print('Seleccione la marca que le gustaria ver')
         marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
         while marca not in (range(1,5)):
@@ -33,11 +37,8 @@ def main():
         modelo = modelo -1
         funcion.mostrar_autos(marca,modelo)
         
-    funcion.mostrar_matriz(matriz)
-    print('Seleccione la marca que le gustaria ver')
-    funcion.verificar_marca()
-    print('Ahora seleccione los modelos que quiere ver.')
-    funcion.verificar_modelo()
+        funcion.compra_auto(marca,modelo,vehiculos_comprados)
+  
 
 
 main()
