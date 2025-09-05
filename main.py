@@ -5,7 +5,16 @@ import matrices as mt
 def imprimir_separador():
     print("------------------------------------------------------------------------------")
 
-def mostrar_matriz_con_formato(matriz):
+def desplegar_menu_de_usuario():
+    
+    #matriz display para el usuario
+    matriz = [
+    [1,2,3,4],
+    [5,6,7,8],
+    [9,10,4,5],
+    [3,5,6,8]
+    ]
+    
     matriz_precios_promedios = mt.calcular_precios_promedio(matriz)
     esquina = 'Marcas/Autos'
     columnas = ['Hatchback','Sedan','Suv','PickUp']
@@ -24,24 +33,20 @@ def mostrar_matriz_con_formato(matriz):
         print()
 
 def main():
-    #matriz display para el usuario
-    matriz = [
-    [1,2,3,4],
-    [5,6,7,8],
-    [9,10,4,5],
-    [3,5,6,8]
+    
+    vehiculos_comprados_matriz =[
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
     ]
-    vehiculos_comprados=[[0,0,0,0],
-                         [0,0,0,0],
-                         [0,0,0,0],
-                         [0,0,0,0]]
     Vtoyota = []
     Vschipani = []
     VChevrolet =[]
     Vford =[]
     
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
-    mostrar_matriz_con_formato(matriz)
+    desplegar_menu_de_usuario()
     
     marca = 0
     while marca != -1:
