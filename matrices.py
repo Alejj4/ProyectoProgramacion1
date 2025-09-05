@@ -89,19 +89,19 @@ def calcular_precios_promedio(matriz):
     
     for fila in range(4): # fila = marca
         for columna in range(4): # columna = tipo
-            promedio_autos = obtener_matriz_especifica(fila,columna)
-            print(promedio_autos)
+            promedio_autos = obtener_matriz_especifica(fila + 1,columna + 1)
+            # print(promedio_autos)
             calcular_promedio = lambda lista: sum(lista) // len(lista)
-            precios_promedios = calcular_promedio(promedio_autos[2]) if len(promedio_autos) > 0 else 0
-            
+            promedio_precios = calcular_promedio(promedio_autos[2]) if len(promedio_autos) > 0 else 0
+
             """
             # Codigo equivalente a:
             if len(promedio_autos)>1:
-                precios_promedios=sum(promedio_autos[1])//len(promedio_autos[1])
-                # print(precios_promedios)
+                promedio_precios=sum(promedio_autos[1])//len(promedio_autos[1])
+                # print(promedio_precios)
             else:
-                precios_promedios = 0
+                promedio_precios = 0
             """
             
-            matriz[fila][columna]=precios_promedios
+            matriz[fila][columna]=promedio_precios
     return matriz
