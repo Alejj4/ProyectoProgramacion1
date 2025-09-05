@@ -5,7 +5,7 @@ import matrices as mt
 def imprimir_separador():
     print("------------------------------------------------------------------------------")
 
-def desplegar_menu_de_usuario():
+def desplegar_menu_de_catalogo():
     
     #matriz display para el usuario
     matriz = [
@@ -46,7 +46,7 @@ def main():
     Vford =[]
     
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
-    desplegar_menu_de_usuario()
+    desplegar_menu_de_catalogo()
     
     marca = 0
     while marca != -1:
@@ -85,7 +85,7 @@ def main():
 
             funcion.mostrar_autos(datos_de_auto_matriz)
                 
-            # funcion.compra_auto(marca, modelo, vehiculos_comprados)
+            funcion.compra_auto(marca, modelo, vehiculos_comprados_matriz) # Se pasan marca y modelo como posiciones tal cual como las ingresa el usuario (no como indices)
             
                 
 
