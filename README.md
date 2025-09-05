@@ -32,3 +32,5 @@
 6 - Al finalizar el programa, ver como mostrar la informacion de los autos que se vendieron ¿?
 
 7 - Agregar un mensaje para el caso donde el usuario cancele una compra, como "Cancelando..." o algo así
+
+8 - Manejar los casos donde el usuario ingrese otra cosa que no sea un numero cuando el programa espera especificamente ese tipo de dato
