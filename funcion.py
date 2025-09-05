@@ -1,89 +1,40 @@
 import matrices as mt
 
-def modelos_de_autos():
-    #rearmar esto en el archivo matrices
-    ToHa = ['Yaris xs', 'Yaris xls', 'Yaris s']
-    ToSe = []
-    ToSu = ['Cross xli', 'Cross seG']
-    ToPi = ['Hilux dx4x4','Hiluxsr4x4']
-    ScHa = []
-    ScSe = ['schipani uade Seminuevo','Schipani Schiziano']
-    ScSu = ['schipani chipa', 'schipani bochoQuemado']
-    ScPi = ['Schipani Pipani']
-    ChHa = []
-    ChSe = ['Onixplus']
-    ChSu = ['Spring', 'Tracker']
-    ChPi = ['Montana', 'S10', 'Silverado']
-    FoHa = []
-    FoSe = []
-    FoSu = ['Territory', 'Kuga Hybrid', 'Everest']
-    FoPi = ['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid']
-    nombres = [[ToHa,ToSe,ToSu,ToPi],
-               [ScHa,ScSe,ScSu,ScPi],
-               [ChHa,ChSe,ChSu,ChPi],
-               [FoHa,FoSe,FoSu,FoPi]]
-    return nombres
 
-def precios(matriz):
-    for columna in range(4):
-        for fila in range(4):
-            promedio_autos = mt.llamar_matriz(columna, fila)
-            if len(promedio_autos)>1:
-                preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
-            else:
-                preciospromedios = 0
-            matriz[columna][fila]=preciospromedios
-    return matriz
-
-
-def mostrar_matriz(matriz):
-    matriz2 = precios(matriz)
-    esquina = 'Marcas/Autos'
-    columnas = ['Hatchback','Sedan','Suv','PickUp']
-    filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
-    ancho = 15
-    print(esquina.ljust(ancho), end='')
-    for col in columnas:
-        print(col.ljust(ancho),end = '')
-    print()
-    for nombre,fila in zip(filas, matriz2):
-        print(nombre.ljust(ancho),end='')
-        for fil in fila:
-            print(str(fil).ljust(ancho),end ='')
-        print()
+# REVISAR
 #Funcion que printea la matriz del auto y marca seleccionado 
-def mostrar_autos(columna,fila):
-    matriz = mt.llamar_matriz(columna ,fila)
-    
+def mostrar_autos(datos_de_auto_matriz): # Ej: [['schipani uade Seminuevo', 'Schipani Schiziano'], [1, 2], [28, 35]]
+
     # Palabras que van a estar en cada submatriz
 
     info = ['equipamento', 'precio']
     esquina = 'caracteristicas/nombre'
-    nombres = modelos_de_autos()
-
-
+    nombres = datos_de_auto_matriz[0] 
 
     #Matriz de nombres declarados previamente
     
     ancho = 30 #ancho que quiero que haya entre cada palabra
     print('')
     print(esquina.ljust(ancho), end ='')#printea esquina con espacio de 30 a su derecha y que lo siguiente lo anote al lado
-    for col in nombres[columna][fila]:#Selecciona la lista de nombres que va a usar en base a lo ingresado por el usuario
+    for col in nombres:#Selecciona la lista de nombres que va a usar en base a lo ingresado por el usuario
         print(col.ljust(ancho), end='')#printea los nombres igual que la esquina
     print()
     print('')
-    for infom,fila in zip(info, matriz):# nos permite printear primero el dato de la lista info y a su lado con el siguiente for los datos requeridos por el usuario
+
+    # Se imprimen datos de equipamiento y precio
+    for infom,fila in zip(info, datos_de_auto_matriz[1:]):# nos permite printear primero el dato de la lista info y a su lado con el siguiente for los datos requeridos por el usuario
         print(infom.ljust(ancho),end='')
         for fil in fila:
             print(str(fil).ljust(ancho),end ='')
         print()
         print('')
 
-def nomAu(columna, fila, eleccion):
+# REVISAR
+def nomAu(fila, columna, eleccion):
    # Cuando se llama a un vehiculo cuya lista esta vacia da error, hay que corregir eso
     # Esta funcion funciona igual que mostrar matriz solo que sin la parte de mostrarla, te busca los nombres en base a lo eleigod por el usuario y luego agarra el auto en la posicion que eligio el usuario
     
-    nombres = modelos_de_autos()
+    nombres = mt.modelos_de_autos()
 
 
 
@@ -93,11 +44,11 @@ def nomAu(columna, fila, eleccion):
     elegidoNom = elegido[eleccion -1]
     return(elegidoNom)
 
-
-def compra_auto(columna,fila,matrizcompra):
+# REVISAR
+def compra_auto(fila, columna, matrizcompra):
 
     # funcion para compra de autos
-    matriz = mt.llamar_matriz(columna, fila)#llamo la matriz de vehiculos que quise comprar
+    matriz = mt.obtener_matriz_especifica(fila, columna)#llamo la matriz de vehiculos que quise comprar
 
     
 
@@ -124,8 +75,6 @@ def compra_auto(columna,fila,matrizcompra):
         print(mt.matriz_compra(columna,fila,matrizcompra))
 
     # hay que meter una opcion de que pasa si pongo no y un verificador para que si pongo ni no ni si funque igual
-
-
 
     
 def verificar_marca():
