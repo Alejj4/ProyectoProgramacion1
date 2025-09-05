@@ -74,7 +74,7 @@ def main():
             funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz) # Se pasan marca y modelo como posiciones tal cual como las ingresa el usuario (no como indices)
             
                 
-    print(vehiculos_comprados_matriz) # Ver cómo mostrar los datos de las ventas realizadas en el programa
+    funcion.mostrar_matriz(vehiculos_comprados_matriz) # Ver cómo mostrar los datos de las ventas realizadas en el programa
     
 
 
