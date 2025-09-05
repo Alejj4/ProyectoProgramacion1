@@ -2,7 +2,26 @@ import random as schipani
 import funcion
 import matrices as mt
 
+def imprimir_separador():
+    print("------------------------------------------------------------------------------")
 
+def mostrar_matriz_con_formato(matriz):
+    matriz_precios_promedios = mt.calcular_precios_promedio(matriz)
+    esquina = 'Marcas/Autos'
+    columnas = ['Hatchback','Sedan','Suv','PickUp']
+    filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
+    ancho = 15
+    
+    print(esquina.ljust(ancho), end='')
+    for col in columnas:
+        print(col.ljust(ancho),end = '')
+    print()
+    
+    for nombre,fila in zip(filas, matriz_precios_promedios):
+        print(nombre.ljust(ancho),end='')
+        for fil in fila:
+            print(str(fil).ljust(ancho),end ='')
+        print()
 
 def main():
     #matriz display para el usuario
@@ -22,13 +41,17 @@ def main():
     Vford =[]
     
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
-    funcion.mostrar_matriz(matriz)
-    marca = 0
+    mostrar_matriz_con_formato(matriz)
     
+    marca = 0
     while marca != -1:
+
+        imprimir_separador()
         print('Seleccione la marca que le gustaria ver')
         print("Para salir simplemente ingrese -1")
         marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
+        imprimir_separador()
+        
 
         if marca == -1:
             print('programa finalizado')
@@ -44,7 +67,7 @@ def main():
                 print("Opción incorrecta! Intente de nuevo.")
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
 
-            matriz = mt.llamar_matriz(marca, modelo)
+            datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
 
 
             while len(matriz) == 0: # Esto quiere decir que no hay stock de la marca y modelo elegido
@@ -52,12 +75,12 @@ def main():
                 print("----------------------------------------------")
                 
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-                matriz = mt.llamar_matriz(marca, modelo)
-                print(matriz)
-
-            funcion.mostrar_autos(marca, modelo)
+                datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
                 
-            funcion.compra_auto(marca, modelo, vehiculos_comprados)
+
+            funcion.mostrar_autos(datos_de_auto_matriz)
+                
+            # funcion.compra_auto(marca, modelo, vehiculos_comprados)
             
                 
 
