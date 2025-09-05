@@ -34,3 +34,5 @@
 7 - Agregar un mensaje para el caso donde el usuario cancele una compra, como "Cancelando..." o algo así
 
 8 - Manejar los casos donde el usuario ingrese otra cosa que no sea un numero cuando el programa espera especificamente ese tipo de dato
+
+9 - Revisar si en desplegar_menu_catalogo no es mejor inicializar todas las posiciones de la matriz en 0
