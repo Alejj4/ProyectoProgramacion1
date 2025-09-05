@@ -16,21 +16,7 @@ def desplegar_menu_de_catalogo():
     ]
     
     matriz_precios_promedios = mt.calcular_precios_promedio(matriz)
-    esquina = 'Marcas/Autos'
-    columnas = ['Hatchback','Sedan','Suv','PickUp']
-    filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
-    ancho = 15
-    
-    print(esquina.ljust(ancho), end='')
-    for col in columnas:
-        print(col.ljust(ancho),end = '')
-    print()
-    
-    for nombre,fila in zip(filas, matriz_precios_promedios):
-        print(nombre.ljust(ancho),end='')
-        for fil in fila:
-            print(str(fil).ljust(ancho),end ='')
-        print()
+    funcion.mostrar_matriz(matriz_precios_promedios)
 
 def main():
     

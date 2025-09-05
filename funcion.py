@@ -1,5 +1,21 @@
 import matrices as mt
 
+def mostrar_matriz(matriz):
+    esquina = 'Marcas/Autos'
+    columnas = ['Hatchback','Sedan','Suv','PickUp']
+    filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
+    ancho = 15
+    
+    print(esquina.ljust(ancho), end='')
+    for col in columnas:
+        print(col.ljust(ancho),end = '')
+    print()
+    
+    for nombre,fila in zip(filas, matriz):
+        print(nombre.ljust(ancho),end='')
+        for fil in fila:
+            print(str(fil).ljust(ancho),end ='')
+        print()
  
 def mostrar_autos(datos_de_auto_matriz): # Ej de datos (no vacios): [['schipani uade Seminuevo', 'Schipani Schiziano'], [1, 2], [28, 35]]
     """Funcion que printea la matriz del auto y marca seleccionado"""
@@ -85,7 +101,7 @@ def comprar_auto(fila, columna, matrizcompra):
         matriz_compra_actualizada = mt.actualizar_matriz_compra(fila, columna, matrizcompra)
 
         print("matriz compra actualizada")
-        print(matriz_compra_actualizada)
+        mostrar_matriz(matriz_compra_actualizada)
 
     
 
