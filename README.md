@@ -1,6 +1,7 @@
 # Schipani Motors Sport 🚗
 
 ## Algunas aclaraciones importantes
+1 - Tener cuidado al querer acceder a los datos de una matriz, corroborar si hay que pasarle la posicion tal cual o los indices (que arrancan desde el 0,0)
 
 ## Convenciones para el codigo
 1 - Usar triples comillas (""" """) para comentarios sobre el funcionamiento general de un modulo o funcion (para las funciones agreguenlas abajo de la linea del def, antes de escribir toda la logica)
@@ -16,3 +17,4 @@
 ### Tareas pendientes (Agregar en caso de que haga falta)
 1 - Agregar la sentencia lambda al codigo
 2 - Agregar slicing
+3 - Mejorar la visualizacion del menu en la consola (Agregando separadores, espacios y demás)
