@@ -87,16 +87,21 @@ def matriz_compra(fila, columna, matriz):
 
 def calcular_precios_promedio(matriz):
     
-    for columna in range(4):
-        for fila in range(4):
+    for fila in range(4): # fila = marca
+        for columna in range(4): # columna = tipo
             promedio_autos = obtener_matriz_especifica(fila,columna)
-            # print(promedio_autos)
+            print(promedio_autos)
+            calcular_promedio = lambda lista: sum(lista) // len(lista)
+            precios_promedios = calcular_promedio(promedio_autos[2]) if len(promedio_autos) > 0 else 0
             
+            """
+            # Codigo equivalente a:
             if len(promedio_autos)>1:
-                preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
-                # print(preciospromedios)
+                precios_promedios=sum(promedio_autos[1])//len(promedio_autos[1])
+                # print(precios_promedios)
             else:
-                preciospromedios = 0
-            matriz[columna][fila]=preciospromedios
-    # print(matriz)
+                precios_promedios = 0
+            """
+            
+            matriz[fila][columna]=precios_promedios
     return matriz
