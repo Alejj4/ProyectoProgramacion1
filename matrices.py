@@ -58,10 +58,12 @@ def obtener_datos_de_modelos():
     
 
 def obtener_matriz_completa():
-    # Devuelve una matriz con los datos de todos los tipos, marcas y modelos
+    """
+    Devuelve una matriz con los datos de todos los tipos, marcas y modelos
+    """
 
     ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = obtener_datos_de_modelos()
-    
+
     matriz_completa = [
         [ToHa,ToSe,ToSu,ToPi],
         [ScHa,ScSe,ScSu,ScPi],
@@ -70,27 +72,29 @@ def obtener_matriz_completa():
     ]
     return matriz_completa
 
-def obtener_matriz_especifica(fila,columna): 
+def obtener_matriz_especifica(fila,columna): # Acá serian las posiciones literales en la matriz, no los indices
     
-    # Devuelve los datos segun la marca (fila) y tipo de auto (columna) que se le especifique
-    # Se tiene que pasar el número que ingresa el usuario en consola
+    """Devuelve los datos segun la marca (fila) y tipo de auto (columna) que se le especifique"""
     
     matriz_completa = obtener_matriz_completa()
 
     return matriz_completa[fila - 1][columna - 1]
 
-def matriz_compra(fila, columna, matriz):
-    # llama la matriz compravehiculos que la arrastre y suma 1 cuando hay una venta en base a lo ingresado por el usuario
+def actualizar_matriz_compra(fila, columna, matriz): # Acá serian las posiciones literales en la matriz, no los indices
+    """
+    Llama la matriz compravehiculos que la arrastre y suma 1 cuando hay una venta en base a lo ingresado por el usuario
+    """
 
-    matriz[fila][columna] += 1
-    return(mostrar_matriz(matriz))
+    matriz[fila - 1][columna - 1] += 1
+    
+    return matriz
 
 def calcular_precios_promedio(matriz):
     
     for fila in range(4): # fila = marca
         for columna in range(4): # columna = tipo
-            promedio_autos = obtener_matriz_especifica(fila + 1,columna + 1)
-            # print(promedio_autos)
+            promedio_autos = obtener_matriz_especifica(fila + 1, columna + 1) # A esta funcion se les pasa el valor de la posicion de la fila/columna, no del indice
+
             calcular_promedio = lambda lista: sum(lista) // len(lista)
             promedio_precios = calcular_promedio(promedio_autos[2]) if len(promedio_autos) > 0 else 0
 
