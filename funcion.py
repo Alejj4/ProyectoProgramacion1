@@ -123,11 +123,11 @@ def verificar_modelo():
 import random as rn 
 def descuento_auto():
        descuento = 0
-       des = int(input("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere. "))
+       des = int(input("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere: "))
        while des != 1 and des != 2:
-              des = int(input("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere. "))
+              des = int(input("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere: "))
        if des == 2: 
-              print("Como usted desee, aqui tiene la lista de autos con los que contamos")
+              print("Como usted desee, el precio final del auto es el siguiente: ")
        else: 
               print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
               ran = rn.randint(1,5)
