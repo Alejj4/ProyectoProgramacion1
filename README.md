@@ -30,3 +30,5 @@
 5 - Hacer que el menú de los autos (que aparece al inicio) salga cada vez que el usuario tiene que volver a ingresar datos de autos desde el principio
 
 6 - Al finalizar el programa, ver como mostrar la informacion de los autos que se vendieron ¿?
+
+7 - Agregar un mensaje para el caso donde el usuario cancele una compra, como "Cancelando..." o algo así

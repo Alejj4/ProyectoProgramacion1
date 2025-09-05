@@ -85,12 +85,10 @@ def main():
 
             funcion.mostrar_autos(datos_de_auto_matriz)
                 
-            funcion.compra_auto(marca, modelo, vehiculos_comprados_matriz) # Se pasan marca y modelo como posiciones tal cual como las ingresa el usuario (no como indices)
+            funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz) # Se pasan marca y modelo como posiciones tal cual como las ingresa el usuario (no como indices)
             
                 
-
-            # Una vez salido del bucle queria hacer listas con datos tipo cantidad de plata que hizo cada marca. autos vendidos(ya que hice una funcion para sacar el nombre individual de cada auto comprado podemos hacer una lista de cuantos autos de cada tipo se vendio etc y demas cosas)
-            #no use lambda todavia
+    print(vehiculos_comprados_matriz) # Ver cómo mostrar los datos de las ventas realizadas en el programa
     
 
 
