@@ -1,17 +1,13 @@
 import matrices as mt
 
-
-# REVISAR
-#Funcion que printea la matriz del auto y marca seleccionado 
-def mostrar_autos(datos_de_auto_matriz): # Ej: [['schipani uade Seminuevo', 'Schipani Schiziano'], [1, 2], [28, 35]]
+ 
+def mostrar_autos(datos_de_auto_matriz): # Ej de datos (no vacios): [['schipani uade Seminuevo', 'Schipani Schiziano'], [1, 2], [28, 35]]
+    """Funcion que printea la matriz del auto y marca seleccionado"""
 
     # Palabras que van a estar en cada submatriz
-
     info = ['equipamiento', 'precio']
     esquina = 'caracteristicas/nombre'
     nombres = datos_de_auto_matriz[0] 
-
-    #Matriz de nombres declarados previamente
     
     ancho = 30 #ancho que quiero que haya entre cada palabra
     print('')
@@ -29,52 +25,69 @@ def mostrar_autos(datos_de_auto_matriz): # Ej: [['schipani uade Seminuevo', 'Sch
         print()
         print('')
 
-# REVISAR
-def nomAu(fila, columna, eleccion):
-   # Cuando se llama a un vehiculo cuya lista esta vacia da error, hay que corregir eso
-    # Esta funcion funciona igual que mostrar matriz solo que sin la parte de mostrarla, te busca los nombres en base a lo eleigod por el usuario y luego agarra el auto en la posicion que eligio el usuario
+def mostrar_opciones_disponibles(datos): # datos tiene que ser una lista de strings unicamente
+    """
+    Funcion para mostrar enumeradamente los datos de una lista.
+    Se puede usar para elegir entre modelos disponibles y para la eleccion de colores de un auto durante el proceso de compra
+    """
+    for i, dato in enumerate(datos): # Accedo a cada dato individual y lo imprimo con su posicion en la lista, recorro cada uno e imprimo las opciones
+        print(f"{i + 1} - {dato}")
+
+
+def comprar_auto(fila, columna, matrizcompra):
+    """
+    funcion encargada de comprar autos
+    """
     
-    nombres = mt.modelos_de_autos()
+    datos_auto = mt.obtener_matriz_especifica(fila, columna) # Obtengo los datos del tipo de auto que el usuario eligió
+
+    cant_modelos = len(datos_auto[0]) # Saco la longitud de cualquiera de las 3 filas de la matriz de los datos del auto (Todas deben tener la misma cantidad de datos)
+
+    if cant_modelos == 1: # Si solo hay un modelo de auto disponible para el tipo y marca elegidos
+        unico_disponible = datos_auto[0][0] # Accedo a la fila de nombres y al unico disponible
+        print(f"Actualmente solo contamos con el modelo: {unico_disponible}")
+    else:
+        print("Seleccione el modelo que prefiera: ")
+        mostrar_opciones_disponibles(datos_auto[0]) # Mostramos los nombres disponibles uno abajo del otro
+        
+
+        # ELECCION DE MODELO
+        modelo_indice = int(input("Seleccione alguno de los mismos: ")) - 1 # Se resta 1 al numero para despues acceder al modelo por el indice con el que aparece en la fila de la matriz
+
+        while modelo_indice not in range(len(datos_auto[0])):
+            print("Opcion no disponible, por favor ingrese un numero válido")
+            mostrar_opciones_disponibles(datos_auto[0])
+            modelo_indice = int(input("Seleccione alguno de los mismos: ")) - 1 # Con este indice ya se puede acceder a los datos especificos de lo que el usuario quiere
 
 
+    # ELECCION DE COLOR
+    colores_disponibles = ["verde", "azul", "rojo", "gris", "blanco", "negro", "rojo", "amarillo"]
+    mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
+    color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
 
-    #Matriz de nombres declarados previamente
-   
-    elegido = nombres[columna][fila]
-    elegidoNom = elegido[eleccion -1]
-    return(elegidoNom)
+    while color_indice not in range(len(colores_disponibles)):
+        print("Opcion no disponible, por favor ingrese un numero válido")
+        mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
+        color_indice = int(input("Seleccione alguno de los mismos: ")) - 1
 
-# REVISAR
-def compra_auto(fila, columna, matrizcompra):
+    nombre_modelo = datos_auto[0][modelo_indice] # Saco el nombre por el indice de la fila
+    color = colores_disponibles[color_indice]
 
-    # funcion para compra de autos
-    matriz = mt.obtener_matriz_especifica(fila, columna)#llamo la matriz de vehiculos que quise comprar
+    #PARTE FINAL DE LA COMPRA (CONFIRMACION)
+    print(f"Usted seleccionó el modelo {nombre_modelo} de color {color}")
+    confirmacion = input("¿Desea confimar la compra? S/N: ")
+        
+    while not confirmacion.lower() in ["s", "n", "si", "sí", "no"]: # Se verifica que el usuario haya ingresado una respuesta valida a la confirmacion
+        print("Disculpe, no se ingresó una respuesta valida")
+        confirmacion = input("¿Desea confimar la compra? S/N: ")
+
+    if confirmacion.lower() in ["s", "si", "sí"]:
+        matriz_compra_actualizada = mt.actualizar_matriz_compra(fila, columna, matrizcompra)
+
+        print("matriz compra actualizada")
+        print(matriz_compra_actualizada)
 
     
-
-    for i in range(len(matriz[1])):
-        i += 1
-         
-    if i == 1:#aca abria que poner un verificador que el usuario no ponga cosas mal y algo que permita volver para atras
-       aux = int(input('desea comprar el vehiculo? ingrese 1 para si'))
-    if i == 2:
-        aux = int(input('ingrese 1 para comprar la primera opcion, 2 para la opcion 2 '))
-    if i == 3:
-        aux = int(input('ingrese 1 para la primera opcion, 2 para el segundo o 3 para el tercero '))
-    print('')
-    color = input('por ultimo elegi el color entre verde, azul, rojo, gris, blanco negro, rojo o amarillo ')#hacer una verificacion que ponga esos colores(usen una lista con un not in)
-    auto_elegido = nomAu(columna,fila,aux) # me da el nombre del auto
-
-    print('')
-    
-    print('usted eligio un ',auto_elegido, 'color ', color, '.')
-    compra = input(('Desea comprarlo? SI/NO '))
-    
-    if compra.lower() == 'si':
-        print('usted compro su auto')
-        print(mt.matriz_compra(columna,fila,matrizcompra))
-
-    # hay que meter una opcion de que pasa si pongo no y un verificador para que si pongo ni no ni si funque igual
 
     
 def verificar_marca():
