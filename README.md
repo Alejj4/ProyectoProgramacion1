@@ -3,6 +3,10 @@
 ## Algunas aclaraciones importantes
 1 - Tener cuidado al querer acceder a los datos de una matriz, corroborar si hay que pasarle la posicion tal cual o los indices (que arrancan desde el 0,0)
 
+2 - En las matrices se accede primero a la marca (fila) y despues a al tipo de auto (columna)
+
+3 - Los modelos de autos que estén cargados en las matrices siempre tienen que tener misma cantidad de columnas en sus filas (Nombre, equipamiento, precio)
+
 ## Convenciones para el codigo
 1 - Usar triples comillas (""" """) para comentarios sobre el funcionamiento general de un modulo o funcion (para las funciones agreguenlas abajo de la linea del def, antes de escribir toda la logica)
 
@@ -16,5 +20,13 @@
 
 ### Tareas pendientes (Agregar en caso de que haga falta)
 1 - Agregar la sentencia lambda al codigo
+
 2 - Agregar slicing
+
 3 - Mejorar la visualizacion del menu en la consola (Agregando separadores, espacios y demás)
+
+4 - Hay que pasar los numeros de las matrices de los datos de autos a texto ¿?
+
+5 - Hacer que el menú de los autos (que aparece al inicio) salga cada vez que el usuario tiene que volver a ingresar datos de autos desde el principio
+
+6 - Al finalizar el programa, ver como mostrar la informacion de los autos que se vendieron ¿?
