@@ -1,46 +1,102 @@
 # la idea aca es guardar todas las matrices de marca/modelo
 # Esta funcion lo que hace es en base a una fila dada y una columna dada(marca y modelo elegido por el usuario) nos devuelve la sub matriz de vehiculos requerida
-import funcion as fn
-# en este archivo las filas y columnas estan bien
-def llamar_matriz(fila,columna):
-    toyota_hatchback = [[1,2,3],
-                        [ 28,31,33]]  #yaris-xs, yaris-xls yaris-s
-    toyota_sedan = []
-    toyota_suv =[[1,3],  #cross xli, cross seg
-                [44,52]]
-    toyota_pickup =[[1,3],   #hilux dx4x4, hiluxsr4x4
-                    [53,61]]
-    schipani_hatchback = []
-    schipani_sedan = [[1,2], #schipani uade Seminuevo, Schipani Schiziano
-                [28,35]] 
-    schipani_suv=[[2,3],   #schipani chipa, schipani bochoQuemado
-            [25,30]]
-    schipani_pickup=[[3],   #Schipani Pipani
-                [48]]
-    chevrolet_hatchback = []
-    chevrolet_sedan = [[2], #onixplus
-                    [27]]
-    chevrolet_suv = [[1,2],  #spring, tracker
-                    [31,32]]
-    chevrolet_pickup = [[1,2,3],  #montana, S10, silverado
-                        [34,43,102]]
-    ford_hatchback = []
-    ford_sedan = []
-    ford_suv =[[2,3,3],   # territory, kuga hibrido,  Everest
-            [43,76,85]]
-    ford_pickup =[[2,3,3],      # maverick, ranger raptor, f150 lariat hibrido
-                [51,116, 124]]
-        #Gran matriz con todas las submatrices
-    matriz_principal =[[toyota_hatchback,toyota_sedan,toyota_suv,toyota_pickup],
-                    [schipani_hatchback, schipani_sedan, schipani_suv, schipani_pickup],
-                    [chevrolet_hatchback, chevrolet_sedan, chevrolet_suv, chevrolet_pickup],
-                    [ford_hatchback, ford_sedan, ford_suv, ford_pickup]]
-    return matriz_principal[fila - 1][columna - 1]
 
-def matriz_compra(fila, columna,matriz):
+
+def obtener_datos_de_modelos():
+    """
+    FORMATO DE LAS MATRICES:
+    
+    nombre_variable = [
+        [modelo1, modelo2, modelo3],
+        [equipamiento1, equipamiento2, equipamiento3],
+        [precio1, precio2, precio3],
+    ]
+    
+    PARA MODELOS SIN STOCK: nombre_variable = [] 
+    """
+    
+    ToHa = [['Yaris xs', 'Yaris xls', 'Yaris s'],
+            [1,2,3],
+            [28,31,33]]
+    ToSe = []
+    ToSu = [['Cross xli', 'Cross seG'],
+            [1,3],
+            [44,52]]
+    ToPi = [['Hilux dx4x4','Hiluxsr4x4'],
+            [1,3],
+            [53,61]]
+    ScHa = []
+    ScSe = [['schipani uade Seminuevo','Schipani Schiziano'],
+            [1,2],
+            [28,35]]
+    ScSu = [['schipani chipa', 'schipani bochoQuemado'],
+            [2,3],
+            [25,30]]
+    ScPi = [['Schipani Pipani'],
+            [3],
+            [48]]
+    ChHa = []
+    ChSe = [['Onixplus'],
+            [2],
+            [27]]
+    ChSu = [['Spring', 'Tracker'],
+            [1,2],
+            [31,32]]
+    ChPi = [['Montana', 'S10', 'Silverado'],
+            [1,2,3],
+            [34,43,102]]
+    FoHa = []
+    FoSe = []
+    FoSu = [['Territory', 'Kuga Hybrid', 'Everest'],
+            [2,3,3],
+            [43,76,85]]
+    FoPi = [['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid'],
+            [2,3,3],
+            [51,116, 124]]
+    
+    return [ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi]
+    
+
+def obtener_matriz_completa():
+    # Devuelve una matriz con los datos de todos los tipos, marcas y modelos
+
+    ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = obtener_datos_de_modelos()
+    
+    matriz_completa = [
+        [ToHa,ToSe,ToSu,ToPi],
+        [ScHa,ScSe,ScSu,ScPi],
+        [ChHa,ChSe,ChSu,ChPi],
+        [FoHa,FoSe,FoSu,FoPi]
+    ]
+    return matriz_completa
+
+def obtener_matriz_especifica(fila,columna): 
+    
+    # Devuelve los datos segun la marca (fila) y tipo de auto (columna) que se le especifique
+    # Se tiene que pasar el número que ingresa el usuario en consola
+    
+    matriz_completa = obtener_matriz_completa()
+
+    return matriz_completa[fila - 1][columna - 1]
+
+def matriz_compra(fila, columna, matriz):
     # llama la matriz compravehiculos que la arrastre y suma 1 cuando hay una venta en base a lo ingresado por el usuario
+
     matriz[fila][columna] += 1
-    return(fn.mostrar_matriz(matriz))
+    return(mostrar_matriz(matriz))
+
+def calcular_precios_promedio(matriz):
     
-#def carga_ventas():
-    
+    for columna in range(4):
+        for fila in range(4):
+            promedio_autos = obtener_matriz_especifica(fila,columna)
+            # print(promedio_autos)
+            
+            if len(promedio_autos)>1:
+                preciospromedios=sum(promedio_autos[1])//len(promedio_autos[1])
+                # print(preciospromedios)
+            else:
+                preciospromedios = 0
+            matriz[columna][fila]=preciospromedios
+    # print(matriz)
+    return matriz
