@@ -7,7 +7,7 @@ def mostrar_autos(datos_de_auto_matriz): # Ej: [['schipani uade Seminuevo', 'Sch
 
     # Palabras que van a estar en cada submatriz
 
-    info = ['equipamento', 'precio']
+    info = ['equipamiento', 'precio']
     esquina = 'caracteristicas/nombre'
     nombres = datos_de_auto_matriz[0] 
 
