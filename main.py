@@ -86,8 +86,6 @@ def main():
 
             # Una vez salido del bucle queria hacer listas con datos tipo cantidad de plata que hizo cada marca. autos vendidos(ya que hice una funcion para sacar el nombre individual de cada auto comprado podemos hacer una lista de cuantos autos de cada tipo se vendio etc y demas cosas)
             #no use lambda todavia
-            #soy medio autista
-            #solo 2 personas sabian como hice el codigo, dios y yo, ahora solo lo sabe dios, asi que si no entienden algo preguntenle a chatgtp
     
 
 
