@@ -61,6 +61,7 @@ def comprar_auto(fila, columna, matrizcompra):
     cant_modelos = len(datos_auto[0]) # Saco la longitud de cualquiera de las 3 filas de la matriz de los datos del auto (Todas deben tener la misma cantidad de datos)
 
     if cant_modelos == 1: # Si solo hay un modelo de auto disponible para el tipo y marca elegidos
+        modelo_indice = 0
         unico_disponible = datos_auto[0][0] # Accedo a la fila de nombres y al unico disponible
         print(f"Actualmente solo contamos con el modelo: {unico_disponible}")
     else:
