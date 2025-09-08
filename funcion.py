@@ -84,7 +84,7 @@ def comprar_auto(fila, columna, matrizcompra):
         imprimir_separador()
     
     # ELECCION DE COLOR
-    colores_disponibles = ["verde", "azul", "rojo", "gris", "blanco", "negro", "rojo", "amarillo"]
+    colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
     mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
     color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
     imprimir_separador()
