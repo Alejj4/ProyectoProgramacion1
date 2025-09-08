@@ -50,30 +50,32 @@ def main():
             while marca not in (range(1,5)):
                 print("Opción incorrecta! Intente de nuevo.")
                 marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
-
+                imprimir_separador()
             print('Ahora seleccione los modelos que quiere ver.')
             modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-
+            imprimir_separador()
             while modelo not in (range(1,5)):
                 print("Opción incorrecta! Intente de nuevo.")
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+                imprimir_separador()
 
             datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
+            
 
 
             while len(datos_de_auto_matriz) == 0: # Esto quiere decir que no hay stock de la marca y modelo elegido
                 print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
-                print("----------------------------------------------")
-                
+                imprimir_separador()                
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
                 datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
                 
 
             funcion.mostrar_autos(datos_de_auto_matriz)
+            imprimir_separador()
                 
             funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz) # Se pasan marca y modelo como posiciones tal cual como las ingresa el usuario (no como indices)
             
-                
+             
     funcion.mostrar_matriz(vehiculos_comprados_matriz) # Ver cómo mostrar los datos de las ventas realizadas en el programa
     
 

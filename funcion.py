@@ -1,6 +1,9 @@
 import matrices as mt
 import random as rn
 
+def imprimir_separador():
+    print("------------------------------------------------------------------------------")
+
 def mostrar_matriz(matriz):
     esquina = 'Marcas/Autos'
     columnas = ['Hatchback','Sedan','Suv','PickUp']
@@ -68,25 +71,28 @@ def comprar_auto(fila, columna, matrizcompra):
         print("Seleccione el modelo que prefiera: ")
         mostrar_opciones_disponibles(datos_auto[0]) # Mostramos los nombres disponibles uno abajo del otro
         
-
+    
+        
         # ELECCION DE MODELO
         modelo_indice = int(input("Seleccione alguno de los mismos: ")) - 1 # Se resta 1 al numero para despues acceder al modelo por el indice con el que aparece en la fila de la matriz
-
+        
         while modelo_indice not in range(len(datos_auto[0])):
             print("Opcion no disponible, por favor ingrese un numero válido")
             mostrar_opciones_disponibles(datos_auto[0])
             modelo_indice = int(input("Seleccione alguno de los mismos: ")) - 1 # Con este indice ya se puede acceder a los datos especificos de lo que el usuario quiere
-
-
+            imprimir_separador()
+        imprimir_separador()
+    
     # ELECCION DE COLOR
     colores_disponibles = ["verde", "azul", "rojo", "gris", "blanco", "negro", "rojo", "amarillo"]
     mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
     color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
-
+    imprimir_separador()
     while color_indice not in range(len(colores_disponibles)):
         print("Opcion no disponible, por favor ingrese un numero válido")
         mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
         color_indice = int(input("Seleccione alguno de los mismos: ")) - 1
+        imprimir_separador()
 
     nombre_modelo = datos_auto[0][modelo_indice] # Saco el nombre por el indice de la fila
     color = colores_disponibles[color_indice]
@@ -96,6 +102,7 @@ def comprar_auto(fila, columna, matrizcompra):
     confirmacion = input("¿Desea confimar la compra? S/N: ")
         
     while not confirmacion.lower() in ["s", "n", "si", "sí", "no"]: # Se verifica que el usuario haya ingresado una respuesta valida a la confirmacion
+        imprimir_separador()
         print("Disculpe, no se ingresó una respuesta valida")
         confirmacion = input("¿Desea confimar la compra? S/N: ")
 
@@ -103,6 +110,7 @@ def comprar_auto(fila, columna, matrizcompra):
         matriz_compra_actualizada = mt.actualizar_matriz_compra(fila, columna, matrizcompra)
 
         print("matriz compra actualizada")
+        imprimir_separador()
         mostrar_matriz(matriz_compra_actualizada)
 
     
@@ -121,7 +129,6 @@ def verificar_modelo():
         modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
     return modelo
 
-import random as rn 
 def descuento_auto():
        descuento = 0
        des = int(input("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere: "))
