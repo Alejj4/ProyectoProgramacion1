@@ -135,7 +135,7 @@ def descuento_auto():
        while des != 1 and des != 2:
               des = int(input("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere: "))
        if des == 2: 
-              print("Como usted desee, el precio final del auto es el siguiente: ")
+              print("Como usted desee, aqui esta nuestro repertorio de autos: ")
        else: 
               print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
               ran = rn.randint(1,5)
@@ -148,6 +148,8 @@ def descuento_auto():
                     print("¡Felicitaciones! Su numero coicide, usted se gano un descuento del 20%.")
                     descuento += 1
        return descuento
+
+  
 
 def desplegar_menu_informes():
      print("A continuación se presentan los distintos informes que puede consultar: \n 1. Los 3 autos mas caros y baratos. ")
