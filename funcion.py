@@ -149,7 +149,31 @@ def descuento_auto():
                     descuento += 1
        return descuento
 
+def desplegar_menu_informes():
+     print("A continuación se presentan los distintos informes que puede consultar: \n 1. Los 3 autos mas caros y baratos. ")
 
+def max_min_autos():
+       info_autos=mt.obtener_datos_de_modelos()
+       listaprecio=[]
+       for autos in info_autos: 
+              if len(autos)>0:
+                     nombres=autos[0]
+                     precio=autos[2]
+                     for i in range(len(nombres)):
+                            listaprecio.append([nombres[i],precio[i]])
+       lista_ordenada= sorted(listaprecio, key=lambda x: x[1])
+       los_3_baratos=lista_ordenada[:3]
+       print("------------------------------------------------------------------------------")
+       print("Autos mas baratos\n")   
+       for n,p in los_3_baratos:
+        print(f"{n}: {p}")
+       print("------------------------------------------------------------------------------")
+       los_3_caros=lista_ordenada[-3:]
+       print("Autos mas caros\n")
+       for n,p in los_3_caros:
+            print(f"{n}: {p}")
+       print("------------------------------------------------------------------------------")
+       return (los_3_baratos,los_3_caros)
 
 
 
