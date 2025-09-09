@@ -2,6 +2,8 @@ import random as schipani
 import funcion
 import matrices as mt
 
+
+
 def desplegar_menu_de_catalogo():
     
     #matriz display para el usuario
@@ -61,7 +63,6 @@ def main():
 
             datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
             
-
 
             while len(datos_de_auto_matriz) == 0: # Esto quiere decir que no hay stock de la marca y modelo elegido
                 print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")

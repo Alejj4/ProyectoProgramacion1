@@ -20,30 +20,37 @@ def mostrar_matriz(matriz):
         for fil in fila:
             print(str(fil).ljust(ancho),end ='')
         print()
- 
-def mostrar_autos(datos_de_auto_matriz): # Ej de datos (no vacios): [['schipani uade Seminuevo', 'Schipani Schiziano'], [1, 2], [28, 35]]
-    """Funcion que printea la matriz del auto y marca seleccionado"""
 
-    # Palabras que van a estar en cada submatriz
-    info = ['equipamiento', 'precio']
-    esquina = 'caracteristicas/nombre'
-    nombres = datos_de_auto_matriz[0] 
+# CORREGIR
+def mostrar_autos(fila, columna):
+    """
+    Muestra los autos disponibles de una marca y tipo específico.
+    Usa los índices de la estructura homogénea.
+    """
+    modelos, equipamientos, precios = mt.obtener_datos_de_modelos() # Obtengo las 3 matrices de los datos de los autos
+    indices_marcas = mt.obtener_indices_marcas() # Lista de los indices de las matrices
+    modelo_indice = indices_marcas[fila - 1][columna - 1] # Obtengo el indice del modelo que necesito
+
+    nombres = modelos[modelo_indice]
+    equipamientos = equipamientos[modelo_indice]
+    precios = precios[modelo_indice]
+
+    if len(nombres) == 0:
+        print("Actualmente no hay stock disponible.")
+    else:
+        ancho = 30
+        print("\ncaracterísticas/nombre".ljust(ancho), end='')
+        for nombre in nombres:
+            print(nombre.ljust(ancho), end='')
+        print("\n")
+
+        info = ["equipamiento", "precio"]
+        for etiqueta, fila_datos in zip(info, [equipamientos, precios]):
+            print(etiqueta.ljust(ancho), end='')
+            for dato in fila_datos:
+                print(str(dato).ljust(ancho), end='')
+            print("\n")
     
-    ancho = 30 #ancho que quiero que haya entre cada palabra
-    print('')
-    print(esquina.ljust(ancho), end ='')#printea esquina con espacio de 30 a su derecha y que lo siguiente lo anote al lado
-    for col in nombres:#Selecciona la lista de nombres que va a usar en base a lo ingresado por el usuario
-        print(col.ljust(ancho), end='')#printea los nombres igual que la esquina
-    print()
-    print('')
-
-    # Se imprimen datos de equipamiento y precio
-    for infom,fila in zip(info, datos_de_auto_matriz[1:]):# nos permite printear primero el dato de la lista info y a su lado con el siguiente for los datos requeridos por el usuario
-        print(infom.ljust(ancho),end='')
-        for fil in fila:
-            print(str(fil).ljust(ancho),end ='')
-        print()
-        print('')
 
 def mostrar_opciones_disponibles(datos): # datos tiene que ser una lista de strings unicamente
     """
@@ -53,10 +60,40 @@ def mostrar_opciones_disponibles(datos): # datos tiene que ser una lista de stri
     for i, dato in enumerate(datos): # Accedo a cada dato individual y lo imprimo con su posicion en la lista, recorro cada uno e imprimo las opciones
         print(f"{i + 1} - {dato}")
 
-
+# CORREGIR
 def comprar_auto(fila, columna, matrizcompra):
     """
-    funcion encargada de comprar autos
+    Permite al usuario comprar un auto de la marca (fila) y tipo (columna) elegido.
+    """
+    total = 0
+    modelos, equipamientos, precios = mt.obtener_datos_de_modelos()
+    indices_marcas = mt.obtener_indices_marcas()
+    modelo_indice = indices_marcas[fila - 1][columna - 1]
+
+    nombres = modelos[modelo_indice]
+    precios = precios[modelo_indice]
+
+    if len(nombres) == 0:
+        print("No hay autos disponibles en esta categoría.")
+    else:
+        print("\nAutos disponibles:")
+        for i in range(len(nombres)):
+            print(f"{i+1}. {nombres[i]} - Equipamiento: {equipamientos[i]} - Precio: {precios[i]}")
+
+        mostrar_opciones_disponibles(nombres)
+        opcion = int(input("\nSeleccione el número del auto que desea comprar: "))
+
+        if opcion < 1 or opcion > len(nombres):
+            print("Opción inválida. No se realizó la compra.")
+        else:
+            # actualización del equipamiento en la posición elegida
+            equipamientos[opcion - 1] = equipamientos[opcion - 1] + 1
+            equipamientos[modelo_indice] = equipamientos
+            print(f"Compra realizada con éxito: {nombres[opcion - 1]}")
+
+'''def comprar_auto(fila, columna, matrizcompra):
+    """
+    funcion encargada del proceso de compra de un auto
     """
     total = 0
     datos_auto = mt.obtener_matriz_especifica(fila, columna) # Obtengo los datos del tipo de auto que el usuario eligió
@@ -115,7 +152,7 @@ def comprar_auto(fila, columna, matrizcompra):
         imprimir_separador()
         mostrar_matriz(matriz_compra_actualizada)
     return total
-
+'''
     
 
     
@@ -160,7 +197,7 @@ def desplegar_menu_informes():
     for i, informe in enumerate(informes_disponibles):
         print(f"{i + 1} - {informe}")
         
-
+# CORREGIR
 def max_min_autos():
        info_autos=mt.obtener_datos_de_modelos()
        listaprecio=[]

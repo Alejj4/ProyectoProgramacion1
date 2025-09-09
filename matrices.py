@@ -104,8 +104,8 @@ def calcular_precios_promedio():
 
     for fila in range(len(indices_marcas)):
         for columna in range(len(indices_marcas[fila])): # Tipo
-            idx = indices_marcas[fila][columna] # Se obtiene el indice correspondiente al tipo y modelo exacto
-            lista_precios = precios[idx]
+            indice = indices_marcas[fila][columna] # Se obtiene el indice correspondiente al tipo y modelo exacto
+            lista_precios = precios[indice]
             if lista_precios:
                 promedio = sum(lista_precios) // len(lista_precios)
             else:
