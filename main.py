@@ -6,10 +6,10 @@ def desplegar_menu_de_catalogo():
     
     #matriz display para el usuario
     matriz = [
-    [1,2,3,4],
-    [5,6,7,8],
-    [9,10,4,5],
-    [3,5,6,8]
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
     ]
     
     matriz_precios_promedios = mt.calcular_precios_promedio(matriz)
@@ -23,10 +23,10 @@ def main():
         [0,0,0,0],
         [0,0,0,0]
     ]
-    Vtoyota = []
-    Vschipani = []
-    VChevrolet =[]
-    Vford =[]
+    # Vtoyota = []
+    # Vschipani = []
+    # VChevrolet =[]
+    # Vford =[]
     
     funcion.imprimir_separador()
     print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
@@ -98,5 +98,6 @@ def main():
             print("Opción inválida. Intente de nuevo.")
             
     print("Muchas gracias por venir a Schipani Motors, ¡nos vemos!")
-main()
-    
+
+if __name__ == "__main__":
+    main()
