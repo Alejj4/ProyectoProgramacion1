@@ -1,7 +1,5 @@
-import random as schipani
 import funcion
 import matrices as mt
-
 
 
 def desplegar_menu_de_catalogo():
@@ -9,6 +7,7 @@ def desplegar_menu_de_catalogo():
     matriz_precios_promedios = mt.calcular_precios_promedio()
     
     funcion.mostrar_matriz(matriz_precios_promedios)
+
 
 def main():
     
@@ -18,29 +17,22 @@ def main():
         [0,0,0,0],  # Chevrolet
         [0,0,0,0]   # Ford
     ]
-    # Vtoyota = []
-    # Vschipani = []
-    # VChevrolet =[]
-    # Vford =[]
-    
+
     funcion.imprimir_separador()
-    print('Bienvenido a Schipani Motors Sport esta es nuestra disponibilidad. ')
+    print('Bienvenido a Schipani Motors Sport, esta es nuestra disponibilidad.')
     desplegar_menu_de_catalogo()
-    
+
     marca = 0
     precio_total = 0
     while marca != -1:
-
         funcion.imprimir_separador()
-        print('Seleccione la marca que le gustaria ver')
+        print('Seleccione la marca que le gustaría ver')
         print("Para salir simplemente ingrese -1")
         marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
         funcion.imprimir_separador()
-        
 
         if marca == -1:
             print('Compra finalizada.')
-
         else:
             funcion.verificar_marca(marca)
             
@@ -62,7 +54,7 @@ def main():
 
             while len(modelos[modelo_indice]) == 0: # Si no hay stock de la marca y modelo elegido
                 print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
-                funcion.imprimir_separador()                
+                funcion.imprimir_separador()
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
             
             indice = indices_marcas[marca - 1][modelo - 1]    
@@ -96,8 +88,9 @@ def main():
             funcion.obtener_marca_mas_vendida(vehiculos_comprados_matriz)
         else:
             print("Opción inválida. Intente de nuevo.")
-            
+
     print("Muchas gracias por venir a Schipani Motors, ¡nos vemos!")
+
 
 if __name__ == "__main__":
     main()

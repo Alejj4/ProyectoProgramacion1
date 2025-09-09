@@ -1,38 +1,36 @@
 import matrices as mt
 import random as rn
 
+
 def imprimir_separador():
     print("------------------------------------------------------------------------------")
 
+
 def mostrar_matriz(matriz):
     esquina = 'Marcas/Autos'
-    columnas = ['Hatchback','Sedan','Suv','PickUp']
+    columnas = ['Hatchback', 'Sedan', 'Suv', 'PickUp']
     filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
     ancho = 15
-    
+
     print(esquina.ljust(ancho), end='')
     for col in columnas:
-        print(col.ljust(ancho),end = '')
+        print(col.ljust(ancho), end='')
     print()
-    
-    for nombre,fila in zip(filas, matriz):
-        print(nombre.ljust(ancho),end='')
+
+    for nombre, fila in zip(filas, matriz):
+        print(nombre.ljust(ancho), end='')
         for fil in fila:
-            print(str(fil).ljust(ancho),end ='')
+            print(str(fil).ljust(ancho), end='')
         print()
 
 def mostrar_autos(fila, columna):
-    """
-    Muestra los autos disponibles de una marca y tipo específico.
-    Usa los índices de la estructura homogénea.
-    """
-    modelos, equipamientos, precios = mt.obtener_datos_de_modelos() # Obtengo las 3 matrices de los datos de los autos
-    indices_marcas = mt.obtener_indices_marcas() # Lista de los indices de las matrices
-    modelo_indice = indices_marcas[fila - 1][columna - 1] # Obtengo el indice del modelo que necesito
+    modelos, equipamientos, precios = mt.obtener_datos_de_modelos()
+    indices_marcas = mt.obtener_indices_marcas()
+    modelo_indice = indices_marcas[fila - 1][columna - 1]
 
     nombres = modelos[modelo_indice]
-    equipamientos = equipamientos[modelo_indice]
-    precios = precios[modelo_indice]
+    equip = equipamientos[modelo_indice]
+    prec = precios[modelo_indice]
 
     if len(nombres) == 0:
         print("Actualmente no hay stock disponible.")
@@ -44,19 +42,15 @@ def mostrar_autos(fila, columna):
         print("\n")
 
         info = ["equipamiento", "precio"]
-        for etiqueta, fila_datos in zip(info, [equipamientos, precios]):
+        for etiqueta, fila_datos in zip(info, [equip, prec]):
             print(etiqueta.ljust(ancho), end='')
             for dato in fila_datos:
                 print(str(dato).ljust(ancho), end='')
             print("\n")
-    
 
-def mostrar_opciones_disponibles(datos): # datos tiene que ser una lista de strings unicamente
-    """
-    Funcion para mostrar enumeradamente los datos de una lista.
-    Se puede usar para elegir entre modelos disponibles y para la eleccion de colores de un auto durante el proceso de compra
-    """
-    for i, dato in enumerate(datos): # Accedo a cada dato individual y lo imprimo con su posicion en la lista, recorro cada uno e imprimo las opciones
+
+def mostrar_opciones_disponibles(datos):
+    for i, dato in enumerate(datos):
         print(f"{i + 1} - {dato}")
 
 
@@ -149,6 +143,7 @@ def verificar_modelo(modelo):
         modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
     return modelo
 
+
 def descuento_auto():
        descuento = 0
        des = int(input("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere: "))
@@ -169,15 +164,15 @@ def descuento_auto():
                     descuento += 1
        return descuento
 
+
 def desplegar_menu_informes():
-    informes_disponibles = ["Los 3 autos mas caros y baratos.", "Los autos mas y menos vendidos"]
-    
+    informes_disponibles = ["Los 3 autos más caros y baratos.", "Los autos más y menos vendidos"]
+
     print("A continuación se presentan los distintos informes que puede consultar:")
-    
     for i, informe in enumerate(informes_disponibles):
         print(f"{i + 1} - {informe}")
-        
-# CORREGIR
+
+
 def max_min_autos():
     modelos, _, precios = mt.obtener_datos_de_modelos()
     
@@ -235,21 +230,14 @@ def max_min_autos():
     return indices_menores, indices_mayores
 
 def obtener_marca_mas_vendida(vehiculos_comprados_matriz):
-    """
-    Funcion encargada de mostrar un mensaje con la marca que más ventas tuvo
-    """
-    marcas=["Toyota", "Schipani", "Chevrolet","Ford"]
-    lista_autos_comprados=[]
-    for marca_autos in vehiculos_comprados_matriz:
-        lista_autos_comprados.append(sum(marca_autos))
-        
-    maximo=max(lista_autos_comprados)
-    # minimo=min(lista_autos_comprados)
-    
-    posicion_max=lista_autos_comprados.index(maximo)
-    # posicion_mini=lista_autos_comprados.index(minimo)
-    
+    marcas = ["Toyota", "Schipani", "Chevrolet", "Ford"]
+    lista_autos_comprados = [sum(marca_autos) for marca_autos in vehiculos_comprados_matriz]
+
+    maximo = max(lista_autos_comprados)
+    posicion_max = lista_autos_comprados.index(maximo)
+
     imprimir_separador()
-    print("La marca de autos mas vendida es",marcas[posicion_max],"con",maximo, "unidades vendidas")
-    # print("La marca de autos menos vendida es",marcas[posicion_mini],"con",minimo, "unidades vendidas")
+    print("La marca de autos más vendida es", marcas[posicion_max], "con", maximo, "unidades vendidas")
     imprimir_separador()
+
+
