@@ -21,7 +21,6 @@ def mostrar_matriz(matriz):
             print(str(fil).ljust(ancho),end ='')
         print()
 
-# CORREGIR
 def mostrar_autos(fila, columna):
     """
     Muestra los autos disponibles de una marca y tipo específico.
@@ -60,110 +59,91 @@ def mostrar_opciones_disponibles(datos): # datos tiene que ser una lista de stri
     for i, dato in enumerate(datos): # Accedo a cada dato individual y lo imprimo con su posicion en la lista, recorro cada uno e imprimo las opciones
         print(f"{i + 1} - {dato}")
 
-# CORREGIR
-def comprar_auto(fila, columna, matrizcompra):
+
+def comprar_auto(fila, columna, matriz_compras):
     """
     Permite al usuario comprar un auto de la marca (fila) y tipo (columna) elegido.
     """
     total = 0
     modelos, equipamientos, precios = mt.obtener_datos_de_modelos()
     indices_marcas = mt.obtener_indices_marcas()
-    modelo_indice = indices_marcas[fila - 1][columna - 1]
+    marca_indice = indices_marcas[fila - 1][columna - 1]
 
-    nombres = modelos[modelo_indice]
-    precios = precios[modelo_indice]
+    nombres = modelos[marca_indice]
+    precios = precios[marca_indice]
 
-    if len(nombres) == 0:
+    if len(nombres) == 0: # Si no hay modelos disponibles
         print("No hay autos disponibles en esta categoría.")
     else:
+    # ------------------------------------------------------------------------------------------------------------------
+    # ELECCION DEL MODELO
         print("\nAutos disponibles:")
         for i in range(len(nombres)):
-            print(f"{i+1}. {nombres[i]} - Equipamiento: {equipamientos[i]} - Precio: {precios[i]}")
-
-        mostrar_opciones_disponibles(nombres)
-        opcion = int(input("\nSeleccione el número del auto que desea comprar: "))
-
-        if opcion < 1 or opcion > len(nombres):
-            print("Opción inválida. No se realizó la compra.")
-        else:
-            # actualización del equipamiento en la posición elegida
-            equipamientos[opcion - 1] = equipamientos[opcion - 1] + 1
-            equipamientos[modelo_indice] = equipamientos
-            print(f"Compra realizada con éxito: {nombres[opcion - 1]}")
-
-'''def comprar_auto(fila, columna, matrizcompra):
-    """
-    funcion encargada del proceso de compra de un auto
-    """
-    total = 0
-    datos_auto = mt.obtener_matriz_especifica(fila, columna) # Obtengo los datos del tipo de auto que el usuario eligió
-
-    cant_modelos = len(datos_auto[0]) # Saco la longitud de cualquiera de las 3 filas de la matriz de los datos del auto (Todas deben tener la misma cantidad de datos)
-
-    if cant_modelos == 1: # Si solo hay un modelo de auto disponible para el tipo y marca elegidos
-        modelo_indice = 0
-        unico_disponible = datos_auto[0][0] # Accedo a la fila de nombres y al unico disponible
-        print(f"Actualmente solo contamos con el modelo: {unico_disponible}")
-    else:
-        print("Seleccione el modelo que prefiera: ")
-        mostrar_opciones_disponibles(datos_auto[0]) # Mostramos los nombres disponibles uno abajo del otro
-        
-    
-        
-        # ELECCION DE MODELO
-        modelo_indice = int(input("Seleccione alguno de los mismos: ")) - 1 # Se resta 1 al numero para despues acceder al modelo por el indice con el que aparece en la fila de la matriz
-        
-        while modelo_indice not in range(len(datos_auto[0])):
-            print("Opcion no disponible, por favor ingrese un numero válido")
-            mostrar_opciones_disponibles(datos_auto[0])
-            modelo_indice = int(input("Seleccione alguno de los mismos: ")) - 1 # Con este indice ya se puede acceder a los datos especificos de lo que el usuario quiere
+            print(f"{i+1}. {nombres[i]} - Precio: {precios[i]}")
+            
+        modelo_seleccionado_indice = int(input("\nSeleccione el número del auto que desea comprar: ")) - 1
+        while not modelo_seleccionado_indice in range(len(nombres)):
             imprimir_separador()
+            print("Opcion no disponible, por favor ingrese un numero válido")
+            mostrar_opciones_disponibles(nombres)
+            modelo_seleccionado_indice = int(input("Seleccione alguno de los mismos: ")) - 1
         imprimir_separador()
-    
+        
+    # ------------------------------------------------------------------------------------------------------------------
     # ELECCIóN DE COLOR
-    colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
-    mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
-    color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
-    imprimir_separador()
-    while color_indice not in range(len(colores_disponibles)):
-        print("Opcion no disponible, por favor ingrese un numero válido")
+        colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
         mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
-        color_indice = int(input("Seleccione alguno de los mismos: ")) - 1
+        color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
         imprimir_separador()
-
-    nombre_modelo = datos_auto[0][modelo_indice] # Saco el nombre por el indice de la fila
-    color = colores_disponibles[color_indice]
-    precio_modelo = datos_auto[2][modelo_indice]  # precio base del modelo
-    print(f"El precio base del modelo seleccionado es: {precio_modelo}") 
-    total += precio_modelo
-    #PARTE FINAL DE LA COMPRA (CONFIRMACION)
-    print(f"Usted seleccionó el modelo {nombre_modelo} de color {color}")
-    confirmacion = input("¿Desea confimar la compra? S/N: ")
-    while not confirmacion.lower() in ["s", "n", "si", "sí", "no"]: # Se verifica que el usuario haya ingresado una respuesta valida a la confirmacion
-        imprimir_separador()
-        print("Disculpe, no se ingresó una respuesta valida")
-        confirmacion = input("¿Desea confimar la compra? S/N: ")
-
-    if confirmacion.lower() in ["s", "si", "sí"]:
-        matriz_compra_actualizada = mt.actualizar_matriz_compra(fila, columna, matrizcompra)
+        while color_indice not in range(len(colores_disponibles)):
+            print("Opcion no disponible, por favor ingrese un numero válido")
+            mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
+            color_indice = int(input("Seleccione alguno de los mismos: ")) - 1
+            imprimir_separador()
+            
+# ------------------------------------------------------------------------------------------------------------------
         
+        modelo_seleccionado = nombres[modelo_seleccionado_indice]
+        color = colores_disponibles[color_indice]
+        precio_modelo = precios[modelo_seleccionado_indice]  # precio base del modelo
         
-        print("matriz compra actualizada")
-        imprimir_separador()
-        mostrar_matriz(matriz_compra_actualizada)
-    return total
-'''
-    
+        total += precio_modelo
 
+        #PARTE FINAL DE LA COMPRA (CONFIRMACION)
+        print(f"Usted seleccionó el modelo {modelo_seleccionado} de color {color}")
+        
+        opciones_de_confirmacion = ["Sí","No"]
+        
+        print("¿Desea confimar la compra? S/N: ")
+        mostrar_opciones_disponibles(opciones_de_confirmacion)
+        confirmacion = input("Ingrese la opción que desee: ")
+        
+        while not confirmacion.lower() in ["s", "n", "si", "sí", "no","1", "2"]: # Se verifica que el usuario haya ingresado una respuesta valida a la confirmacion
+            imprimir_separador()
+            print("Disculpe, no se ingresó una respuesta valida")
+            
+            print("¿Desea confimar la compra? S/N: ")
+            mostrar_opciones_disponibles(opciones_de_confirmacion)
+            confirmacion = input("Ingrese la opción que desee: ")
+
+        if confirmacion.lower() in ["s", "si", "sí", "1"]: # El usuario confirma la compra
+            matriz_compra_actualizada = mt.actualizar_matriz_compra(fila, columna, matriz_compras)
+            
+            print("matriz compra actualizada")
+            imprimir_separador()
+            mostrar_matriz(matriz_compra_actualizada)
+        else: # El usuario cancela la compra
+            print("Cancelando compra...")
+        return total
     
-def verificar_marca():
-    marca = int(input('Ingrese 1 para Toyota, 2 para Honda, 3 para Chevrolet y 4 para Ford: '))
+def verificar_marca(marca):
     while marca not in (range(1,5)):
         print("Opción incorrecta! Intente de nuevo.")
         marca = int(input('Ingrese 1 para Toyota, 2 para Honda, 3 para Chevrolet y 4 para Ford: '))
+        imprimir_separador()
     return marca
-def verificar_modelo():
-    modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+
+def verificar_modelo(modelo):
     while modelo not in (range(1,5)):
         print("Opción incorrecta! Intente de nuevo.")
         modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
@@ -181,7 +161,7 @@ def descuento_auto():
               ran = rn.randint(1,5)
               numran = int(input("Ingrese un numero del 1 al 5: "))
               while numran < 1 or numran > 5:
-                     numran = int(input("Su numero es incorrecto, ingrese un numero entre 1 y 5: "))
+                     numran = int(input("Número fuera de rango, ingrese un numero entre 1 y 5: "))
               if numran != ran:
                     print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)
               else:
@@ -199,28 +179,60 @@ def desplegar_menu_informes():
         
 # CORREGIR
 def max_min_autos():
-       info_autos=mt.obtener_datos_de_modelos()
-       listaprecio=[]
-       for autos in info_autos: 
-           if len(autos)>0:
-               nombres=autos[0]
-               precios=autos[2]
-               for i in range(len(nombres)):
-                   listaprecio.append([nombres[i], precios[i]])
-        
-       lista_ordenada= sorted(listaprecio, key=lambda x: x[1])
-       los_3_baratos=lista_ordenada[:3]
-       print("------------------------------------------------------------------------------")
-       print("Autos mas baratos\n")   
-       for n,p in los_3_baratos:
-        print(f"{n}: {p}")
-       print("------------------------------------------------------------------------------")
-       los_3_caros=lista_ordenada[-3:]
-       print("Autos mas caros\n")
-       for n,p in los_3_caros:
-            print(f"{n}: {p}")
-       print("------------------------------------------------------------------------------")
-       return (los_3_baratos,los_3_caros)
+    modelos, _, precios = mt.obtener_datos_de_modelos()
+    
+    nombres_modelos = []
+    fila_precios = []
+    columna_precios = []
+    lista_precios = []
+    
+    for i in range(len(precios)):
+        for j in range(len(precios[i])):
+            nombres_modelos.append(modelos[i][j])
+            fila_precios.append(i)
+            columna_precios.append(j)
+            lista_precios.append(precios[i][j])
+    
+    indices_ordenados = sorted(range(len(lista_precios)), key=lambda k: lista_precios[k])
+
+    indices_menores = indices_ordenados[:3]
+    indices_mayores = indices_ordenados[-3:]
+
+def max_min_autos():
+    modelos, _, precios = mt.obtener_datos_de_modelos()
+    
+    nombres_modelos = []
+    fila_precios = []
+    columna_precios = []
+    lista_precios = []
+    
+    # Armamos listas planas
+    for i in range(len(precios)):
+        for j in range(len(precios[i])):
+            nombres_modelos.append(modelos[i][j])
+            fila_precios.append(i)
+            columna_precios.append(j)
+            lista_precios.append(precios[i][j])
+    
+    # Ordenamos los índices según los precios
+    indices_ordenados = sorted(range(len(lista_precios)), key=lambda k: lista_precios[k])
+    
+    # Usamos slicing para quedarnos con los 3 más baratos y 3 más caros
+    indices_menores = indices_ordenados[:3]
+    indices_mayores = indices_ordenados[-3:]
+    
+    print("------------------------------------------------------------------------------")
+    print("Autos más baratos son: \n")
+    for k in indices_menores:
+        print(f"{nombres_modelos[k]}: {lista_precios[k]}")
+    print("------------------------------------------------------------------------------")
+    
+    print("Los autos más caros son: \n")
+    for k in indices_mayores:
+        print(f"{nombres_modelos[k]}: {lista_precios[k]}")
+    print("------------------------------------------------------------------------------")
+    
+    return indices_menores, indices_mayores
 
 def obtener_marca_mas_vendida(vehiculos_comprados_matriz):
     """
