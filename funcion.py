@@ -152,20 +152,25 @@ def descuento_auto():
                     descuento += 1
        return descuento
 
-  
-
 def desplegar_menu_informes():
-     print("A continuación se presentan los distintos informes que puede consultar: \n 1. Los 3 autos mas caros y baratos. ")
+    informes_disponibles = ["Los 3 autos mas caros y baratos.", "Los autos mas y menos vendidos"]
+    
+    print("A continuación se presentan los distintos informes que puede consultar:")
+    
+    for i, informe in enumerate(informes_disponibles):
+        print(f"{i + 1} - {informe}")
+        
 
 def max_min_autos():
        info_autos=mt.obtener_datos_de_modelos()
        listaprecio=[]
        for autos in info_autos: 
-              if len(autos)>0:
-                     nombres=autos[0]
-                     precio=autos[2]
-                     for i in range(len(nombres)):
-                            listaprecio.append([nombres[i],precio[i]])
+           if len(autos)>0:
+               nombres=autos[0]
+               precios=autos[2]
+               for i in range(len(nombres)):
+                   listaprecio.append([nombres[i], precios[i]])
+        
        lista_ordenada= sorted(listaprecio, key=lambda x: x[1])
        los_3_baratos=lista_ordenada[:3]
        print("------------------------------------------------------------------------------")
@@ -180,8 +185,22 @@ def max_min_autos():
        print("------------------------------------------------------------------------------")
        return (los_3_baratos,los_3_caros)
 
-
-
-
-
-
+def obtener_marca_mas_vendida(vehiculos_comprados_matriz):
+    """
+    Funcion encargada de mostrar un mensaje con la marca que más ventas tuvo
+    """
+    marcas=["Toyota", "Schipani", "Chevrolet","Ford"]
+    lista_autos_comprados=[]
+    for marca_autos in vehiculos_comprados_matriz:
+        lista_autos_comprados.append(sum(marca_autos))
+        
+    maximo=max(lista_autos_comprados)
+    # minimo=min(lista_autos_comprados)
+    
+    posicion_max=lista_autos_comprados.index(maximo)
+    # posicion_mini=lista_autos_comprados.index(minimo)
+    
+    imprimir_separador()
+    print("La marca de autos mas vendida es",marcas[posicion_max],"con",maximo, "unidades vendidas")
+    # print("La marca de autos menos vendida es",marcas[posicion_mini],"con",minimo, "unidades vendidas")
+    imprimir_separador()
