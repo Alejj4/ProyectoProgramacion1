@@ -98,7 +98,12 @@ def calcular_precios_promedio():
     indices_marcas = obtener_indices_marcas()
     _, _, precios = obtener_datos_de_modelos()
 
-    precios_promedios = [[0]*4 for _ in range(len(indices_marcas))] # Se construye una matriz con ceros para poder añadir los precios promedios
+    precios_promedios = [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0]
+    ]  # Se construye una matriz con ceros para poder añadir los precios promedios
 
     for fila in range(len(indices_marcas)):
         for columna in range(len(indices_marcas[fila])): # Tipo
