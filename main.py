@@ -45,8 +45,7 @@ def main():
                 funcion.imprimir_separador()
                 funcion.verificar_modelo(modelo)
             
-            # HAY QUE MODIFICAR APARTIR DE ACA
-            modelos, equipamientos, precios = mt.obtener_datos_de_modelos()
+            modelos, _, _ = mt.obtener_datos_de_modelos()
             indices_marcas = mt.obtener_indices_marcas()
             
             modelo_indice = indices_marcas[marca - 1][modelo - 1]
