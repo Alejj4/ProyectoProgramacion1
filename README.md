@@ -38,3 +38,7 @@
 9 - Revisar si en desplegar_menu_catalogo no es mejor inicializar todas las posiciones de la matriz en 0
 
 10 - Agregar minimos y maximos
+
+11 - Ver de agregar el nombre de las marcas al lado de los nombres de los modelos cuando se muestran en la funcion max_min_autos
+
+12 - Agregar en el mensaje de bienvenida el modelo mas caro y mas barato
