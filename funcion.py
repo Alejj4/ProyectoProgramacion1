@@ -58,7 +58,7 @@ def comprar_auto(fila, columna, matrizcompra):
     """
     funcion encargada de comprar autos
     """
-    
+    total = 0
     datos_auto = mt.obtener_matriz_especifica(fila, columna) # Obtengo los datos del tipo de auto que el usuario eligió
 
     cant_modelos = len(datos_auto[0]) # Saco la longitud de cualquiera de las 3 filas de la matriz de los datos del auto (Todas deben tener la misma cantidad de datos)
@@ -83,7 +83,7 @@ def comprar_auto(fila, columna, matrizcompra):
             imprimir_separador()
         imprimir_separador()
     
-    # ELECCION DE COLOR
+    # ELECCIóN DE COLOR
     colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
     mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
     color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
@@ -96,11 +96,12 @@ def comprar_auto(fila, columna, matrizcompra):
 
     nombre_modelo = datos_auto[0][modelo_indice] # Saco el nombre por el indice de la fila
     color = colores_disponibles[color_indice]
-
+    precio_modelo = datos_auto[2][modelo_indice]  # precio base del modelo
+    print(f"El precio base del modelo seleccionado es: {precio_modelo}") 
+    total += precio_modelo
     #PARTE FINAL DE LA COMPRA (CONFIRMACION)
     print(f"Usted seleccionó el modelo {nombre_modelo} de color {color}")
     confirmacion = input("¿Desea confimar la compra? S/N: ")
-        
     while not confirmacion.lower() in ["s", "n", "si", "sí", "no"]: # Se verifica que el usuario haya ingresado una respuesta valida a la confirmacion
         imprimir_separador()
         print("Disculpe, no se ingresó una respuesta valida")
@@ -108,10 +109,12 @@ def comprar_auto(fila, columna, matrizcompra):
 
     if confirmacion.lower() in ["s", "si", "sí"]:
         matriz_compra_actualizada = mt.actualizar_matriz_compra(fila, columna, matrizcompra)
-
+        
+        
         print("matriz compra actualizada")
         imprimir_separador()
         mostrar_matriz(matriz_compra_actualizada)
+    return total
 
     
 
@@ -135,7 +138,7 @@ def descuento_auto():
        while des != 1 and des != 2:
               des = int(input("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere: "))
        if des == 2: 
-              print("Como usted desee, aqui esta nuestro repertorio de autos: ")
+              print("Como usted desee. Nos vemos!")
        else: 
               print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
               ran = rn.randint(1,5)
