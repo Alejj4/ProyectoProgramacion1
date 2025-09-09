@@ -84,17 +84,15 @@ def obtener_indices_marcas():
     
     return lista_indices
 
-def actualizar_matriz_compra(fila, columna, matriz):
-	"""
-	Suma 1 en el equipamiento de la posición indicada.
-	fila y columna empiezan en 1.
-	"""
+def actualizar_matriz_compra(fila, columna, matriz_compra):
+    """
+    Función encargada de actualizar el número de unidades que una marca
+    vendió de determinado tipo
+    """
+    
+    matriz_compra[fila - 1][columna - 1] += 1 # Se suma 1 en la posición del tipo de la marca que se vendió
 
-	matriz[fila - 1][columna - 1][1] = [
-	x + 1 for x in matriz[fila - 1][columna - 1][1]
-	]
-
-	return matriz
+    return matriz_compra
 
 def calcular_precios_promedio():
     indices_marcas = obtener_indices_marcas()
