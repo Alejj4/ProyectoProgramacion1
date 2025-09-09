@@ -6,24 +6,17 @@ import matrices as mt
 
 def desplegar_menu_de_catalogo():
     
-    #matriz display para el usuario
-    matriz = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0]
-    ]
+    matriz_precios_promedios = mt.calcular_precios_promedio()
     
-    matriz_precios_promedios = mt.calcular_precios_promedio(matriz)
     funcion.mostrar_matriz(matriz_precios_promedios)
 
 def main():
     
-    vehiculos_comprados_matriz =[
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0]
+    vehiculos_comprados_matriz = [
+        [0,0,0,0],  # Toyota
+        [0,0,0,0],  # Schipani
+        [0,0,0,0],  # Chevrolet
+        [0,0,0,0]   # Ford
     ]
     # Vtoyota = []
     # Vschipani = []
@@ -49,35 +42,41 @@ def main():
             print('Compra finalizada.')
 
         else:
-            while marca not in (range(1,5)):
-                print("Opción incorrecta! Intente de nuevo.")
-                marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
-                funcion.imprimir_separador()
-            print('Ahora seleccione los modelos que quiere ver.')
+            funcion.verificar_marca(marca)
+            
+                
+            print('Ahora seleccione los modelos de qué tipo quiere ver.')
+            
             modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-            funcion.imprimir_separador()
-            while modelo not in (range(1,5)):
-                print("Opción incorrecta! Intente de nuevo.")
-                modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+            
+            if modelo != -1:
                 funcion.imprimir_separador()
-
-            datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
+                funcion.verificar_modelo(modelo)
+            
+            # HAY QUE MODIFICAR APARTIR DE ACA
+            modelos, equipamientos, precios = mt.obtener_datos_de_modelos()
+            indices_marcas = mt.obtener_indices_marcas()
+            
+            modelo_indice = indices_marcas[marca - 1][modelo - 1]
             
 
-            while len(datos_de_auto_matriz) == 0: # Esto quiere decir que no hay stock de la marca y modelo elegido
+            while len(modelos[modelo_indice]) == 0: # Si no hay stock de la marca y modelo elegido
                 print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
                 funcion.imprimir_separador()                
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-                datos_de_auto_matriz = mt.obtener_matriz_especifica(marca, modelo)
-                
+            
+            indice = indices_marcas[marca - 1][modelo - 1]    
 
-            funcion.mostrar_autos(datos_de_auto_matriz)
+            # Mostrar autos disponibles
+            funcion.mostrar_autos(marca, modelo)
             funcion.imprimir_separador()
              
-            precio_total += funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz)  # Se pasan marca y modelo como posiciones tal cual como las ingresa el usuario (no como indices)
-            print("\nTotal de la compra hasta ahora:", precio_total, "mil dolares.")
-            dscto = funcion.descuento_auto()
-            if dscto == 1:
+            # comprar auto
+            precio_total += funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz)
+            print("\nTotal de la compra hasta ahora:", precio_total, "mil dólares.")
+
+            descuento = funcion.descuento_auto()
+            if descuento == 1:
                 print("El precio final con el descuento del 20% aplicado es de:", int(precio_total*0.80), "mil dolares.")
 
     
@@ -94,7 +93,7 @@ def main():
         if opcion == 1:
             funcion.max_min_autos()
         elif opcion == 2:
-            funcion.autos_mas_vendidos(vehiculos_comprados_matriz)
+            funcion.obtener_marca_mas_vendida(vehiculos_comprados_matriz)
         else:
             print("Opción inválida. Intente de nuevo.")
             
