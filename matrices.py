@@ -1,111 +1,115 @@
 # la idea aca es guardar todas las matrices de marca/modelo
 # Esta funcion lo que hace es en base a una fila dada y una columna dada(marca y modelo elegido por el usuario) nos devuelve la sub matriz de vehiculos requerida
 
-
 def obtener_datos_de_modelos():
+	"""
+	FORMATO DE LAS MATRICES HOMOGÉNEAS:
+
+	modelos[i][j]      -> nombre del modelo j de la marca/categoría i
+	equipamientos[i][j] -> equipamiento del modelo j de la marca/categoría i
+	precios[i][j]       -> precio del modelo j de la marca/categoría i
+
+	Si no hay stock: lista vacía en esa posición.
+	"""
+
+	modelos = [
+	['Yaris xs', 'Yaris xls', 'Yaris s'],   # ToHa
+	[],                                     # ToSe
+	['Cross xli', 'Cross seG'],             # ToSu
+	['Hilux dx4x4','Hiluxsr4x4'],           # ToPi
+	[],                                     # ScHa
+	['schipani uade Seminuevo','Schipani Schiziano'],  # ScSe
+	['schipani chipa', 'schipani bochoQuemado'],       # ScSu
+	['Schipani Pipani'],                    # ScPi
+	[],                                     # ChHa
+	['Onixplus'],                           # ChSe
+	['Spring', 'Tracker'],                  # ChSu
+	['Montana', 'S10', 'Silverado'],        # ChPi
+	[],                                     # FoHa
+	[],                                     # FoSe
+	['Territory', 'Kuga Hybrid', 'Everest'],# FoSu
+	['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid'] # FoPi
+	]
+
+	equipamientos = [
+	[1,2,3],    # ToHa
+	[],         # ToSe
+	[1,3],      # ToSu
+	[1,3],      # ToPi
+	[],         # ScHa
+	[1,2],      # ScSe
+	[2,3],      # ScSu
+	[3],        # ScPi
+	[],         # ChHa
+	[2],        # ChSe
+	[1,2],      # ChSu
+	[1,2,3],    # ChPi
+	[],         # FoHa
+	[],         # FoSe
+	[2,3,3],    # FoSu
+	[2,3,3]     # FoPi
+	]
+
+	precios = [
+	[28,31,33],   # ToHa
+	[],           # ToSe
+	[44,52],      # ToSu
+	[53,61],      # ToPi
+	[],           # ScHa
+	[28,35],      # ScSe
+	[25,30],      # ScSu
+	[48],         # ScPi
+	[],           # ChHa
+	[27],         # ChSe
+	[31,32],      # ChSu
+	[34,43,102],  # ChPi
+	[],           # FoHa
+	[],           # FoSe
+	[43,76,85],   # FoSu
+	[51,116,124]  # FoPi
+	]
+
+	return modelos, equipamientos, precios
+
+def obtener_indices_marcas():
     """
-    FORMATO DE LAS MATRICES:
-    
-    nombre_variable = [
-        [modelo1, modelo2, modelo3],
-        [equipamiento1, equipamiento2, equipamiento3],
-        [precio1, precio2, precio3],
-    ]
-    
-    PARA MODELOS SIN STOCK: nombre_variable = [] 
+    Cada lista contiene los indices que le pertenecen a cada marca
     """
+    lista_indices = [
+		[0, 1, 2, 3],    # Toyota -> ToHa, ToSe, ToSu, ToPi
+		[4, 5, 6, 7],    # Schipani -> ScHa, ScSe, ScSu, ScPi
+		[8, 9, 10, 11],  # Chevrolet -> ChHa, ChSe, ChSu, ChPi
+		[12, 13, 14, 15] # Ford -> FoHa, FoSe, FoSu, FoPi
+	]
     
-    ToHa = [['Yaris xs', 'Yaris xls', 'Yaris s'],
-            [1,2,3],
-            [28,31,33]]
-    ToSe = []
-    ToSu = [['Cross xli', 'Cross seG'],
-            [1,3],
-            [44,52]]
-    ToPi = [['Hilux dx4x4','Hiluxsr4x4'],
-            [1,3],
-            [53,61]]
-    ScHa = []
-    ScSe = [['schipani uade Seminuevo','Schipani Schiziano'],
-            [1,2],
-            [28,35]]
-    ScSu = [['schipani chipa', 'schipani bochoQuemado'],
-            [2,3],
-            [25,30]]
-    ScPi = [['Schipani Pipani'],
-            [3],
-            [48]]
-    ChHa = []
-    ChSe = [['Onixplus'],
-            [2],
-            [27]]
-    ChSu = [['Spring', 'Tracker'],
-            [1,2],
-            [31,32]]
-    ChPi = [['Montana', 'S10', 'Silverado'],
-            [1,2,3],
-            [34,43,102]]
-    FoHa = []
-    FoSe = []
-    FoSu = [['Territory', 'Kuga Hybrid', 'Everest'],
-            [2,3,3],
-            [43,76,85]]
-    FoPi = [['Maverick', 'Rnager Raptor', 'F-150 Lariat Hybrid'],
-            [2,3,3],
-            [51,116, 124]]
-    
-    return [ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi]
-    
+    return lista_indices
 
-def obtener_matriz_completa():
-    """
-    Devuelve una matriz con los datos de todos los tipos, marcas y modelos
-    """
+def actualizar_matriz_compra(fila, columna, matriz):
+	"""
+	Suma 1 en el equipamiento de la posición indicada.
+	fila y columna empiezan en 1.
+	"""
 
-    ToHa, ToSe, ToSu, ToPi, ScHa, ScSe, ScSu, ScPi, ChHa, ChSe, ChSu, ChPi, FoHa, FoSe, FoSu, FoPi = obtener_datos_de_modelos()
+	matriz[fila - 1][columna - 1][1] = [
+	x + 1 for x in matriz[fila - 1][columna - 1][1]
+	]
 
-    matriz_completa = [
-        [ToHa,ToSe,ToSu,ToPi],
-        [ScHa,ScSe,ScSu,ScPi],
-        [ChHa,ChSe,ChSu,ChPi],
-        [FoHa,FoSe,FoSu,FoPi]
-    ]
-    return matriz_completa
+	return matriz
 
-def obtener_matriz_especifica(fila,columna): # Acá serian las posiciones literales en la matriz, no los indices
-    
-    """Devuelve los datos segun la marca (fila) y tipo de auto (columna) que se le especifique"""
-    
-    matriz_completa = obtener_matriz_completa()
+def calcular_precios_promedio():
+    indices_marcas = obtener_indices_marcas()
+    _, _, precios = obtener_datos_de_modelos()
 
-    return matriz_completa[fila - 1][columna - 1]
+    precios_promedios = [[0]*4 for _ in range(len(indices_marcas))] # Se construye una matriz con ceros para poder añadir los precios promedios
 
-def actualizar_matriz_compra(fila, columna, matriz): # Acá serian las posiciones literales en la matriz, no los indices
-    """
-    Llama la matriz compravehiculos que la arrastre y suma 1 cuando hay una venta en base a lo ingresado por el usuario
-    """
-
-    matriz[fila - 1][columna - 1] += 1
-    
-    return matriz
-
-def calcular_precios_promedio(matriz):
-    
-    for fila in range(4): # fila = marca
-        for columna in range(4): # columna = tipo
-            promedio_autos = obtener_matriz_especifica(fila + 1, columna + 1) # A esta funcion se les pasa el valor de la posicion de la fila/columna, no del indice
-
-            calcular_promedio = lambda lista: sum(lista) // len(lista)
-            promedio_precios = calcular_promedio(promedio_autos[2]) if len(promedio_autos) > 0 else 0
-
-            """
-            # Codigo equivalente a:
-            if len(promedio_autos)>1:
-                promedio_precios=sum(promedio_autos[1])//len(promedio_autos[1])
-                # print(promedio_precios)
+    for fila in range(len(indices_marcas)):
+        for columna in range(len(indices_marcas[fila])): # Tipo
+            idx = indices_marcas[fila][columna] # Se obtiene el indice correspondiente al tipo y modelo exacto
+            lista_precios = precios[idx]
+            if lista_precios:
+                promedio = sum(lista_precios) // len(lista_precios)
             else:
-                promedio_precios = 0
-            """
-            
-            matriz[fila][columna]=promedio_precios
-    return matriz
+                promedio = 0
+            precios_promedios[fila][columna] = promedio
+
+    return precios_promedios
