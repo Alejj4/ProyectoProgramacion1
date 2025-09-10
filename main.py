@@ -18,7 +18,7 @@ def main():
         [0,0,0,0]   # Ford
     ]
 
-    dni_clientes = [34,12,56,4]
+    dni_clientes = []
 
     funcion.imprimir_separador()
     print('Bienvenido a Schipani Motors Sport, esta es nuestra disponibilidad.')

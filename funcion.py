@@ -232,7 +232,7 @@ def dni_Clientes(lista):
     j = 1
     imprimir_separador()
     for i in lista:
-        print ('Cliente',str(j).ljust(2), str(i).ljust(5), ': ', end='' '\n')
+        print (f"Cliente {j}: {i} \n")
         j += 1
     imprimir_separador()
     
