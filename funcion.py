@@ -3,7 +3,7 @@ import random as rn
 
 
 def imprimir_separador():
-    print("------------------------------------------------------------------------------")
+    print("-"*78)
 
 
 def mostrar_matriz(matriz):
