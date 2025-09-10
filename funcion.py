@@ -12,16 +12,19 @@ def mostrar_matriz(matriz):
     filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
     ancho = 15
 
+    # encabezado
     print(esquina.ljust(ancho), end='')
     for col in columnas:
         print(col.ljust(ancho), end='')
     print()
 
-    for nombre, fila in zip(filas, matriz):
-        print(nombre.ljust(ancho), end='')
-        for fil in fila:
+    # filas
+    for i in range(len(filas)):
+        print(filas[i].ljust(ancho), end='')
+        for fil in matriz[i]:
             print(str(fil).ljust(ancho), end='')
         print()
+
 
 def mostrar_autos(fila, columna):
     modelos, equipamientos, precios = mt.obtener_datos_de_modelos()
@@ -35,18 +38,24 @@ def mostrar_autos(fila, columna):
     if len(nombres) == 0:
         print("Actualmente no hay stock disponible.")
     else:
-        ancho = 30
+        ancho = 20
         print("\ncaracterísticas/nombre".ljust(ancho), end='')
         for nombre in nombres:
             print(nombre.ljust(ancho), end='')
         print("\n")
 
         info = ["equipamiento", "precio"]
-        for etiqueta, fila_datos in zip(info, [equip, prec]):
+        datos = [equip, prec]
+
+        for i in range(len(info)):
+            etiqueta = info[i]
+            fila_datos = datos[i]
+
             print(etiqueta.ljust(ancho), end='')
             for dato in fila_datos:
                 print(str(dato).ljust(ancho), end='')
             print("\n")
+
 
 
 def mostrar_opciones_disponibles(datos):
