@@ -18,13 +18,16 @@ def main():
         [0,0,0,0]   # Ford
     ]
 
+    dni_clientes = []
+
     funcion.imprimir_separador()
     print('Bienvenido a Schipani Motors Sport, esta es nuestra disponibilidad.')
     desplegar_menu_de_catalogo()
 
     marca = 0
-    precio_total = 0
+    
     while marca != -1:
+        precio_total = 0
         funcion.imprimir_separador()
         print('Seleccione la marca que le gustaría ver')
         print("Para salir simplemente ingrese -1")
@@ -68,8 +71,16 @@ def main():
             descuento = funcion.descuento_auto()
             if descuento == 1:
                 print("El precio final con el descuento del 20% aplicado es de:", int(precio_total*0.80), "mil dolares.")
-
-    
+            
+            funcion.imprimir_separador()
+            print('porfavor, ingrese su dni a la base de datos de cientes ')
+            numero = int(input('ingrese su dni aca '))
+            if funcion.norep(numero,dni_clientes) == 0:
+                dni_clientes.append(numero)
+                print('su dni se ha guardado, vuelva pronto')
+            else:
+                print('gracias por comprar nuevamente, vuelva pronto')
+    print(dni_clientes)
     opcion = int(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
 
     while opcion != 1 and opcion != -1:

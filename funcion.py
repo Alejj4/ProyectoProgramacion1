@@ -220,4 +220,11 @@ def obtener_marca_mas_vendida(vehiculos_comprados_matriz):
     print("La marca de autos más vendida es", marcas[posicion_max], "con", maximo, "unidades vendidas")
     imprimir_separador()
 
+def norep(dato,lista):
+    #revisa que no haya un dato repetido en una lista
+    flag = 0
+    if dato in lista:
+        flag = 1
+    return flag
 
+    
