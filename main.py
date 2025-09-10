@@ -18,7 +18,7 @@ def main():
         [0,0,0,0]   # Ford
     ]
 
-    dni_clientes = []
+    dni_clientes = [34,12,56,4]
 
     funcion.imprimir_separador()
     print('Bienvenido a Schipani Motors Sport, esta es nuestra disponibilidad.')
@@ -79,7 +79,7 @@ def main():
                 dni_clientes.append(numero)
                 print('Su DNI se ha guardado, vuelva pronto.')
             else:
-                print('gracias por comprar nuevamente, vuelva pronto')
+                print('Gracias por comprar nuevamente, vuelva pronto')
     opcion = int(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
 
     while opcion != 1 and opcion != -1:
@@ -95,8 +95,7 @@ def main():
         elif opcion == 2:
             funcion.obtener_marca_mas_vendida(vehiculos_comprados_matriz)
         elif opcion == 3:
-            print(dni_clientes)
-            
+            funcion.dni_Clientes(dni_clientes)      
         else:
             print("Opción inválida. Intente de nuevo.")
 
