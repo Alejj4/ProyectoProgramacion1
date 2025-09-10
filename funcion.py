@@ -172,27 +172,6 @@ def desplegar_menu_informes():
     for i, informe in enumerate(informes_disponibles):
         print(f"{i + 1} - {informe}")
 
-
-def max_min_autos():
-    modelos, _, precios = mt.obtener_datos_de_modelos()
-    
-    nombres_modelos = []
-    fila_precios = []
-    columna_precios = []
-    lista_precios = []
-    
-    for i in range(len(precios)):
-        for j in range(len(precios[i])):
-            nombres_modelos.append(modelos[i][j])
-            fila_precios.append(i)
-            columna_precios.append(j)
-            lista_precios.append(precios[i][j])
-    
-    indices_ordenados = sorted(range(len(lista_precios)), key=lambda k: lista_precios[k])
-
-    indices_menores = indices_ordenados[:3]
-    indices_mayores = indices_ordenados[-3:]
-
 def max_min_autos():
     modelos, _, precios = mt.obtener_datos_de_modelos()
     

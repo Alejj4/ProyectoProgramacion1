@@ -55,8 +55,7 @@ def main():
                 print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
                 funcion.imprimir_separador()
                 modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
-            
-            indice = indices_marcas[marca - 1][modelo - 1]    
+                modelo_indice = indices_marcas[marca - 1][modelo - 1]    
 
             # Mostrar autos disponibles
             funcion.mostrar_autos(marca, modelo)
