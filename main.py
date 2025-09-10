@@ -73,14 +73,13 @@ def main():
                 print("El precio final con el descuento del 20% aplicado es de:", int(precio_total*0.80), "mil dolares.")
             
             funcion.imprimir_separador()
-            print('porfavor, ingrese su dni a la base de datos de cientes ')
-            numero = int(input('ingrese su dni aca '))
+            print('Porfavor, ingrese su DNI a la base de datos de cientes. ')
+            numero = int(input('Ingrese su DNI aca: '))
             if funcion.norep(numero,dni_clientes) == 0:
                 dni_clientes.append(numero)
-                print('su dni se ha guardado, vuelva pronto')
+                print('Su DNI se ha guardado, vuelva pronto.')
             else:
                 print('gracias por comprar nuevamente, vuelva pronto')
-    print(dni_clientes)
     opcion = int(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
 
     while opcion != 1 and opcion != -1:
@@ -95,6 +94,9 @@ def main():
             funcion.max_min_autos()
         elif opcion == 2:
             funcion.obtener_marca_mas_vendida(vehiculos_comprados_matriz)
+        elif opcion == 3:
+            print(dni_clientes)
+            
         else:
             print("Opción inválida. Intente de nuevo.")
 

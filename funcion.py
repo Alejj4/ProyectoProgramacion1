@@ -167,7 +167,7 @@ def descuento_auto():
 
 
 def desplegar_menu_informes():
-    informes_disponibles = ["Los 3 autos más caros y baratos.", "Los autos más y menos vendidos"]
+    informes_disponibles = ["Los 3 autos más caros y baratos.", "Los autos más y menos vendidos.", "DNI de los clientes."]
 
     print("A continuación se presentan los distintos informes que puede consultar:")
     for i, informe in enumerate(informes_disponibles):
