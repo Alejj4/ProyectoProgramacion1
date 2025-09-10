@@ -78,7 +78,7 @@ def actualizar_matriz_compra(fila, columna, matriz_compra):
 
     return matriz_compra
 
-def calcular_precios_promedio(precios):
+def calcular_precios_promedio():
     indices_marcas = obtener_indices_marcas()
     _, _, precios = obtener_datos_de_modelos()
 
