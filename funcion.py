@@ -128,6 +128,7 @@ def comprar_auto(fila, columna, matriz_compras):
             mostrar_matriz(matriz_compra_actualizada)
         else: # El usuario cancela la compra
             print("Cancelando compra...")
+            return 0
         return total
     
 def verificar_marca(marca):
