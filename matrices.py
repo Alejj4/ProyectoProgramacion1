@@ -42,14 +42,17 @@ def obtener_datos_de_modelos():
         [],           # ToSe
         [44,52],      # ToSu
         [53,61],      # ToPi
+        
         [],           # ScHa
         [28,35],      # ScSe
         [25,30],      # ScSu
         [48],         # ScPi
+        
         [],           # ChHa
         [27],         # ChSe
         [31,32],      # ChSu
         [34,43,102],  # ChPi
+        
         [],           # FoHa
         [],           # FoSe
         [43,76,85],   # FoSu
@@ -89,10 +92,10 @@ def calcular_precios_promedio():
     [0,0,0,0]
     ]  # Se construye una matriz con ceros para poder añadir los precios promedios
 
-    for fila in range(len(indices_marcas)):
-        for columna in range(len(indices_marcas[fila])):
+    for fila in range(len(indices_marcas)): # Realiza una vuelta por cada fila (correspondiente a cada marca)
+        for columna in range(len(indices_marcas[fila])): #Recorremos los indices de cada tipo de auto
             indice = indices_marcas[fila][columna]
-            lista_precios = precios[indice]
+            lista_precios = precios[indice] # Obtenemos la lista de precios que corresponde al indice
             if lista_precios:
                 promedio = sum(lista_precios) // len(lista_precios)
             else:
