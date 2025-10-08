@@ -42,3 +42,11 @@
 11 - Ver de agregar el nombre de las marcas al lado de los nombres de los modelos cuando se muestran en la funcion max_min_autos
 
 12 - Agregar en el mensaje de bienvenida el modelo mas caro y mas barato
+
+### Pendiente para la segunda entrega
+
+1 - Agregar manejo de excepciones para casos especificos (Manejos de division por 0, en las funciones de las lineas 143 y 150 de funcion.py)
+
+2 - Implementar manejo de archivos json y csv
+
+3 - Corregir los errores confusos de nombre entre "marca" y "modelo" y hacerlo mas facil de diferenciar
