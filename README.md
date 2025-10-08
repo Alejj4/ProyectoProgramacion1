@@ -49,4 +49,4 @@
 
 2 - Implementar manejo de archivos json y csv
 
-3 - Corregir los errores confusos de nombre entre "marca" y "modelo" y hacerlo mas facil de diferenciar
+3 - Corregir los errores confusos de nombre entre "marca", "tipo" y "modelo" y hacerlo mas facil de diferenciar
