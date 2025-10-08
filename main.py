@@ -31,7 +31,9 @@ def main():
         funcion.imprimir_separador()
         print('Seleccione la marca que le gustaría ver')
         print("Para salir simplemente ingrese -1")
-        marca = int(input('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: '))
+
+        marca = funcion.verificar_numero_valido('Ingrese 1 para Toyota, 2 para Schipani, 3 para Chevrolet y 4 para Ford: ')
+
         funcion.imprimir_separador()
 
         if marca == -1:
@@ -42,7 +44,7 @@ def main():
                 
             print('Ahora seleccione los modelos de qué tipo quiere ver.')
             
-            modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+            modelo = funcion.verificar_numero_valido('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: ')
             
             if modelo != -1:
                 funcion.imprimir_separador()
@@ -57,7 +59,7 @@ def main():
             while len(modelos[modelo_indice]) == 0: # Si no hay stock de la marca y modelo elegido
                 print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
                 funcion.imprimir_separador()
-                modelo = int(input('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: '))
+                modelo = funcion.verificar_numero_valido('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: ')
                 modelo_indice = indices_marcas[marca - 1][modelo - 1]    
 
             # Mostrar autos disponibles
@@ -74,21 +76,21 @@ def main():
             
             funcion.imprimir_separador()
             print('Porfavor, ingrese su DNI a la base de datos de cientes. ')
-            numero = int(input('Ingrese su DNI aca: '))
+            numero = funcion.verificar_numero_valido(input('Ingrese su DNI aca: '))
             if funcion.norep(numero,dni_clientes) == 0:
                 dni_clientes.append(numero)
                 print('Su DNI se ha guardado, vuelva pronto.')
             else:
                 print('Gracias por comprar nuevamente, vuelva pronto')
-    opcion = int(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
+    opcion = funcion.verificar_numero_valido(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
 
     while opcion != 1 and opcion != -1:
         print("Opción incorrecta. Por favor, ingrese 1 para sí o -1 para no.")
-        opcion = int(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
+        opcion = funcion.verificar_numero_valido(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
 
     while opcion != -1:
         funcion.desplegar_menu_informes()
-        opcion = int(input("Seleccione el informe que desea visualizar (-1 para salir): "))
+        opcion = funcion.verificar_numero_valido(input("Seleccione el informe que desea visualizar (-1 para salir): "))
 
         if opcion == 1:
             funcion.max_min_autos()

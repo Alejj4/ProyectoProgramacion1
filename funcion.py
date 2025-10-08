@@ -1,6 +1,19 @@
 import matrices as mt
 import random as rn
 
+def verificar_numero_valido(mensaje_input):
+    """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
+    
+    while True:
+        try:
+            dato = int(input(mensaje_input))
+
+            break
+        except ValueError:
+            print("El dato ingresado es inválido, el mismo debe ser un número")
+
+    return dato
+
 
 def imprimir_separador():
     print("-"*78)
@@ -84,24 +97,24 @@ def comprar_auto(fila, columna, matriz_compras):
         for i in range(len(nombres)):
             print(f"{i+1}. {nombres[i]} - Precio: {precios[i]}")
             
-        modelo_seleccionado_indice = int(input("\nSeleccione el número del auto que desea comprar: ")) - 1
+        modelo_seleccionado_indice = verificar_numero_valido("\nSeleccione el número del auto que desea comprar: ") - 1
         while not modelo_seleccionado_indice in range(len(nombres)):
             imprimir_separador()
             print("Opcion no disponible, por favor ingrese un numero válido")
             mostrar_opciones_disponibles(nombres)
-            modelo_seleccionado_indice = int(input("Seleccione alguno de los mismos: ")) - 1
+            modelo_seleccionado_indice = verificar_numero_valido("Seleccione alguno de los mismos: ") - 1
         imprimir_separador()
         
     # ------------------------------------------------------------------------------------------------------------------
-    # ELECCIóN DE COLOR
+    # ELECCIÓN DE COLOR
         colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
         mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
-        color_indice = int(input("Seleccione alguno de los colores con los que contamos: ")) - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
+        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ") - 1 # Se resta 1 al numero para despues acceder al color por el indice de la lista
         imprimir_separador()
         while color_indice not in range(len(colores_disponibles)):
             print("Opcion no disponible, por favor ingrese un numero válido")
             mostrar_opciones_disponibles(colores_disponibles) # Mostramos los colores disponibles uno abajo del otro
-            color_indice = int(input("Seleccione alguno de los mismos: ")) - 1
+            color_indice = verificar_numero_valido("Seleccione alguno de los mismos: ") - 1
             imprimir_separador()
             
 # ------------------------------------------------------------------------------------------------------------------
@@ -156,17 +169,17 @@ def verificar_modelo(modelo):
 
 def descuento_auto():
        descuento = 0
-       des = int(input("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere: "))
+       des = verificar_numero_valido("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere: ")
        while des != 1 and des != 2:
-              des = int(input("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere: "))
+              des = verificar_numero_valido("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere: ")
        if des == 2: 
               print("Como usted desee. Nos vemos!")
        else: 
               print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
               ran = rn.randint(1,5)
-              numran = int(input("Ingrese un numero del 1 al 5: "))
+              numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ")
               while numran < 1 or numran > 5:
-                     numran = int(input("Número fuera de rango, ingrese un numero entre 1 y 5: "))
+                     numran = verificar_numero_valido("Número fuera de rango, ingrese un numero entre 1 y 5: ")
               if numran != ran:
                     print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)
               else:
@@ -244,4 +257,3 @@ def dni_Clientes(lista):
         print (f"Cliente {j}: {i} \n")
         j += 1
     imprimir_separador()
-    
