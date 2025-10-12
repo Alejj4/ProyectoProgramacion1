@@ -25,7 +25,7 @@ def imprimir_separador():
 
 
 def mostrar_matriz(matriz):
-    esquina = 'Marcas/Autos'
+    esquina = 'Marcas/Tipo'
     columnas = ['Hatchback', 'Sedan', 'Suv', 'PickUp']
     filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
     ancho = 15
@@ -326,21 +326,28 @@ def calcular_precios_promedios_tipo():
 
     if archivo_autos is not None:
         autos = json.load(archivo_autos)
+        
+        matriz_precios_promedios = [
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+        ]
 
         marcas = list(autos.keys())
-
-        for marca in marcas:
+        
+        for fila, marca in enumerate(marcas):
             tipos = autos[marca]
-            for tipo in tipos:
-                suma_precios = 0
-                modelos = autos[marca][tipo]
-
-                for modelo in modelos:
-                    suma_precios += modelo["precio"]
+            for columna, tipo in enumerate(tipos):
+                suma_precios = sum(modelo["precio"] for modelo in autos[marca][tipo])
                 
                 try:
-                    promedio = suma_precios / len(modelos)
-
-                    archivo_precios_promedios.write(f"{marca}, {tipo}, {promedio}\n")
+                    promedio = suma_precios / len(autos[marca][tipo])
                 except ZeroDivisionError:
                     promedio = 0
+
+                matriz_precios_promedios[fila][columna] = round(promedio, 2)
+                archivo_precios_promedios.write(f"{marca}, {tipo}, {promedio}\n")
+
+
+        return matriz_precios_promedios
