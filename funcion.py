@@ -1,6 +1,9 @@
 import matrices as mt
 import random as rn
 
+import random
+from faker import Faker
+
 def verificar_numero_valido(mensaje_input):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
@@ -257,3 +260,20 @@ def dni_Clientes(lista):
         print (f"Cliente {j}: {i} \n")
         j += 1
     imprimir_separador()
+
+def completar_clientes():
+    archivo = open("archivos/clientes.csv", "wt", encoding="UTF-8")
+
+    fake = Faker('es_AR')
+
+    archivo.write("dni, nombre, contraseña\n")
+    
+    for i in range(10):
+        dni = random.randint(10000000, 99999999)
+        
+        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani")
+        password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
+
+        archivo.write(f"{dni}, {nombre}, {password}\n")
+
+    archivo.close()
