@@ -266,7 +266,7 @@ def obtener_marca_mas_vendida(vehiculos_comprados_matriz):
 #
 
 def completar_clientes():
-    archivo = open("archivos/clientes.csv", "wt", encoding="UTF-8")
+    archivo = open("clientes.csv", "wt", encoding="UTF-8")
 
     fake = Faker('es_AR')
 
@@ -296,7 +296,7 @@ def completar_archivo_stock():
 
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
 
-    archivo_stock = open("archivos/stock.csv", "wt", encoding="UTF-8")
+    archivo_stock = open("stock.csv", "wt", encoding="UTF-8")
 
     if archivo_autos is not None:
 
@@ -318,9 +318,10 @@ def completar_archivo_stock():
         archivo_autos.close()
 
 def calcular_precios_promedios_tipo():
+
     
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
-    archivo_precios_promedios = open("archivos/precios_promedios.csv", "wt", encoding="UTF-8")
+    archivo_precios_promedios = open("precios_promedios.csv", "wt", encoding="UTF-8")
 
     archivo_precios_promedios.write("marca, tipo, promedio\n")
 
@@ -351,3 +352,50 @@ def calcular_precios_promedios_tipo():
 
 
         return matriz_precios_promedios
+    
+
+def ingreso_de_autos(mensaje_input, opciones_disponibles):
+    while True:
+        try:
+            mostrar_opciones_disponibles(opciones_disponibles)
+            dato = int(input(mensaje_input))
+
+            resultado = None
+
+            if dato == -1:
+                resultado = -1
+            elif (dato - 1) in range(len(opciones_disponibles)):
+                resultado = dato - 1
+
+            if not (resultado in range(len(opciones_disponibles)) or resultado == -1):
+                raise IndexError("El numero ingresado es inválido")
+
+
+            imprimir_separador()
+            break
+        except ValueError:
+            imprimir_separador()
+            print("El dato ingresado debe ser un numero")
+            print("Por favor intente nuevamente")
+            imprimir_separador()
+        except IndexError as e:
+            imprimir_separador()
+            print(e)
+            print("Por favor intente nuevamente")
+            imprimir_separador()
+
+    return resultado
+
+def pedir_datos_compra():
+    marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
+
+    marca_indice = ingreso_de_autos("Ingrese la marca que desea visualizar, para finalizar, simplemente ingrese -1: ", marcas_disponibles)
+
+    tipos_disponibles = ["Hatchback", "Sedan", "Suv", "PickUp"]
+
+    tipo_indice = ingreso_de_autos("Ingrese el tipo de auto que desea visualizar, para finalizar, simplemente ingrese -1: ", tipos_disponibles)
+
+    nombre_marca = marcas_disponibles[marca_indice]
+    nombre_tipo = tipos_disponibles[tipo_indice]
+
+    return nombre_marca, nombre_tipo
