@@ -1,61 +1,61 @@
 {
   "Toyota": {
     "Hatchback": [
-      { "modelo": "Yaris xs", "equipamiento": 1, "precio": 28 },
-      { "modelo": "Yaris xls", "equipamiento": 2, "precio": 31 },
-      { "modelo": "Yaris s", "equipamiento": 3, "precio": 33 }
+      { "nombre": "Yaris xs", "equipamiento": 1, "precio": 28 },
+      { "nombre": "Yaris xls", "equipamiento": 2, "precio": 31 },
+      { "nombre": "Yaris s", "equipamiento": 3, "precio": 33 }
     ],
     "Sedan": [],
     "SUV": [
-      { "modelo": "Cross xli", "equipamiento": 1, "precio": 44 },
-      { "modelo": "Cross seG", "equipamiento": 3, "precio": 52 }
+      { "nombre": "Cross xli", "equipamiento": 1, "precio": 44 },
+      { "nombre": "Cross seG", "equipamiento": 3, "precio": 52 }
     ],
     "Pick-up": [
-      { "modelo": "Hilux dx4x4", "equipamiento": 1, "precio": 53 },
-      { "modelo": "Hiluxsr4x4", "equipamiento": 3, "precio": 61 }
+      { "nombre": "Hilux dx4x4", "equipamiento": 1, "precio": 53 },
+      { "nombre": "Hiluxsr4x4", "equipamiento": 3, "precio": 61 }
     ]
   },
   "Schipani": {
     "Hatchback": [],
     "Sedan": [
-      { "modelo": "schipani uade Seminuevo", "equipamiento": 1, "precio": 28 },
-      { "modelo": "Schipani Schiziano", "equipamiento": 2, "precio": 35 }
+      { "nombre": "schipani uade Seminuevo", "equipamiento": 1, "precio": 28 },
+      { "nombre": "Schipani Schiziano", "equipamiento": 2, "precio": 35 }
     ],
     "SUV": [
-      { "modelo": "schipani chipa", "equipamiento": 2, "precio": 25 },
-      { "modelo": "schipani bochoQuemado", "equipamiento": 3, "precio": 30 }
+      { "nombre": "schipani chipa", "equipamiento": 2, "precio": 25 },
+      { "nombre": "schipani bochoQuemado", "equipamiento": 3, "precio": 30 }
     ],
     "Pick-up": [
-      { "modelo": "Schipani Pipani", "equipamiento": 3, "precio": 48 }
+      { "nombre": "Schipani Pipani", "equipamiento": 3, "precio": 48 }
     ]
   },
   "Chevrolet": {
     "Hatchback": [],
     "Sedan": [
-      { "modelo": "Onixplus", "equipamiento": 2, "precio": 27 }
+      { "nombre": "Onixplus", "equipamiento": 2, "precio": 27 }
     ],
     "SUV": [
-      { "modelo": "Spring", "equipamiento": 1, "precio": 31 },
-      { "modelo": "Tracker", "equipamiento": 2, "precio": 32 }
+      { "nombre": "Spring", "equipamiento": 1, "precio": 31 },
+      { "nombre": "Tracker", "equipamiento": 2, "precio": 32 }
     ],
     "Pick-up": [
-      { "modelo": "Montana", "equipamiento": 1, "precio": 34 },
-      { "modelo": "S10", "equipamiento": 2, "precio": 43 },
-      { "modelo": "Silverado", "equipamiento": 3, "precio": 102 }
+      { "nombre": "Montana", "equipamiento": 1, "precio": 34 },
+      { "nombre": "S10", "equipamiento": 2, "precio": 43 },
+      { "nombre": "Silverado", "equipamiento": 3, "precio": 102 }
     ]
   },
   "Ford": {
     "Hatchback": [],
     "Sedan": [],
     "SUV": [
-      { "modelo": "Territory", "equipamiento": 2, "precio": 43 },
-      { "modelo": "Kuga Hybrid", "equipamiento": 3, "precio": 76 },
-      { "modelo": "Everest", "equipamiento": 3, "precio": 85 }
+      { "nombre": "Territory", "equipamiento": 2, "precio": 43 },
+      { "nombre": "Kuga Hybrid", "equipamiento": 3, "precio": 76 },
+      { "nombre": "Everest", "equipamiento": 3, "precio": 85 }
     ],
     "Pick-up": [
-      { "modelo": "Maverick", "equipamiento": 2, "precio": 51 },
-      { "modelo": "Rnager Raptor", "equipamiento": 3, "precio": 116 },
-      { "modelo": "F-150 Lariat Hybrid", "equipamiento": 3, "precio": 124 }
+      { "nombre": "Maverick", "equipamiento": 2, "precio": 51 },
+      { "nombre": "Rnager Raptor", "equipamiento": 3, "precio": 116 },
+      { "nombre": "F-150 Lariat Hybrid", "equipamiento": 3, "precio": 124 }
     ]
   }
 }
