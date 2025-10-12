@@ -247,21 +247,23 @@ def obtener_marca_mas_vendida(vehiculos_comprados_matriz):
     print("La marca de autos más vendida es", marcas[posicion_max], "con", maximo, "unidades vendidas")
     imprimir_separador()
 
-def norep(dato,lista):
-    #revisa que no haya un dato repetido en una lista
-    flag = 0
-    if dato in lista:
-        flag = 1
-    return flag
+# def norep(dato,lista):
+#     #revisa que no haya un dato repetido en una lista
+#     flag = 0
+#     if dato in lista:
+#         flag = 1
+#     return flag
 
 
-def dni_Clientes(lista):
-    j = 1
-    imprimir_separador()
-    for i in lista:
-        print (f"Cliente {j}: {i} \n")
-        j += 1
-    imprimir_separador()
+# def dni_Clientes(lista):
+#     j = 1
+#     imprimir_separador()
+#     for i in lista:
+#         print (f"Cliente {j}: {i} \n")
+#         j += 1
+#     imprimir_separador()
+
+#
 
 def completar_clientes():
     archivo = open("archivos/clientes.csv", "wt", encoding="UTF-8")
@@ -280,29 +282,65 @@ def completar_clientes():
 
     archivo.close()
 
+def manejar_apertura_archivo(direccion, modo_apertura):
+    try:
+        archivo = open(direccion, modo_apertura, encoding="UTF-8")
+    except FileNotFoundError:
+        print("El archivo no ha sido encontrado, suspendiendo operacion...")
+        return None
+    
+    return archivo
+
+
 def completar_archivo_stock():
+
+    archivo_autos = manejar_apertura_archivo("autos.json", "rt")
 
     archivo_stock = open("archivos/stock.csv", "wt", encoding="UTF-8")
 
-    try:
-        archivo_autos = open("autos.json", "rt", encoding="UTF-8")
+    if archivo_autos is not None:
+
+        archivo_stock.write("marca, modelo, stock\n")
 
         autos = json.load(archivo_autos)
-        archivo_stock.write("marca, modelo, stock_disponible\n")
-        
         marcas = list(autos.keys())
 
         for marca in marcas:
             tipos = autos[marca]
             for tipo in tipos:
                 modelos = autos[marca][tipo]
-                
+
                 for modelo in modelos:
                     stock_disponible = random.randint(0, 5)
                     archivo_stock.write(f"{marca}, {modelo["nombre"]}, {stock_disponible}\n")
+    
+        archivo_stock.close()
+        archivo_autos.close()
 
-    except FileNotFoundError:
-        print("El archivo de autos no ha sido encontrado, suspendiendo operacion...")
+def calcular_precios_promedios_tipo():
+    
+    archivo_autos = manejar_apertura_archivo("autos.json", "rt")
+    archivo_precios_promedios = open("archivos/precios_promedios.csv", "wt", encoding="UTF-8")
 
-    archivo_stock.close()
-    archivo_autos.close()
+    archivo_precios_promedios.write("marca, tipo, promedio\n")
+
+    if archivo_autos is not None:
+        autos = json.load(archivo_autos)
+
+        marcas = list(autos.keys())
+
+        for marca in marcas:
+            tipos = autos[marca]
+            for tipo in tipos:
+                suma_precios = 0
+                modelos = autos[marca][tipo]
+
+                for modelo in modelos:
+                    suma_precios += modelo["precio"]
+                
+                try:
+                    promedio = suma_precios / len(modelos)
+
+                    archivo_precios_promedios.write(f"{marca}, {tipo}, {promedio}\n")
+                except ZeroDivisionError:
+                    promedio = 0
