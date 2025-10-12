@@ -1,6 +1,8 @@
 import matrices as mt
 import random as rn
 
+import json
+
 import random
 from faker import Faker
 
@@ -277,3 +279,26 @@ def completar_clientes():
         archivo.write(f"{dni}, {nombre}, {password}\n")
 
     archivo.close()
+
+def completar_archivo_stock():
+
+    archivo_stock = open("archivos/stock.csv", "wt", encoding="UTF-8")
+
+    archivo_autos = open("autos.json", "rt", encoding="UTF-8")
+
+    autos = json.load(archivo_autos)
+    archivo_stock.write("marca, modelo, stock_disponible\n")
+    
+    marcas = list(autos.keys())
+
+    for marca in marcas:
+        tipos = autos[marca]
+        for tipo in tipos:
+            modelos = autos[marca][tipo]
+            
+            for modelo in modelos:
+                stock_disponible = random.randint(0, 5)
+                archivo_stock.write(f"{marca}, {modelo["nombre"]}, {stock_disponible}\n")
+
+    archivo_stock.close()
+    archivo_autos.close()
