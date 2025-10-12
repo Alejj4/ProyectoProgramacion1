@@ -1,3 +1,7 @@
 *.pyc
 __pycache__/
 pruebas.py
+venv/
+
+archivos/
+informes/
