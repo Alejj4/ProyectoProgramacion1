@@ -50,3 +50,5 @@
 2 - Implementar manejo de archivos json y csv
 
 3 - Corregir los errores confusos de nombre entre "marca", "tipo" y "modelo" y hacerlo mas facil de diferenciar
+
+4 - Crear funcion generica para manejar excepciones en los manejos de archivos
