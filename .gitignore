@@ -7,3 +7,5 @@ archivos/
 informes/
 
 *.csv
+
+.venv/

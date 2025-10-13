@@ -32,8 +32,10 @@ def main():
 
         nombre_marca, nombre_tipo = funcion.pedir_datos_compra() # Funcion para pedir datos para realizar una compra
 
-        modelos_disponibles = 
 
+        funcion.mostrar_autos_disponibles(nombre_marca, nombre_tipo)
+
+        
 
         # if marca == -1:
         #     print('Compra finalizada.')

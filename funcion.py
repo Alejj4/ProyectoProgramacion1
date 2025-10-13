@@ -312,7 +312,7 @@ def completar_archivo_stock():
 
                 for modelo in modelos:
                     stock_disponible = random.randint(0, 5)
-                    archivo_stock.write(f"{marca}, {modelo["nombre"]}, {stock_disponible}\n")
+                    archivo_stock.write(f"{marca}, {modelo['nombre']}, {stock_disponible}\n")
     
         archivo_stock.close()
         archivo_autos.close()
@@ -399,3 +399,60 @@ def pedir_datos_compra():
     nombre_tipo = tipos_disponibles[tipo_indice]
 
     return nombre_marca, nombre_tipo
+
+def mostrar_autos_disponibles(nombre_marca, nombre_tipo):
+    archivo_autos = manejar_apertura_archivo("autos.json", "rt")
+    archivo_stock = manejar_apertura_archivo("stock.csv", "r")
+    disponibles = []
+
+    if archivo_autos is None:
+        print("No se pudo abrir el archivo autos.json.")
+        return
+    if archivo_stock is None:
+        print("No se pudo abrir el archivo stock.csv.")
+        return
+
+    autos = json.load(archivo_autos)
+    archivo_autos.close()
+    stock_data = {}
+    lineas = archivo_stock.readlines()
+    archivo_stock.close()
+    for linea in lineas[1:]:
+        partes = linea.strip().split(",")
+        if len(partes) != 3:
+            continue
+        marca = partes[0].strip()
+        modelo = partes[1].strip()
+        try:
+            stock = int(partes[2].strip())
+        except ValueError:
+            stock = 0
+        stock_data[(marca.lower(), modelo.lower())] = stock
+
+    modelos = autos[nombre_marca][nombre_tipo]
+    for m in modelos:
+        nombre_modelo = m["nombre"].strip()
+        equipamiento = m["equipamiento"]
+        precio = m["precio"]
+
+        
+        stock_actual = stock_data.get((nombre_marca.lower(), nombre_modelo.lower()), 0)
+
+        if stock_actual > 0:
+            disponibles.append((nombre_modelo, equipamiento, precio, stock_actual))
+
+    if not disponibles:
+        print(f"No hay autos disponibles para {nombre_marca} - {nombre_tipo}.")
+        imprimir_separador()
+        return
+    
+    print(f"Autos disponibles de {nombre_marca} - {nombre_tipo}:")
+    print("Modelos".ljust(25), "Equipamiento".ljust(15), "Precio".ljust(20), "Stock")
+    for nombre, equip, precio, stock in disponibles:
+        print(
+            str(nombre).ljust(25),
+            str(equip).ljust(15),
+            str(precio).ljust(20),
+            str(stock)
+        )
+    imprimir_separador()
