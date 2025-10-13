@@ -52,3 +52,9 @@
 3 - Corregir los errores confusos de nombre entre "marca", "tipo" y "modelo" y hacerlo mas facil de diferenciar
 
 4 - Crear funcion generica para manejar excepciones en los manejos de archivos
+
+5 - Hacer un sistema de login en base a los usuarios generados
+
+## Errores importantes a corregir:
+
+1 - Realizar una validacion para cuando el usuario ingresa una marca y tipo para los que no hay stock del principio o se agotó
