@@ -1,14 +1,6 @@
 import funcion
 import matrices as mt
 
-
-def desplegar_menu_de_catalogo():
-    
-    matriz_precios_promedios = funcion.calcular_precios_promedios_tipo()
-    
-    funcion.mostrar_matriz(matriz_precios_promedios)
-
-
 def main():
     
     ventas = open("ventas.csv", "wt", encoding="UTF-8")
@@ -22,51 +14,9 @@ def main():
     funcion.imprimir_separador()
     print('Bienvenido a Schipani Motors Sport, esta es nuestra disponibilidad.')
 
-    finalizar_compra = False
-
-    while not finalizar_compra:
-        print("Catalogo disponible: ")
-        desplegar_menu_de_catalogo() # Despliegue del catalogo
-
-        funcion.imprimir_separador()
-
-        nombre_marca, nombre_tipo = funcion.pedir_datos_compra() # Funcion para pedir datos para realizar una compra
-
-
-        funcion.mostrar_autos_disponibles(nombre_marca, nombre_tipo)
-
+    encargo_data = funcion.encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
         
-
-        # if marca == -1:
-        #     print('Compra finalizada.')
-        # else:
-        #     funcion.verificar_marca(marca)
-            
-                
-    #         print('Ahora seleccione los modelos de qué tipo quiere ver.')
-            
-    #         modelo = funcion.verificar_numero_valido('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: ')
-            
-    #         if modelo != -1:
-    #             funcion.imprimir_separador()
-    #             funcion.verificar_modelo(modelo)
-            
-    #         modelos, _, _ = mt.obtener_datos_de_modelos()
-    #         indices_marcas = mt.obtener_indices_marcas()
-            
-    #         modelo_indice = indices_marcas[marca - 1][modelo - 1]
-            
-
-    #         while len(modelos[modelo_indice]) == 0: # Si no hay stock de la marca y modelo elegido
-    #             print("\nDisculpe, actualmente no hay stock disponible. Puede probar con otro modelo")
-    #             funcion.imprimir_separador()
-    #             modelo = funcion.verificar_numero_valido('Ingrese 1 para Hatchback, 2 para Sedan, 3 para Suv y 4 para PickUp: ')
-    #             modelo_indice = indices_marcas[marca - 1][modelo - 1]    
-
-    #         # Mostrar autos disponibles
-    #         funcion.mostrar_autos(marca, modelo)
-    #         funcion.imprimir_separador()
-             
+    print(encargo_data)
     #         # comprar auto
     #         precio_total += funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz)
     #         print("\nTotal de la compra hasta ahora:", precio_total, "mil dólares.")

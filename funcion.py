@@ -6,16 +6,21 @@ import json
 import random
 from faker import Faker
 
-def verificar_numero_valido(mensaje_input):
+def verificar_numero_valido(mensaje_input, rango=None):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
     while True:
         try:
-            dato = int(input(mensaje_input))
+            dato = int(input(mensaje_input)) - 1
+
+            if rango is not None and not dato in rango:
+                raise IndexError
 
             break
         except ValueError:
             print("El dato ingresado es inválido, el mismo debe ser un número")
+        except IndexError:
+            print("Opcion no disponible, por favor intente de nuevo")
 
     return dato
 
@@ -461,3 +466,54 @@ def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
             str(modelo["stock"])
         )
     imprimir_separador()
+
+def desplegar_menu_de_catalogo():
+    
+    matriz_precios_promedios = calcular_precios_promedios_tipo()
+    
+    mostrar_matriz(matriz_precios_promedios)
+
+
+def encargar_autos():
+    finalizar_compra = False
+
+    encargo_data = {
+        "modelos_seleccionados":[],
+        "monto_total": 0
+    }
+
+    while not finalizar_compra:
+        print("Catalogo disponible: ")
+        desplegar_menu_de_catalogo() # Despliegue del catalogo
+
+        imprimir_separador()
+
+
+        #---------------------- Seleccion de marca y tipo --------------------------------------------
+
+        nombre_marca, nombre_tipo = pedir_datos_compra() # Funcion para pedir datos para realizar una compra
+
+
+        #---------------------- Obtencion de modelos disponibles --------------------------------------------
+
+        modelos_disponibles = obtener_modelos_disponibles(nombre_marca, nombre_tipo)
+
+        mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles)
+
+        #---------------------- Seleccion de modelo --------------------------------------------
+
+        modelo_seleccionado_indice = ingreso_de_autos("Seleccione el modelo que mas le interese: " ,opciones_disponibles=[modelo["nombre"] for modelo in modelos_disponibles])
+        
+        #---------------------- Confirmacion de compra --------------------------------------------
+        
+        modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice]
+
+        encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
+        encargo_data["monto_total"] += modelo_seleccionado["precio"]
+
+        mostrar_opciones_disponibles(["Ver carrito", "Finalizar operacion"])
+        decision = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2))
+
+        finalizar_compra = decision == 2 # Pasa a la parte de finalizar compra si el usuario ingresa 2
+
+    return encargo_data
