@@ -14,13 +14,14 @@ def verificar_numero_valido(mensaje_input, rango=None):
             dato = int(input(mensaje_input)) - 1
 
             if rango is not None and not dato in rango:
-                raise IndexError
+                raise IndexError("Opcion no disponible, por favor intente de nuevo")
 
+            dato += 1
             break
         except ValueError:
             print("El dato ingresado es inválido, el mismo debe ser un número")
-        except IndexError:
-            print("Opcion no disponible, por favor intente de nuevo")
+        except IndexError as e:
+            print(e)
 
     return dato
 
@@ -451,11 +452,6 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
 
 def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
 
-    if not modelos_disponibles:
-        print(f"No hay modelos disponibles para {nombre_marca} - {nombre_tipo}.")
-        imprimir_separador()
-        return
-
     print(f"Autos disponibles de {nombre_marca} - {nombre_tipo}:\n")
     print("Modelos".ljust(25), "Equipamiento".ljust(15), "Precio".ljust(20), "Stock")
     for modelo in modelos_disponibles:
@@ -473,6 +469,19 @@ def desplegar_menu_de_catalogo():
     
     mostrar_matriz(matriz_precios_promedios)
 
+
+def mostrar_resumen(encargo_data):
+    imprimir_separador()
+    
+    print("Resumen de su compra: ")
+
+    for i, auto in enumerate(encargo_data["modelos_seleccionados"]):
+        nombre, precio, color = auto["nombre"], auto["precio"], auto["color"]
+        print(f"{i + 1}) nombre: {nombre} - color: {color} - precio: ${precio}")
+
+    print(f"Monto acumulado: ${encargo_data["monto_total"]}")
+
+    imprimir_separador()
 
 def encargar_autos():
     finalizar_compra = False
@@ -498,22 +507,50 @@ def encargar_autos():
 
         modelos_disponibles = obtener_modelos_disponibles(nombre_marca, nombre_tipo)
 
-        mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles)
+        if len(modelos_disponibles) > 0:
+            mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles)
+
+        else:    
+            print(f"No hay modelos en stock para {nombre_marca} - {nombre_tipo}.")
+            imprimir_separador()
+
+            continue
 
         #---------------------- Seleccion de modelo --------------------------------------------
 
         modelo_seleccionado_indice = ingreso_de_autos("Seleccione el modelo que mas le interese: " ,opciones_disponibles=[modelo["nombre"] for modelo in modelos_disponibles])
+
+        # ------------------------- Seleccion de color --------------------------------------------
+
+        colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
+        mostrar_opciones_disponibles(colores_disponibles)
+        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(len(colores_disponibles))) - 1
+        color_seleccionado = colores_disponibles[color_indice]
         
         #---------------------- Confirmacion de compra --------------------------------------------
         
         modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice]
+        modelo_seleccionado["color"] = color_seleccionado
 
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
 
-        mostrar_opciones_disponibles(["Ver carrito", "Finalizar operacion"])
+        
+
+        mostrar_opciones_disponibles(["Ver resumen", "Finalizar operacion"])
         decision = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2))
 
-        finalizar_compra = decision == 2 # Pasa a la parte de finalizar compra si el usuario ingresa 2
+        if decision == 1:
+            mostrar_resumen(encargo_data)
+
+            print("¿Desea pasar a finalizar la operacion? ")
+            mostrar_opciones_disponibles(["Sí", "No"])
+            
+            respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2))
+
+            finalizar_compra = respuesta == 1
+
+        else:
+            finalizar_compra = True # Pasa a la parte de finalizar compra si el usuario ingresa 2
 
     return encargo_data
