@@ -391,7 +391,7 @@ def pedir_datos_compra():
 
     marca_indice = ingreso_de_autos("Ingrese la marca que desea visualizar, para finalizar, simplemente ingrese -1: ", marcas_disponibles)
 
-    tipos_disponibles = ["Hatchback", "Sedan", "Suv", "PickUp"]
+    tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
 
     tipo_indice = ingreso_de_autos("Ingrese el tipo de auto que desea visualizar, para finalizar, simplemente ingrese -1: ", tipos_disponibles)
 
@@ -400,22 +400,17 @@ def pedir_datos_compra():
 
     return nombre_marca, nombre_tipo
 
-def mostrar_autos_disponibles(nombre_marca, nombre_tipo):
+# REHACER SIN EL READLINES()
+def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
     archivo_stock = manejar_apertura_archivo("stock.csv", "r")
     disponibles = []
-
-    if archivo_autos is None:
-        print("No se pudo abrir el archivo autos.json.")
-        return
-    if archivo_stock is None:
-        print("No se pudo abrir el archivo stock.csv.")
-        return
 
     autos = json.load(archivo_autos)
     archivo_autos.close()
     stock_data = {}
     lineas = archivo_stock.readlines()
+    
     archivo_stock.close()
     for linea in lineas[1:]:
         partes = linea.strip().split(",")
@@ -436,23 +431,33 @@ def mostrar_autos_disponibles(nombre_marca, nombre_tipo):
         precio = m["precio"]
 
         
-        stock_actual = stock_data.get((nombre_marca.lower(), nombre_modelo.lower()), 0)
+        stock = stock_data.get((nombre_marca.lower(), nombre_modelo.lower()), 0)
 
-        if stock_actual > 0:
-            disponibles.append((nombre_modelo, equipamiento, precio, stock_actual))
+        if stock > 0:
+            disponibles.append({
+                "nombre":nombre_modelo, 
+                "equipamiento":equipamiento, 
+                "precio":precio, 
+                "stock":stock
+            })
 
-    if not disponibles:
-        print(f"No hay autos disponibles para {nombre_marca} - {nombre_tipo}.")
+    return disponibles
+
+
+def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
+
+    if not modelos_disponibles:
+        print(f"No hay modelos disponibles para {nombre_marca} - {nombre_tipo}.")
         imprimir_separador()
         return
-    
-    print(f"Autos disponibles de {nombre_marca} - {nombre_tipo}:")
+
+    print(f"Autos disponibles de {nombre_marca} - {nombre_tipo}:\n")
     print("Modelos".ljust(25), "Equipamiento".ljust(15), "Precio".ljust(20), "Stock")
-    for nombre, equip, precio, stock in disponibles:
+    for modelo in modelos_disponibles:
         print(
-            str(nombre).ljust(25),
-            str(equip).ljust(15),
-            str(precio).ljust(20),
-            str(stock)
+            str(modelo["nombre"]).ljust(25),
+            str(modelo["equipamiento"]).ljust(15),
+            str(modelo["precio"]).ljust(20),
+            str(modelo["stock"])
         )
     imprimir_separador()
