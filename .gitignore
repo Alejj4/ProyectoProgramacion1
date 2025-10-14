@@ -1,11 +1,12 @@
 *.pyc
 __pycache__/
 pruebas.py
+
+env/
 venv/
+.venv/
 
 archivos/
 informes/
 
 *.csv
-
-.venv/
