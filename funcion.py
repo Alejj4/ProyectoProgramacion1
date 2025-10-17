@@ -178,27 +178,6 @@ def verificar_modelo(modelo):
     return modelo
 
 
-def descuento_auto():
-       descuento = 0
-       des = verificar_numero_valido("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto? Ingrese 1 si quiere y 2 si no quiere: ")
-       while des != 1 and des != 2:
-              des = verificar_numero_valido("Su respuesta es incorrecta. Ingrese 1 si quiere participar y 2 si no quiere: ")
-       if des == 2: 
-              print("Como usted desee. Nos vemos!")
-       else: 
-              print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
-              ran = rn.randint(1,5)
-              numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ")
-              while numran < 1 or numran > 5:
-                     numran = verificar_numero_valido("Número fuera de rango, ingrese un numero entre 1 y 5: ")
-              if numran != ran:
-                    print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)
-              else:
-                    print("¡Felicitaciones! Su numero coicide, usted se gano un descuento del 20%.")
-                    descuento += 1
-       return descuento
-
-
 def desplegar_menu_informes():
     informes_disponibles = ["Los 3 autos más caros y baratos.", "Los autos más y menos vendidos.", "DNI de los clientes."]
 
@@ -356,11 +335,15 @@ def calcular_precios_promedios_tipo():
                 matriz_precios_promedios[fila][columna] = round(promedio, 2)
                 archivo_precios_promedios.write(f"{marca}, {tipo}, {promedio}\n")
 
-
+        archivo_precios_promedios.close()
         return matriz_precios_promedios
     
 
-def ingreso_de_autos(mensaje_input, opciones_disponibles):
+def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
+    """Funcion dedicada a pedirle un dato al usuario para luego
+       poder mostrarle al usuario las opciones de modelos en base
+       a lo ingresado"""
+
     while True:
         try:
             mostrar_opciones_disponibles(opciones_disponibles)
@@ -393,20 +376,20 @@ def ingreso_de_autos(mensaje_input, opciones_disponibles):
     return resultado
 
 def pedir_datos_compra():
+    """Funcion encargada de pedir los datos de la marca, el tipo y modelo exacto deseados por el usuario"""
+
     marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
 
-    marca_indice = ingreso_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
+    marca_indice = pedir_dato_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
 
     if not marca_indice == -1:
         nombre_marca = marcas_disponibles[marca_indice]
         
         tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
-        tipo_indice = ingreso_de_autos("Ingrese el tipo de auto que desea visualizar, para salir, simplemente ingrese -1: ", tipos_disponibles)
+        tipo_indice = pedir_dato_de_autos("Ingrese el tipo de auto que desea visualizar, para salir, simplemente ingrese -1: ", tipos_disponibles)
 
-        if tipo_indice != -1:
-            nombre_tipo = tipos_disponibles[tipo_indice]
-        else:
-            nombre_tipo = -1
+        nombre_tipo = tipos_disponibles[tipo_indice] if tipo_indice != -1 else -1
+
     else:
         nombre_marca, nombre_tipo = -1, -1 #Se sale automaticamente
 
@@ -414,6 +397,7 @@ def pedir_datos_compra():
 
 # REHACER SIN EL READLINES()
 def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
+    """Funcion hecha para obtener los modelos que se encuentran registrados y disponibles en base a los dos argumentos que se les pasan (nombre_marca y nombre_tipo)"""
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
     archivo_stock = manejar_apertura_archivo("stock.csv", "r")
     disponibles = []
@@ -457,6 +441,7 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
 
 
 def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
+    """Funcion para mostrar los modelos que disponibles segun los datos que se le pasen"""
 
     print(f"Autos disponibles de {nombre_marca} - {nombre_tipo}:\n")
     print("Modelos".ljust(25), "Equipamiento".ljust(15), "Precio".ljust(20), "Stock")
@@ -490,6 +475,8 @@ def mostrar_resumen(encargo_data):
     imprimir_separador()
 
 def encargar_autos():
+    """Funcion que maneja todo lo referido al encargo de los autos que un usuario va a comprar"""
+
     finalizar_compra = False
 
     encargo_data = {
@@ -508,8 +495,10 @@ def encargar_autos():
 
         nombre_marca, nombre_tipo = pedir_datos_compra() # Funcion para pedir datos para realizar una compra
 
-        if nombre_marca == -1 or nombre_tipo == -1:
+        if nombre_marca == -1:
             finalizar_compra = True
+            continue
+        elif nombre_tipo == -1:
             continue
 
         #---------------------- Obtencion de modelos disponibles --------------------------------------------
@@ -527,7 +516,11 @@ def encargar_autos():
 
         #---------------------- Seleccion de modelo --------------------------------------------
 
-        modelo_seleccionado_indice = ingreso_de_autos("Seleccione el modelo que mas le interese: " ,opciones_disponibles=[modelo["nombre"] for modelo in modelos_disponibles])
+        modelo_seleccionado_indice = pedir_dato_de_autos("Seleccione el modelo que mas le interese. Si desea volver al menú de inicio, ingrese -1: " , opciones_disponibles=[modelo["nombre"] for modelo in modelos_disponibles])
+
+        # Vuelve al menú del inicio
+        if modelo_seleccionado_indice == -1:
+            continue
 
         # ------------------------- Seleccion de color --------------------------------------------
 
@@ -543,6 +536,7 @@ def encargar_autos():
 
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
+        print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado["nombre"]} - {nombre_marca} - {nombre_tipo}")
 
         
 
@@ -553,13 +547,36 @@ def encargar_autos():
             mostrar_resumen(encargo_data)
 
             print("¿Desea pasar a finalizar la operacion? ")
-            mostrar_opciones_disponibles(["Sí", "No"])
+            mostrar_opciones_disponibles(["Sí", "No (Encargar un nuevo vehiculo)"])
             
             respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2))
 
             finalizar_compra = respuesta == 1
-
         else:
             finalizar_compra = True # Pasa a la parte de finalizar compra si el usuario ingresa 2
 
     return encargo_data
+
+
+def aplicar_descuento_precio_final():
+       """Funcion que se basa en un juego donde si el usuario gana, obtiene un descuento sobre el monto final de la compra"""
+
+       aplicar_descuento = False
+
+       print("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto?")
+       des = verificar_numero_valido("Ingrese 1 si quiere y 2 si no quiere: ", rango=range(2))
+
+       if des == 2: 
+              print("Como usted desee.")
+       else: 
+              print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
+              ran = rn.randint(1,5)
+              
+              numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(5))
+              
+              if numran != ran:
+                    print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)
+              else:
+                    print("¡Felicitaciones! Su numero coicide, usted se gano un descuento del 20%.")
+                    aplicar_descuento = True
+       return aplicar_descuento
