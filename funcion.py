@@ -317,7 +317,7 @@ def completar_archivo_stock():
                 modelos = autos[marca][tipo]
 
                 for modelo in modelos:
-                    stock_disponible = random.randint(0, 5)
+                    stock_disponible = random.randint(1, 5)
                     archivo_stock.write(f"{marca}, {modelo['nombre']}, {stock_disponible}\n")
     
         archivo_stock.close()
@@ -395,14 +395,20 @@ def ingreso_de_autos(mensaje_input, opciones_disponibles):
 def pedir_datos_compra():
     marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
 
-    marca_indice = ingreso_de_autos("Ingrese la marca que desea visualizar, para finalizar, simplemente ingrese -1: ", marcas_disponibles)
+    marca_indice = ingreso_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
 
-    tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
+    if not marca_indice == -1:
+        nombre_marca = marcas_disponibles[marca_indice]
+        
+        tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
+        tipo_indice = ingreso_de_autos("Ingrese el tipo de auto que desea visualizar, para salir, simplemente ingrese -1: ", tipos_disponibles)
 
-    tipo_indice = ingreso_de_autos("Ingrese el tipo de auto que desea visualizar, para finalizar, simplemente ingrese -1: ", tipos_disponibles)
-
-    nombre_marca = marcas_disponibles[marca_indice]
-    nombre_tipo = tipos_disponibles[tipo_indice]
+        if tipo_indice != -1:
+            nombre_tipo = tipos_disponibles[tipo_indice]
+        else:
+            nombre_tipo = -1
+    else:
+        nombre_marca, nombre_tipo = -1, -1 #Se sale automaticamente
 
     return nombre_marca, nombre_tipo
 
@@ -502,6 +508,9 @@ def encargar_autos():
 
         nombre_marca, nombre_tipo = pedir_datos_compra() # Funcion para pedir datos para realizar una compra
 
+        if nombre_marca == -1 or nombre_tipo == -1:
+            finalizar_compra = True
+            continue
 
         #---------------------- Obtencion de modelos disponibles --------------------------------------------
 
