@@ -15,24 +15,26 @@ def main():
     print('Bienvenido a Schipani Motors Sport, esta es nuestra disponibilidad.')
 
     encargo_data = funcion.encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
+    
+    print("Finalizando operacion")
+    
+    funcion.imprimir_separador()
+    
+    if len(encargo_data["modelos_seleccionados"]) > 0:
+        aplicar_descuento = funcion.aplicar_descuento_precio_final()
         
-    print(encargo_data)
-    #         # comprar auto
-    #         precio_total += funcion.comprar_auto(marca, modelo, vehiculos_comprados_matriz)
-    #         print("\nTotal de la compra hasta ahora:", precio_total, "mil dólares.")
+        if aplicar_descuento:
+            monto_final = round(encargo_data["monto_total"]*0.80, 2)
+            encargo_data["monto_total"] = monto_final
 
-    #         descuento = funcion.descuento_auto()
-    #         if descuento == 1:
-    #             print("El precio final con el descuento del 20% aplicado es de:", int(precio_total*0.80), "mil dolares.")
-            
-    #         funcion.imprimir_separador()
-    #         print('Porfavor, ingrese su DNI a la base de datos de cientes. ')
-    #         numero = funcion.verificar_numero_valido(input('Ingrese su DNI aca: '))
-    #         if funcion.norep(numero,dni_clientes) == 0:
-    #             dni_clientes.append(numero)
-    #             print('Su DNI se ha guardado, vuelva pronto.')
-    #         else:
-    #             print('Gracias por comprar nuevamente, vuelva pronto')
+            print(f"El precio final con el descuento del 20% aplicado es de: {monto_final} mil dolares.")
+
+            # funcion.imprimir_separador()
+            # print(encargo_data)
+
+    else:
+        print("No se realizó ningún pedido")
+    
     # opcion = funcion.verificar_numero_valido(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
 
     # while opcion != 1 and opcion != -1:
