@@ -73,7 +73,7 @@ def completar_clientes():
     for i in range(10):
         dni = random.randint(10000000, 99999999)
         
-        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani")
+        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani") # agregaer vaidacion tiago
         password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
 
         archivo.write(f"{dni}, {nombre}, {password}\n")
