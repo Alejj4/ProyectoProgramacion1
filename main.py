@@ -3,7 +3,7 @@ import funcion
 def main():
     
     ventas = open("ventas.csv", "wt", encoding="UTF-8")
-
+    ventas.write(f"Nombre, Equipamiento, Precio, Color \n")
     funcion.completar_clientes()
 
     funcion.completar_archivo_stock()
@@ -27,34 +27,10 @@ def main():
             encargo_data["monto_total"] = monto_final
 
             print(f"El precio final con el descuento del 20% aplicado es de: {monto_final} mil dolares.")
-
-            # funcion.imprimir_separador()
-            # print(encargo_data)
-
+        for modelo in encargo_data["modelos_seleccionados"]:
+            ventas.write(f"{modelo['nombre']},{modelo['equipamiento']},{modelo['precio']},{modelo['color']} \n")
     else:
         print("No se realizó ningún pedido")
-    
-    # opcion = funcion.verificar_numero_valido(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
-
-    # while opcion != 1 and opcion != -1:
-    #     print("Opción incorrecta. Por favor, ingrese 1 para sí o -1 para no.")
-    #     opcion = funcion.verificar_numero_valido(input("¿Le gustaría ver los informes obtenidos? (1=Sí | -1=No): "))
-
-    # while opcion != -1:
-    #     funcion.desplegar_menu_informes()
-    #     opcion = funcion.verificar_numero_valido(input("Seleccione el informe que desea visualizar (-1 para salir): "))
-
-    #     if opcion == 1:
-    #         funcion.max_min_autos()
-    #     elif opcion == 2:
-    #         funcion.obtener_marca_mas_vendida(vehiculos_comprados_matriz)
-    #     elif opcion == 3:
-    #         funcion.dni_Clientes(dni_clientes)      
-    #     else:
-    #         print("Opción inválida. Intente de nuevo.")
-
-    # print("Muchas gracias por venir a Schipani Motors, ¡nos vemos!")
-
 
 if __name__ == "__main__":
     main()

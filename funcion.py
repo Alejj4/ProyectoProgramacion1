@@ -4,7 +4,6 @@ import json
 
 import random
 from faker import Faker
-
 def verificar_numero_valido(mensaje_input, rango=None):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
@@ -293,7 +292,7 @@ def encargar_autos():
         "modelos_seleccionados":[],
         "monto_total": 0
     }
-
+    
     while not finalizar_compra:
         print("Catalogo disponible: ")
         desplegar_menu_de_catalogo() # Despliegue del catalogo
