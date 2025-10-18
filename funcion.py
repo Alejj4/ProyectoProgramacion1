@@ -18,9 +18,12 @@ def verificar_numero_valido(mensaje_input, rango=None):
             dato += 1
             break
         except ValueError:
+            imprimir_separador()
             print("El dato ingresado es inválido, el mismo debe ser un número")
+            imprimir_separador()
         except IndexError as e:
             print(e)
+            imprimir_separador()
 
     return dato
 
