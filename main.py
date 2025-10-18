@@ -1,5 +1,4 @@
 import funcion
-import matrices as mt
 
 def main():
     
