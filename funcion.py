@@ -269,7 +269,7 @@ def completar_clientes():
 
 def manejar_apertura_archivo(direccion, modo_apertura):
     try:
-        archivo = open(direccion, modo_apertura, encoding="UTF-8")
+        archivo = open(direccion, modo_apertura, encoding="UTF-8") 
     except FileNotFoundError:
         print("El archivo no ha sido encontrado, suspendiendo operacion...")
         return None
@@ -395,7 +395,6 @@ def pedir_datos_compra():
 
     return nombre_marca, nombre_tipo
 
-# REHACER SIN EL READLINES()
 def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
     """Funcion hecha para obtener los modelos que se encuentran registrados y disponibles en base a los dos argumentos que se les pasan (nombre_marca y nombre_tipo)"""
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
@@ -405,28 +404,24 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
     autos = json.load(archivo_autos)
     archivo_autos.close()
     stock_data = {}
-    lineas = archivo_stock.readlines()
     
-    archivo_stock.close()
-    for linea in lineas[1:]:
-        partes = linea.strip().split(",")
-        if len(partes) != 3:
-            continue
-        marca = partes[0].strip()
-        modelo = partes[1].strip()
-        try:
-            stock = int(partes[2].strip())
-        except ValueError:
-            stock = 0
-        stock_data[(marca.lower(), modelo.lower())] = stock
+    for i, linea in enumerate(archivo_stock):
+        if i != 0:
+            partes = linea.strip().split(",")
+            marca = partes[0].strip()
+            modelo = partes[1].strip()
+
+            try:
+                stock = int(partes[2].strip())
+            except ValueError:
+                stock = 0
+            stock_data[(marca.lower(), modelo.lower())] = stock
 
     modelos = autos[nombre_marca][nombre_tipo]
     for m in modelos:
         nombre_modelo = m["nombre"].strip()
         equipamiento = m["equipamiento"]
         precio = m["precio"]
-
-        
         stock = stock_data.get((nombre_marca.lower(), nombre_modelo.lower()), 0)
 
         if stock > 0:
@@ -437,6 +432,7 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
                 "stock":stock
             })
 
+    archivo_stock.close()
     return disponibles
 
 
@@ -470,7 +466,7 @@ def mostrar_resumen(encargo_data):
         nombre, precio, color = auto["nombre"], auto["precio"], auto["color"]
         print(f"{i + 1}) nombre: {nombre} - color: {color} - precio: ${precio}")
 
-    print(f"Monto acumulado: ${encargo_data["monto_total"]}")
+    print(f"Monto acumulado: ${encargo_data['monto_total']}")
 
     imprimir_separador()
 
@@ -536,7 +532,7 @@ def encargar_autos():
 
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
-        print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado["nombre"]} - {nombre_marca} - {nombre_tipo}")
+        print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado['nombre']} - {nombre_marca} - {nombre_tipo}")
 
         
 
