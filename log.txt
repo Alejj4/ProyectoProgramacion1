@@ -1,0 +1,5 @@
+Fecha: [2025-10-18 19:10:05] | Usuario: None | Marca_seleccionada: Toyota 
+Fecha: [2025-10-18 19:10:05] | Usuario: None | Tipo_seleccionado: Hatchback 
+Fecha: [2025-10-18 19:10:10] | Usuario: None | Modelo_seleccionado: Yaris xs 
+Fecha: [2025-10-18 19:10:10] | Usuario: None | Color_seleccionado: Verde 
+Fecha: [2025-10-18 19:10:12] | Usuario: None | Descuento: No 
