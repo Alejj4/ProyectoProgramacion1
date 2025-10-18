@@ -20,6 +20,7 @@ def verificar_numero_valido(mensaje_input, rango=None):
             print("El dato ingresado es inválido, el mismo debe ser un número")
             imprimir_separador()
         except IndexError as e:
+            imprimir_separador()
             print(e)
             imprimir_separador()
 
@@ -370,3 +371,52 @@ def aplicar_descuento_precio_final():
                     print("¡Felicitaciones! Su numero coicide, usted se gano un descuento del 20%.")
                     aplicar_descuento = True
        return aplicar_descuento
+
+def register():
+
+    print("REGISTRO DE USUARIO")
+    dni_existentes = []
+    try:
+        archivo=open("clientes.csv", "r", encoding="utf-8")
+        for linea in archivo:
+            partes = linea.strip().split(",")
+            if len(partes) > 0:
+                dni_existentes.append(partes[0].strip())
+                print(dni_existentes)
+        archivo.close()
+    except FileNotFoundError:
+        print("No se encontró el archivo clientes.csv.")
+    while True:
+        dni = verificar_numero_valido("Ingrese su DNI: ", rango = range(1000000,99999999))
+        if str(dni) in dni_existentes:
+            print("Este DNI ya esta registrado. Intente iniciar sesion o use otro DNI.")
+        else:
+            break
+    usuario = input("Ingrese su nombre de usuario: ")
+    password = input("Ingrese su contraseña: ")
+    archivo = open("clientes.csv", "a", encoding="UTF-8")
+    archivo.write(f"{dni}, {usuario}, {password}\n")
+    print("Su registro ha sido exitoso, disfrute de su compra")
+    archivo.close()
+
+
+def login():
+    print("gracias por comprar nuevamente en nuestra tienda")
+    while True:
+        archivo=manejar_apertura_archivo("clientes.csv", "r")
+        dni_ingreso=input("ingrese su DNI o ingrese -1 para volver atras").strip()
+        if dni_ingreso==-1:
+             break
+        contra=input("Ingrese su contraseña").strip()
+        linea=archivo.readline()
+        linea=linea.strip()
+        encontrado=False
+        while linea and encontrado==False:
+            dni,nombre,contraseña= linea.split(", ")
+            if dni==dni_ingreso and contraseña==contra:
+                encontrado=True
+                break
+            linea=archivo.readline()
+            linea=linea.strip()
+    archivo.close()
+    return encontrado
