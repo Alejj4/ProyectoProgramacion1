@@ -1,9 +1,8 @@
 import random as rn
-
 import json
-
 import random
 from faker import Faker
+import datetime
 def verificar_numero_valido(mensaje_input, rango=None):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
@@ -26,6 +25,12 @@ def verificar_numero_valido(mensaje_input, rango=None):
 
     return dato
 
+def crear_registro(usuario= None,accion="",valor=""):
+    registro = manejar_apertura_archivo("log.txt","a")
+    fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario} | {accion}: {valor}"
+    registro.write(f"{registro_entrada} \n")
+    return usuario,accion,valor
 
 def imprimir_separador():
     print("-"*78)
@@ -194,15 +199,13 @@ def pedir_datos_compra():
     marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
 
     marca_indice = pedir_dato_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
-
     if not marca_indice == -1:
         nombre_marca = marcas_disponibles[marca_indice]
-        
+        crear_registro(None,"Marca_seleccionada", nombre_marca)
         tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
         tipo_indice = pedir_dato_de_autos("Ingrese el tipo de auto que desea visualizar, para salir, simplemente ingrese -1: ", tipos_disponibles)
-
         nombre_tipo = tipos_disponibles[tipo_indice] if tipo_indice != -1 else -1
-
+        crear_registro(None,"Tipo_seleccionado", nombre_tipo)
     else:
         nombre_marca, nombre_tipo = -1, -1 #Se sale automaticamente
 
@@ -341,8 +344,9 @@ def encargar_autos():
         #---------------------- Confirmacion de compra --------------------------------------------
         
         modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice]
+        crear_registro(None,"Modelo_seleccionado", modelo_seleccionado["nombre"])
         modelo_seleccionado["color"] = color_seleccionado
-
+        crear_registro(None,"Color_seleccionado", color_seleccionado)
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
         print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado['nombre']} - {nombre_marca} - {nombre_tipo}")
@@ -377,10 +381,11 @@ def aplicar_descuento_precio_final():
 
        if des == 2: 
               print("Como usted desee.")
+              crear_registro(None,"Descuento", "No")
        else: 
               print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligio el programa usted se gana el descuento asi de facil.")
               ran = rn.randint(1,5)
-              
+              crear_registro(None,"descuento", "Sí")
               numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(5))
               
               if numran != ran:
