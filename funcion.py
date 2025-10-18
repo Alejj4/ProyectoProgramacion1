@@ -161,37 +161,13 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
     """Funcion dedicada a pedirle un dato al usuario para luego
        poder mostrarle al usuario las opciones de modelos en base
        a lo ingresado"""
-
-    while True:
-        try:
-            mostrar_opciones_disponibles(opciones_disponibles)
-            dato = int(input(mensaje_input))
-
-            resultado = None
-
-            if dato == -1:
-                resultado = -1
-            elif (dato - 1) in range(len(opciones_disponibles)):
-                resultado = dato - 1
-
-            if not (resultado in range(len(opciones_disponibles)) or resultado == -1):
-                raise IndexError("El numero ingresado es inválido")
+    mostrar_opciones_disponibles(opciones_disponibles)
+    dato = verificar_numero_valido(mensaje_input, rango=range(len(opciones_disponibles)))
+    return dato - 1  
 
 
-            imprimir_separador()
-            break
-        except ValueError:
-            imprimir_separador()
-            print("El dato ingresado debe ser un numero")
-            print("Por favor intente nuevamente")
-            imprimir_separador()
-        except IndexError as e:
-            imprimir_separador()
-            print(e)
-            print("Por favor intente nuevamente")
-            imprimir_separador()
+            
 
-    return resultado
 
 def pedir_datos_compra():
     """Funcion encargada de pedir los datos de la marca, el tipo y modelo exacto deseados por el usuario"""
