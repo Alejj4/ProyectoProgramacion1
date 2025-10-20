@@ -70,7 +70,7 @@ def desplegar_menu_informes():
         print(f"{i + 1} - {informe}")
 
 def completar_clientes():
-    archivo = open("clientes.csv", "wt", encoding="UTF-8")
+    archivo = open("usuarios.csv", "wt", encoding="UTF-8")
 
     fake = Faker('es_AR')
 
@@ -375,14 +375,14 @@ def aplicar_descuento_precio_final():
 def register():
     dni_existentes = []
     try:
-        archivo=open("clientes.csv", "r", encoding="utf-8")
+        archivo=open("usuarios.csv", "r", encoding="utf-8")
         for i,linea in enumerate(archivo):
             if i != 0:
                 partes = linea.strip().split(",")
                 dni_existentes.append(partes[0].strip())      
         archivo.close()
     except FileNotFoundError:
-        print("No se encontró el archivo clientes.csv.")
+        print("No se encontró el archivo usuarios.csv.")
     while True:
         dni = verificar_numero_valido("Ingrese su DNI: ", rango = range(1000000,99999999))
         if str(dni) in dni_existentes:
@@ -394,7 +394,7 @@ def register():
     imprimir_separador()
     password = input("Ingrese su contraseña: ")
     imprimir_separador()
-    archivo = open("clientes.csv", "a", encoding="UTF-8")
+    archivo = open("usuarios.csv", "a", encoding="UTF-8")
     archivo.write(f"{dni}, {usuario}, {password}, {0}\n")
     print("Su registro ha sido exitoso, disfrute de su compra")
     imprimir_separador()
@@ -410,7 +410,7 @@ def login():
              break
         contra=input("Ingrese su contraseña: ").strip()
         imprimir_separador()
-        archivo=manejar_apertura_archivo("clientes.csv", "r")
+        archivo=manejar_apertura_archivo("usuarios.csv", "r")
         
         for i, linea in enumerate(archivo):
                 if i == 0:
