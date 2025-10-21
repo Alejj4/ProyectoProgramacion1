@@ -11,15 +11,15 @@ def main():
     funcion.calcular_precios_promedios_tipo()
 
     funcion.imprimir_separador()
-    funcion.menu_inicio()
-    encargo_data = funcion.encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
+    usuario = funcion.menu_inicio()
+    encargo_data = funcion.encargar_autos(usuario) # La totalidad de autos que el usuario seleccionó y va a comprar
     
     print("Finalizando operacion")
     
     funcion.imprimir_separador()
     
     if len(encargo_data["modelos_seleccionados"]) > 0:
-        aplicar_descuento = funcion.aplicar_descuento_precio_final()
+        aplicar_descuento = funcion.aplicar_descuento_precio_final(usuario)
         
         if aplicar_descuento:
             monto_final = round(encargo_data["monto_total"]*0.80, 2)

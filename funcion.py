@@ -26,10 +26,71 @@ def verificar_numero_valido(mensaje_input, rango=None):
 
     return dato
 
-def crear_registro(usuario= None,accion="",valor=""):
+def register():
+    dni_existentes = []
+    try:
+        archivo=open("usuarios.csv", "r", encoding="utf-8")
+        for i,linea in enumerate(archivo):
+            if i != 0:
+                partes = linea.strip().split(",")
+                dni_existentes.append(partes[0].strip())      
+        archivo.close()
+    except FileNotFoundError:
+        print("No se encontró el archivo usuarios.csv.")
+    while True:
+        dni = verificar_numero_valido("Ingrese su DNI: ", rango = range(1000000,99999999))
+        if str(dni) in dni_existentes:
+            print("Este DNI ya esta registrado. Intente iniciar sesión o use otro DNI.")
+        else:
+            break
+    imprimir_separador()
+    usuario = input("Ingrese su nombre de usuario: ")
+    imprimir_separador()
+    password = input("Ingrese su contraseña: ")
+    imprimir_separador()
+    archivo = open("usuarios.csv", "a", encoding="UTF-8")
+    archivo.write(f"{dni}, {usuario}, {password}, {0}\n")
+    print("Su registro ha sido exitoso, disfrute de su compra")
+    imprimir_separador()
+    archivo.close()
+    return usuario
+
+
+def login():
+    usuario = None
+    while True:
+        dni_ingreso=input("Ingrese su DNI o ingrese -1 para volver atrás: ").strip()
+        imprimir_separador()
+        if int(dni_ingreso)==-1:
+             break
+        contra=input("Ingrese su contraseña: ").strip()
+        imprimir_separador()
+        archivo=manejar_apertura_archivo("usuarios.csv", "r")
+        
+        for i, linea in enumerate(archivo):
+                if i == 0:
+                    continue
+
+                partes = linea.strip().split(",")
+
+                dni, nombre, contraseña, es_admin = [p.strip() for p in partes]
+
+                if dni == dni_ingreso and contraseña == contra:
+                    usuario = nombre
+                    if es_admin == "1":
+                        print(f"🔥😎 PANEL DE ADMINISTRADOR ({nombre}) 😎🔥")
+                        imprimir_separador()
+                    else:
+                        print(f"Bienvenido/a nuevamente, {nombre}")
+                        imprimir_separador()
+        archivo.close()
+        break
+    return usuario
+
+def crear_registro(usuario,accion,valor):
     registro = manejar_apertura_archivo("log.txt","a")
     fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario} | {accion}: {valor}"
+    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario} 🤑 | {accion}: {valor} \n"
     registro.write(f"{registro_entrada} \n")
     return usuario,accion,valor
 
@@ -152,10 +213,23 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
     return dato - 1  
 
 
-            
-
-
-def pedir_datos_compra():
+def menu_inicio():
+    while True:
+        opciones_disponibles = ["Registrarse","Logearse"]
+        print('Bienvenido a Schipani Motors Sport, elija una opcion.')
+        mostrar_opciones_disponibles(opciones_disponibles)
+        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(2))
+        
+        if opcion == 1:
+            usuario = register()
+            crear_registro(usuario,"Registro", "OK")
+            return usuario
+        elif opcion == 2:
+            usuario = login()
+            crear_registro(usuario,"Login","OK")
+            return usuario        
+        
+def pedir_datos_compra(usuario):
     """Funcion encargada de pedir los datos de la marca, el tipo y modelo exacto deseados por el usuario"""
 
     marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
@@ -163,11 +237,11 @@ def pedir_datos_compra():
     marca_indice = pedir_dato_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
     if not marca_indice == -1:
         nombre_marca = marcas_disponibles[marca_indice]
-        crear_registro(None,"Marca_seleccionada", nombre_marca)
+        crear_registro(usuario,"Marca_seleccionada", nombre_marca)
         tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
         tipo_indice = pedir_dato_de_autos("Ingrese el tipo de auto que desea visualizar, para salir, simplemente ingrese -1: ", tipos_disponibles)
         nombre_tipo = tipos_disponibles[tipo_indice] if tipo_indice != -1 else -1
-        crear_registro(None,"Tipo_seleccionado", nombre_tipo)
+        crear_registro(usuario,"Tipo_seleccionado", nombre_tipo)
     else:
         nombre_marca, nombre_tipo = -1, -1 #Se sale automaticamente
 
@@ -248,7 +322,7 @@ def mostrar_resumen(encargo_data):
 
     imprimir_separador()
 
-def encargar_autos():
+def encargar_autos(usuario):
     """Funcion que maneja todo lo referido al encargo de los autos que un usuario va a comprar"""
 
     finalizar_compra = False
@@ -267,7 +341,7 @@ def encargar_autos():
 
         #---------------------- Selección de marca y tipo --------------------------------------------
 
-        nombre_marca, nombre_tipo = pedir_datos_compra() # Funcion para pedir datos para realizar una compra
+        nombre_marca, nombre_tipo = pedir_datos_compra(usuario) # Funcion para pedir datos para realizar una compra
 
         if nombre_marca == -1:
             finalizar_compra = True
@@ -306,9 +380,9 @@ def encargar_autos():
         #---------------------- Confirmación de compra --------------------------------------------
         
         modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice]
-        crear_registro(None,"Modelo_seleccionado", modelo_seleccionado["nombre"])
+        crear_registro(usuario,"Modelo_seleccionado", modelo_seleccionado["nombre"])
         modelo_seleccionado["color"] = color_seleccionado
-        crear_registro(None,"Color_seleccionado", color_seleccionado)
+        crear_registro(usuario,"Color_seleccionado", color_seleccionado)
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
         print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado['nombre']} - {nombre_marca} - {nombre_tipo}")
@@ -320,20 +394,22 @@ def encargar_autos():
 
         if decision == 1:
             mostrar_resumen(encargo_data)
-
+            crear_registro(usuario, "Ver resumen", "Sí")
             print("¿Desea pasar a finalizar la operación? ")
             mostrar_opciones_disponibles(["Sí", "No (Encargar un nuevo vehículo)"])
             
             respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2))
 
             finalizar_compra = respuesta == 1
+            crear_registro(usuario, "Finalizar compra", "Sí" if finalizar_compra else "No")
         else:
+            crear_registro(usuario, "Ver resumen", "No")
             finalizar_compra = True # Pasa a la parte de finalizar compra si el usuario ingresa 2
-
+            crear_registro(usuario, "Finalizar compra", "Sí")
     return encargo_data
 
 
-def aplicar_descuento_precio_final():
+def aplicar_descuento_precio_final(usuario):
        """Función que se basa en un juego donde si el usuario gana, obtiene un descuento sobre el monto final de la compra"""
 
        aplicar_descuento = False
@@ -343,11 +419,11 @@ def aplicar_descuento_precio_final():
 
        if des == 2: 
               print("Como usted desee.")
-              crear_registro(None,"Descuento", "No")
+              crear_registro(usuario,"Descuento", "No")
        else: 
               print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligió el programa usted se gana el descuento asi de facil.")
               ran = rn.randint(1,5)
-              crear_registro(None,"descuento", "Sí")
+              crear_registro(usuario,"descuento", "Sí")
               numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(5))
               
               if numran != ran:
@@ -395,77 +471,3 @@ def manejar_apertura_archivo(direccion, modo_apertura):
         return None
 
     return archivo
-
-def register():
-    dni_existentes = []
-    try:
-        archivo=open("usuarios.csv", "r", encoding="utf-8")
-        for i,linea in enumerate(archivo):
-            if i != 0:
-                partes = linea.strip().split(",")
-                dni_existentes.append(partes[0].strip())      
-        archivo.close()
-    except FileNotFoundError:
-        print("No se encontró el archivo usuarios.csv.")
-    while True:
-        dni = verificar_numero_valido("Ingrese su DNI: ", rango = range(1000000,99999999))
-        if str(dni) in dni_existentes:
-            print("Este DNI ya esta registrado. Intente iniciar sesión o use otro DNI.")
-        else:
-            break
-    imprimir_separador()
-    usuario = input("Ingrese su nombre de usuario: ")
-    imprimir_separador()
-    password = input("Ingrese su contraseña: ")
-    imprimir_separador()
-    archivo = open("usuarios.csv", "a", encoding="UTF-8")
-    archivo.write(f"{dni}, {usuario}, {password}, {0}\n")
-    print("Su registro ha sido exitoso, disfrute de su compra")
-    imprimir_separador()
-    archivo.close()
-
-
-def login():
-    encontrado = False
-    while True:
-        dni_ingreso=input("Ingrese su DNI o ingrese -1 para volver atrás: ").strip()
-        imprimir_separador()
-        if int(dni_ingreso)==-1:
-             break
-        contra=input("Ingrese su contraseña: ").strip()
-        imprimir_separador()
-        archivo=manejar_apertura_archivo("usuarios.csv", "r")
-        
-        for i, linea in enumerate(archivo):
-                if i == 0:
-                    continue
-
-                partes = linea.strip().split(",")
-
-                dni, nombre, contraseña, es_admin = [p.strip() for p in partes]
-
-                if dni == dni_ingreso and contraseña == contra:
-                    encontrado = True
-                    if es_admin == "1":
-                        print(f"🔥😎 PANEL DE ADMINISTRADOR ({nombre}) 😎🔥")
-                        imprimir_separador()
-                    else:
-                        print(f"Bienvenido/a nuevamente, {nombre}")
-                        imprimir_separador()
-        archivo.close()
-        break
-    return encontrado
-
-def menu_inicio():
-    while True:
-        opciones_disponibles = ["Registrarse","Logearse"]
-        print('Bienvenido a Schipani Motors Sport, elija una opcion.')
-        mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(2))
-        
-        if opcion == 1:
-            register()
-            break
-        elif opcion == 2:
-            login()
-            break
