@@ -431,3 +431,17 @@ def login():
         archivo.close()
         break
     return encontrado
+
+def menu_inicio():
+    while True:
+        opciones_disponibles = ["Registrarse","Logearse"]
+        print('Bienvenido a Schipani Motors Sport, elija una opcion.')
+        mostrar_opciones_disponibles(opciones_disponibles)
+        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(2))
+        
+        if opcion == 1:
+            register()
+            break
+        elif opcion == 2:
+            login()
+            break

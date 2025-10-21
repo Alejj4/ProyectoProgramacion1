@@ -11,18 +11,7 @@ def main():
     funcion.calcular_precios_promedios_tipo()
 
     funcion.imprimir_separador()
-    while True:
-        opciones_disponibles = ["Registrarse","Logearse"]
-        print('Bienvenido a Schipani Motors Sport, elija una opcion.')
-        funcion.mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = funcion.verificar_numero_valido("Ingrese una opción: ", rango=range(2))
-        
-        if opcion == 1:
-            funcion.register()
-            break
-        elif opcion == 2:
-            funcion.login()
-            break
+    funcion.menu_inicio()
     encargo_data = funcion.encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
     
     print("Finalizando operacion")
