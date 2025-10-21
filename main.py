@@ -11,8 +11,8 @@ def main():
     funcion.calcular_precios_promedios_tipo()
 
     funcion.imprimir_separador()
-    usuario = funcion.menu_inicio()
-    encargo_data = funcion.encargar_autos(usuario) # La totalidad de autos que el usuario seleccionó y va a comprar
+    usuario,dni = funcion.menu_inicio()
+    encargo_data = funcion.encargar_autos(usuario,dni) # La totalidad de autos que el usuario seleccionó y va a comprar
     
     print("Finalizando operacion")
     

@@ -29,7 +29,7 @@ def verificar_numero_valido(mensaje_input, rango=None):
 def register():
     dni_existentes = []
     try:
-        archivo=open("usuarios.csv", "r", encoding="utf-8")
+        archivo=manejar_apertura_archivo("usuarios.csv", "r")
         for i,linea in enumerate(archivo):
             if i != 0:
                 partes = linea.strip().split(",")
@@ -48,20 +48,21 @@ def register():
     imprimir_separador()
     password = input("Ingrese su contraseña: ")
     imprimir_separador()
-    archivo = open("usuarios.csv", "a", encoding="UTF-8")
+    archivo = manejar_apertura_archivo("usuarios.csv", "a")
     archivo.write(f"{dni}, {usuario}, {password}, {0}\n")
     print("Su registro ha sido exitoso, disfrute de su compra")
     imprimir_separador()
     archivo.close()
-    return usuario
-
+    return usuario,dni
 
 def login():
     usuario = None
+    dni = None
     while True:
         dni_ingreso=input("Ingrese su DNI o ingrese -1 para volver atrás: ").strip()
         imprimir_separador()
         if int(dni_ingreso)==-1:
+             menu_inicio()
              break
         contra=input("Ingrese su contraseña: ").strip()
         imprimir_separador()
@@ -77,6 +78,7 @@ def login():
 
                 if dni == dni_ingreso and contraseña == contra:
                     usuario = nombre
+                    dni_user = dni
                     if es_admin == "1":
                         print(f"🔥😎 PANEL DE ADMINISTRADOR ({nombre}) 😎🔥")
                         imprimir_separador()
@@ -85,18 +87,18 @@ def login():
                         imprimir_separador()
         archivo.close()
         break
-    return usuario
+    return usuario, dni_user
 
 def crear_registro(usuario,accion,valor):
     registro = manejar_apertura_archivo("log.txt","a")
     fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario} 🤑 | {accion}: {valor} \n"
     registro.write(f"{registro_entrada} \n")
+    registro.close()
     return usuario,accion,valor
 
 def imprimir_separador():
     print("-"*78)
-
 
 def mostrar_matriz(matriz):
     esquina = 'Marcas/Tipo'
@@ -117,11 +119,9 @@ def mostrar_matriz(matriz):
             print(str(fil).ljust(ancho), end='')
         print()
 
-
 def mostrar_opciones_disponibles(datos):
     for i, dato in enumerate(datos):
         print(f"{i + 1} - {dato}")
-
 
 def desplegar_menu_informes():
     informes_disponibles = ["Los 3 autos más caros y baratos.", "Los autos más y menos vendidos.", "DNI de los clientes."]
@@ -129,8 +129,6 @@ def desplegar_menu_informes():
     print("A continuación se presentan los distintos informes que puede consultar:")
     for i, informe in enumerate(informes_disponibles):
         print(f"{i + 1} - {informe}")
-
-
 
 def manejar_apertura_archivo(direccion, modo_apertura):
     try:
@@ -140,7 +138,6 @@ def manejar_apertura_archivo(direccion, modo_apertura):
         return None
     
     return archivo
-
 
 def completar_archivo_stock():
 
@@ -168,8 +165,7 @@ def completar_archivo_stock():
         archivo_autos.close()
 
 def calcular_precios_promedios_tipo():
-
-    
+   
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
     archivo_precios_promedios = open("precios_promedios.csv", "wt", encoding="UTF-8")
 
@@ -203,7 +199,6 @@ def calcular_precios_promedios_tipo():
         archivo_precios_promedios.close()
         return matriz_precios_promedios
     
-
 def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
     """Funcion dedicada a pedirle un dato al usuario para luego
        poder mostrarle al usuario las opciones de modelos en base
@@ -211,7 +206,6 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
     mostrar_opciones_disponibles(opciones_disponibles)
     dato = verificar_numero_valido(mensaje_input, rango=range(len(opciones_disponibles)))
     return dato - 1  
-
 
 def menu_inicio():
     while True:
@@ -221,13 +215,13 @@ def menu_inicio():
         opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(2))
         
         if opcion == 1:
-            usuario = register()
+            usuario,dni = register()
             crear_registro(usuario,"Registro", "OK")
-            return usuario
+            return usuario,dni
         elif opcion == 2:
-            usuario = login()
+            usuario,dni = login()
             crear_registro(usuario,"Login","OK")
-            return usuario        
+            return usuario, dni       
         
 def pedir_datos_compra(usuario):
     """Funcion encargada de pedir los datos de la marca, el tipo y modelo exacto deseados por el usuario"""
@@ -287,7 +281,6 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
     archivo_stock.close()
     return disponibles
 
-
 def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
     """Funcion para mostrar los modelos que disponibles segun los datos que se le pasen"""
 
@@ -308,7 +301,6 @@ def desplegar_menu_de_catalogo():
     
     mostrar_matriz(matriz_precios_promedios)
 
-
 def mostrar_resumen(encargo_data):
     imprimir_separador()
     
@@ -322,9 +314,8 @@ def mostrar_resumen(encargo_data):
 
     imprimir_separador()
 
-def encargar_autos(usuario):
+def encargar_autos(usuario,dni):
     """Funcion que maneja todo lo referido al encargo de los autos que un usuario va a comprar"""
-
     finalizar_compra = False
 
     encargo_data = {
@@ -387,8 +378,6 @@ def encargar_autos(usuario):
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
         print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado['nombre']} - {nombre_marca} - {nombre_tipo}")
 
-        
-
         mostrar_opciones_disponibles(["Ver resumen", "Finalizar operación"])
         decision = verificar_numero_valido("Ingrese la opción deseada: ", rango=range(2))
 
@@ -402,12 +391,15 @@ def encargar_autos(usuario):
 
             finalizar_compra = respuesta == 1
             crear_registro(usuario, "Finalizar compra", "Sí" if finalizar_compra else "No")
+            if finalizar_compra and len(encargo_data["modelos_seleccionados"]) > 0:
+                    actualizar_clientes(dni)
         else:
             crear_registro(usuario, "Ver resumen", "No")
             finalizar_compra = True # Pasa a la parte de finalizar compra si el usuario ingresa 2
             crear_registro(usuario, "Finalizar compra", "Sí")
+            if len(encargo_data["modelos_seleccionados"]) > 0:
+                actualizar_clientes(dni)
     return encargo_data
-
 
 def aplicar_descuento_precio_final(usuario):
        """Función que se basa en un juego donde si el usuario gana, obtiene un descuento sobre el monto final de la compra"""
@@ -471,3 +463,30 @@ def manejar_apertura_archivo(direccion, modo_apertura):
         return None
 
     return archivo
+
+def actualizar_clientes(dni_usuario: str):
+    archivo = manejar_apertura_archivo("clientes.csv", "r")
+    clientes_dic = {}
+
+    if archivo is not None:
+        for i, linea in enumerate(archivo):
+            if i == 0:  
+                continue
+            partes = linea.strip().split(",")
+            if len(partes) == 2 and partes[0] != "":
+                dni_leido = partes[0].strip()
+                compras = int(partes[1].strip())
+                clientes_dic[dni_leido] = compras
+        archivo.close()
+
+    if dni_usuario in clientes_dic:
+        clientes_dic[dni_usuario] = clientes_dic[dni_usuario] + 1
+    else:
+        clientes_dic[dni_usuario] = 1
+
+    clientes = manejar_apertura_archivo("clientes.csv", "w")
+    clientes.write("dni,compras\n")
+    for clave in clientes_dic:
+        valor = clientes_dic[clave]
+        clientes.write(f"{clave},{valor}\n")
+    clientes.close()
