@@ -356,7 +356,7 @@ def aplicar_descuento_precio_final():
                     print("¡Felicitaciones! Su numero coincide, usted se gano un descuento del 20%.")
                     aplicar_descuento = True
        return aplicar_descuento
-def dniNorep(dni):
+"""def dniNorep(dni):
     dni_existentes = []
     try:
         archivo=open("usuarios.csv", "r", encoding="utf-8")
@@ -368,43 +368,33 @@ def dniNorep(dni):
     except FileNotFoundError:
         print("No se encontró el archivo usuarios.csv.")
      
-    if dni not in dni
+    if dni not in dni"""
 
 def completar_clientes():
-    dni_existentes = []
-    try:
-        archivo=open("usuarios.csv", "r", encoding="utf-8")
-        for i,linea in enumerate(archivo):
-            if i != 0:
-                partes = linea.strip().split(",")
-                dni_existentes.append(partes[0].strip())      
-        archivo.close()
-    except FileNotFoundError:
-        print("No se encontró el archivo usuarios.csv.")
+    archivo = open("usuarios.csv", "wt", encoding="UTF-8")
 
     fake = Faker('es_AR')
 
     archivo.write("dni, nombre, contraseña, es_admin\n")
-    
-    while len(dni_existentes)<10:
+
+    for i in range(10):
         dni = random.randint(10000000, 99999999)
-        if dni not in dni_existentes:
-        
-            nombre = fake.name() if (i != 0 and i != 1) else ("Tizhgiano Schipani" if i == 0 else "Alfonso Schipani") # agregaer vaidacion tiago
-            password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
-            es_admin = 1 if i <= 1 else 0
-            archivo.write(f"{dni}, {nombre}, {password},{es_admin}\n")
-            try:
-                archivo=open("usuarios.csv", "r", encoding="utf-8")
-                for i,linea in enumerate(archivo):
-                     if i != 0:
-                        partes = linea.strip().split(",")
-                        dni_existentes.append(partes[0].strip())      
-                archivo.close()
-            except FileNotFoundError:
-                print("No se encontró el archivo usuarios.csv.")
+
+        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani") # agregaer vaidacion tiago
+        password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
+        es_admin = 1 if i <= 1 else 0
+        archivo.write(f"{dni}, {nombre}, {password},{es_admin}\n")
 
     archivo.close()
+
+def manejar_apertura_archivo(direccion, modo_apertura):
+    try:
+        archivo = open(direccion, modo_apertura, encoding="UTF-8") 
+    except FileNotFoundError:
+        print("El archivo no ha sido encontrado, suspendiendo operacion...")
+        return None
+
+    return archivo
 
 def register():
     dni_existentes = []
