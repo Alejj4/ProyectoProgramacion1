@@ -25,8 +25,7 @@ def verificar_numero_valido(mensaje_input, rango=None):
             imprimir_separador()
 
     return dato
-
-def register():
+def dni_existe():
     dni_existentes = []
     try:
         archivo=manejar_apertura_archivo("usuarios.csv", "r")
@@ -39,6 +38,13 @@ def register():
         print("No se encontró el archivo usuarios.csv.")
     while True:
         dni = verificar_numero_valido("Ingrese su DNI o -1 para volver para atras: ", rango = range(1000000,99999999))
+        break
+    return dni,dni_existentes
+
+def register():
+    
+    while True:
+        dni,dni_existentes=dni_existe()
         if str(dni) in dni_existentes:
             print("Este DNI ya esta registrado. Intente iniciar sesión o use otro DNI.")
         else:
@@ -48,7 +54,7 @@ def register():
     imprimir_separador()
     password = input("Ingrese su contraseña: ")
     imprimir_separador()
-    archivo = manejar_apertura_archivo("usuarios.csv", "a")
+    archivo = manejar_apertura_archivo("usuarios.csv", "at")
     archivo.write(f"{dni}, {usuario}, {password}, {0}\n")
     print("Su registro ha sido exitoso, disfrute de su compra")
     imprimir_separador()
@@ -57,16 +63,19 @@ def register():
 
 def login():
     usuario = None
-    dni = None
+    dni_user = None
     while True:
-        dni_ingreso=input("Ingrese su DNI o ingrese -1 para volver atrás: ").strip()
+        dni_ingreso,dni_existentes=dni_existe()
         imprimir_separador()
         if int(dni_ingreso)==-1:
              menu_inicio()
              break
+            
+        
         contra=input("Ingrese su contraseña: ").strip()
         imprimir_separador()
         archivo=manejar_apertura_archivo("usuarios.csv", "r")
+        encontrado=False
         
         for i, linea in enumerate(archivo):
                 if i == 0:
@@ -76,18 +85,28 @@ def login():
 
                 dni, nombre, contraseña, es_admin = [p.strip() for p in partes]
 
-                if dni == dni_ingreso and contraseña == contra:
+                if dni == str(dni_ingreso) and contraseña == contra:
                     usuario = nombre
                     dni_user = dni
+                    encontrado=True
                     if es_admin == "1":
                         print(f"🔥😎 PANEL DE ADMINISTRADOR ({nombre}) 😎🔥")
                         imprimir_separador()
                     else:
                         print(f"Bienvenido/a nuevamente, {nombre}")
                         imprimir_separador()
+                    break
+                    
         archivo.close()
+        if not encontrado:  
+            print("DNI o contraseña incorrectos. Intente nuevamente.")
+            imprimir_separador()
+            continue 
         break
     return usuario, dni_user
+
+
+
 
 def crear_registro(usuario,accion,valor):
     registro = manejar_apertura_archivo("log.txt","a")
