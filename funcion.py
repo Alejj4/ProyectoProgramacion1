@@ -228,10 +228,10 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
 
 def menu_inicio():
     while True:
-        opciones_disponibles = ["Registrarse","Logearse"]
+        opciones_disponibles = ["Registrarse","Logearse",'Cambiar contrasña']
         print('Bienvenido a Schipani Motors Sport, elija una opcion.')
         mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(2))
+        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(3))
         
         if opcion == 1:
             usuario,dni = register()
@@ -241,6 +241,8 @@ def menu_inicio():
             usuario,dni = login()
             crear_registro(usuario,"Login","OK")
             return usuario, dni       
+        elif opcion == 3:
+            cambiar_contrasena()
         
 def pedir_datos_compra(usuario):
     """Funcion encargada de pedir los datos de la marca, el tipo y modelo exacto deseados por el usuario"""
@@ -443,19 +445,7 @@ def aplicar_descuento_precio_final(usuario):
                     print("¡Felicitaciones! Su numero coincide, usted se gano un descuento del 20%.")
                     aplicar_descuento = True
        return aplicar_descuento
-"""def dniNorep(dni):
-    dni_existentes = []
-    try:
-        archivo=open("usuarios.csv", "r", encoding="utf-8")
-        for i,linea in enumerate(archivo):
-            if i != 0:
-                partes = linea.strip().split(",")
-                dni_existentes.append(partes[0].strip())      
-        archivo.close()
-    except FileNotFoundError:
-        print("No se encontró el archivo usuarios.csv.")
-     
-    if dni not in dni"""
+
 
 def completar_clientes():
     archivo = open("usuarios.csv", "wt", encoding="UTF-8")
@@ -510,59 +500,38 @@ def actualizar_clientes(dni_usuario: str):
         clientes.write(f"{clave},{valor}\n")
     clientes.close()
 
-'''import funcion as fn
-import os
-def cambiar_contrasena():
-    dni = int(input('ingrese su dni '))
-    contra_vieja = input('Ingrese su contrasena vieja ')
-    archivo = fn.manejar_apertura_archivo('clientes.csv','r')
-    dnilista = []
-    contrasenaLista = []
-    linea = archivo.readline()
-    while linea:
-        linea = archivo.readline().strip()
-        dni3 = linea.split(', ')
-        if len(dni3)>=3:
+
+def cambiar_contrasena(): 
+    usuarios = [] 
+    dniabuscar = int(input('ingrese su dni ')) 
+    contra_vieja = input('Ingrese su contrasena vieja ') 
+    archivo = manejar_apertura_archivo('usuarios.csv','r') 
+    for i, linea in enumerate(archivo): 
+        if i != 0: 
+            datauser = linea.split(',') 
+            usuarios.append({ 'dni':datauser[0].strip(), 
+                            'nombre':datauser[1].strip(), 
+                            'contraseña':datauser[2].strip(), 
+                            'es_admin':datauser[3].strip() })    
+    archivo.close()     
+    while True:
+        for usuario in usuarios:
+            if usuario['dni'] == str(dniabuscar):
+                try:
+                    contraNueva = input('ingrese su nueva contrasena ')
+                    contraCheq = input('ingrese de nuevo su contrasena ')
+                    if contraNueva == contraCheq:         
+                        usuario['contraseña'] = contraNueva         
+                    else:
+                        raise ValueError()
+                except ValueError:
+                    print('su contrasena no coincide')
             
-            dnilista.append(int(dni3[0]))
-            
-            contrasenaLista.append(dni3[2])
-            
-        print(dni3)
-        print(dnilista)
-        print(contrasenaLista)
-    while True: 
-        if dni not in dnilista:
-            try:
-                opcion = int(input('su dni no se encuentra ingresado, ingrese 1 para login, 2 para volver a escribir su DNI '))
-                if opcion == 2:
-                    dni = int(input('ingrese su dni '))
-                    contra_vieja = input('Ingrese su contrasena vieja ')
-                    continue
-                elif opcion == 1:
-                    None
-                else:
-                    raise ValueError()
-            except  ValueError:
-                print('ingrese un numero valido')
         
-        indice = dnilista.index(int(dni))
-        if contra_vieja != contrasenaLista[indice]:
-            print('su contrasena no coincide')
-        else:
-            break
-    try:
-        contraNueva = input('ingrese su nueva contrasena ')
-        contraCheq = input('ingrese de nuevo su contrasena ')
-        if contraNueva == contraCheq:
-            None #preguntarle a lauti
-        else:
-            raise ValueError()
-    except ValueError:
-        print('su contrasena no coincide')
-        
+        break
 
-    
-
-
-cambiar_contrasena()'''
+    with open("usuarios.csv", "wt", encoding="UTF-8") as archivo:
+        archivo.write('dni, nombre, contraseña, es_admin\n')
+        for usuario in usuarios:
+            archivo.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
+    print('su contrasena fue cambiada con exituwu')
