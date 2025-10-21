@@ -38,7 +38,7 @@ def register():
     except FileNotFoundError:
         print("No se encontró el archivo usuarios.csv.")
     while True:
-        dni = verificar_numero_valido("Ingrese su DNI: ", rango = range(1000000,99999999))
+        dni = verificar_numero_valido("Ingrese su DNI o -1 para volver para atras: ", rango = range(1000000,99999999))
         if str(dni) in dni_existentes:
             print("Este DNI ya esta registrado. Intente iniciar sesión o use otro DNI.")
         else:
@@ -62,6 +62,7 @@ def login():
         dni_ingreso=input("Ingrese su DNI o ingrese -1 para volver atrás: ").strip()
         imprimir_separador()
         if int(dni_ingreso)==-1:
+             menu_inicio()
              break
         contra=input("Ingrese su contraseña: ").strip()
         imprimir_separador()
