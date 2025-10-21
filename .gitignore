@@ -1,6 +1,7 @@
 *.pyc
 __pycache__/
 pruebas.py
+prueba.py
 
 env/
 venv/
