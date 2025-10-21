@@ -490,3 +490,60 @@ def actualizar_clientes(dni_usuario: str):
         valor = clientes_dic[clave]
         clientes.write(f"{clave},{valor}\n")
     clientes.close()
+
+'''import funcion as fn
+import os
+def cambiar_contrasena():
+    dni = int(input('ingrese su dni '))
+    contra_vieja = input('Ingrese su contrasena vieja ')
+    archivo = fn.manejar_apertura_archivo('clientes.csv','r')
+    dnilista = []
+    contrasenaLista = []
+    linea = archivo.readline()
+    while linea:
+        linea = archivo.readline().strip()
+        dni3 = linea.split(', ')
+        if len(dni3)>=3:
+            
+            dnilista.append(int(dni3[0]))
+            
+            contrasenaLista.append(dni3[2])
+            
+        print(dni3)
+        print(dnilista)
+        print(contrasenaLista)
+    while True: 
+        if dni not in dnilista:
+            try:
+                opcion = int(input('su dni no se encuentra ingresado, ingrese 1 para login, 2 para volver a escribir su DNI '))
+                if opcion == 2:
+                    dni = int(input('ingrese su dni '))
+                    contra_vieja = input('Ingrese su contrasena vieja ')
+                    continue
+                elif opcion == 1:
+                    None
+                else:
+                    raise ValueError()
+            except  ValueError:
+                print('ingrese un numero valido')
+        
+        indice = dnilista.index(int(dni))
+        if contra_vieja != contrasenaLista[indice]:
+            print('su contrasena no coincide')
+        else:
+            break
+    try:
+        contraNueva = input('ingrese su nueva contrasena ')
+        contraCheq = input('ingrese de nuevo su contrasena ')
+        if contraNueva == contraCheq:
+            None #preguntarle a lauti
+        else:
+            raise ValueError()
+    except ValueError:
+        print('su contrasena no coincide')
+        
+
+    
+
+
+cambiar_contrasena()'''
