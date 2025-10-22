@@ -532,6 +532,7 @@ def cambiar_contrasena():
 
     with open("usuarios.csv", "wt", encoding="UTF-8") as archivo:
         archivo.write('dni, nombre, contraseña, es_admin\n')
+        print("HOla")
         for usuario in usuarios:
             archivo.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
     print('su contrasena fue cambiada con exituwu')
