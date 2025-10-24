@@ -232,7 +232,7 @@ def menu_inicio():
         print('Bienvenido a Schipani Motors Sport, elija una opcion.')
         mostrar_opciones_disponibles(opciones_disponibles)
         opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(3))
-        
+        imprimir_separador()
         if opcion == 1:
             usuario,dni = register()
             crear_registro(usuario,"Registro", "OK")
@@ -250,6 +250,7 @@ def pedir_datos_compra(usuario):
     marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
 
     marca_indice = pedir_dato_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
+    imprimir_separador()
     if not marca_indice == -1:
         nombre_marca = marcas_disponibles[marca_indice]
         crear_registro(usuario,"Marca_seleccionada", nombre_marca)
@@ -300,7 +301,24 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
             })
 
     archivo_stock.close()
+
+    #total_disponibles = contar_modelos_disponibles(disponibles)
+    imprimir_separador()
+    print(f"Total de modelos disponibles en {nombre_marca} - {nombre_tipo}: {total_disponibles}")
+    imprimir_separador()
     return disponibles
+
+"""def contar_modelos_disponibles(modelos, i=0):
+    #funcion recursiva
+    if i==len(modelos):
+        return 0
+    stock = modelos[i].get("stock", 0)
+    subtotal=contar_modelos_disponibles(modelos, i + 1)
+    if stock>0:
+        return 1+subtotal
+    else:
+        return subtotal"""
+
 
 def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
     """Funcion para mostrar los modelos que disponibles segun los datos que se le pasen"""
@@ -377,7 +395,7 @@ def encargar_autos(usuario,dni):
         #---------------------- Selección de modelo --------------------------------------------
 
         modelo_seleccionado_indice = pedir_dato_de_autos("Seleccione el modelo que mas le interese. Si desea volver al menú de inicio, ingrese -1: " , opciones_disponibles=[modelo["nombre"] for modelo in modelos_disponibles])
-
+        imprimir_separador()
         # Vuelve al menú del inicio
         if modelo_seleccionado_indice == -1:
             continue
@@ -387,6 +405,7 @@ def encargar_autos(usuario,dni):
         colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
         mostrar_opciones_disponibles(colores_disponibles)
         color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(len(colores_disponibles))) - 1
+        imprimir_separador()
         color_seleccionado = colores_disponibles[color_indice]
         
         #---------------------- Confirmación de compra --------------------------------------------
@@ -536,3 +555,5 @@ def cambiar_contrasena():
         for usuario in usuarios:
             archivo.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
     print('su contrasena fue cambiada con exituwu')
+
+
