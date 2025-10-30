@@ -228,7 +228,7 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
 
 def menu_inicio():
     while True:
-        opciones_disponibles = ["Registrarse","Logearse",'Cambiar contrasña']
+        opciones_disponibles = ["Registrarse","Logearse",'Cambiar contrasña','salir']
         print('Bienvenido a Schipani Motors Sport, elija una opcion.')
         mostrar_opciones_disponibles(opciones_disponibles)
         opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(3))
@@ -243,6 +243,8 @@ def menu_inicio():
             return usuario, dni       
         elif opcion == 3:
             cambiar_contrasena()
+        elif opcion == 4:
+            break
         
 def pedir_datos_compra(usuario):
     """Funcion encargada de pedir los datos de la marca, el tipo y modelo exacto deseados por el usuario"""
@@ -302,13 +304,13 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
 
     archivo_stock.close()
 
-    #total_disponibles = contar_modelos_disponibles(disponibles)
+    total_disponibles = contar_modelos_disponibles(disponibles)
     imprimir_separador()
     print(f"Total de modelos disponibles en {nombre_marca} - {nombre_tipo}: {total_disponibles}")
     imprimir_separador()
     return disponibles
 
-"""def contar_modelos_disponibles(modelos, i=0):
+def contar_modelos_disponibles(modelos, i=0):
     #funcion recursiva
     if i==len(modelos):
         return 0
@@ -317,7 +319,7 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
     if stock>0:
         return 1+subtotal
     else:
-        return subtotal"""
+        return subtotal
 
 
 def mostrar_modelos_disponibles(nombre_marca, nombre_tipo, modelos_disponibles):
@@ -472,7 +474,7 @@ def completar_clientes():
     fake = Faker('es_AR')
 
     archivo.write("dni, nombre, contraseña, es_admin\n")
-
+    archivo.write("46287944, pepe, pepe, 0\n")
     for i in range(10):
         dni = random.randint(10000000, 99999999)
 
