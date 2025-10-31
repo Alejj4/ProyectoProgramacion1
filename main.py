@@ -1,8 +1,26 @@
 import funcion
+import os
+
+def generar_directorio(nombre_directorio):
+    
+    # Obteniendo la ruta actual del archivo
+    ruta_actual = os.getcwd()
+
+    # Obteniendo la ruta completa donde deberia estar el archivo
+    ruta_completa = os.path.join(ruta_actual, nombre_directorio)
+    
+    # Verificar que si el archivo ya existe
+    directorio_existente = os.path.exists(ruta_completa)
+
+    if not directorio_existente:
+        os.makedirs(ruta_completa)
 
 def main():
     
-    ventas = open("ventas.csv", "wt", encoding="UTF-8")
+    generar_directorio("archivos")
+    generar_directorio("reportes")
+
+    ventas = funcion.manejar_apertura_archivo("ventas.csv", "wt", "archivos")
     ventas.write(f"Nombre, Equipamiento, Precio, Color \n")
     funcion.completar_clientes()
 
