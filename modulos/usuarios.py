@@ -100,33 +100,44 @@ def cambiar_contrasena():
                             'nombre':datauser[1].strip(), 
                             'contraseña':datauser[2].strip(), 
                             'es_admin':datauser[3].strip() })    
-    archivo.close()     
-    while True:
-        for usuario in usuarios:
-            if usuario['dni'] == str(dniabuscar):
-                try:
-                    contraNueva = input('Ingrese su nueva contraseña: ')
-                    contraCheq = input('Ingrese de nuevo su contraseña: ')
-                    if contraNueva == contraCheq:         
-                        usuario['contraseña'] = contraNueva         
-                    else:
-                        raise ValueError()
-                except ValueError:
-                    print('su contrasena no coincide')
-            
-        
-        break
-    
-    archivo_usuarios = manejar_apertura_archivo("usuarios.csv", "wt", "informes")
-    
-    archivo_usuarios.write('dni, nombre, contraseña, es_admin\n')
-    
+    archivo.close()
+
+    usuario_actualizado = None
+
     for usuario in usuarios:
-        archivo_usuarios.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
-    
-    archivo_usuarios.close()
-    
-    print('su contrasena fue cambiada con exito')
+        if usuario['dni'] == dniabuscar:
+            while True:
+                try:
+                    contraseña = input('Ingrese su nueva contraseña: ').strip()
+                    confirmacion_contraseña = input('Ingrese de nuevo su contraseña: ').strip()
+
+                    if contraseña != confirmacion_contraseña:
+                        raise ValueError
+                    
+                    
+                    usuario['contraseña'] = contraseña
+                    usuario_actualizado = usuario
+                    print('Su contraseña fue cambiada con éxito')
+                    
+                    break
+                except ValueError:
+                    print('Las contraseñas no coinciden, intente nuevamente')
+                    
+    if usuario_actualizado is not None:
+
+        archivo_usuarios = manejar_apertura_archivo("usuarios.csv", "wt", "informes")
+        archivo_usuarios.write('dni, nombre, contraseña, es_admin\n')
+        
+        for usuario in usuarios:
+            archivo_usuarios.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
+        
+        archivo_usuarios.close()
+
+        usuario, dni = usuario_actualizado['nombre'], usuario_actualizado['dni']
+    else:
+        usuario, dni = None, None
+
+    return usuario, dni
 
 
 def completar_clientes():
@@ -186,14 +197,18 @@ def menu_inicio():
         if opcion == 1:
             usuario,dni = register()
             crear_registro(usuario,"Registro", "OK")
-            return usuario,dni
+            break
         elif opcion == 2:
             usuario,dni = login()
             crear_registro(usuario,"Login","OK")
-            return usuario, dni       
+            break       
         elif opcion == 3:
-            cambiar_contrasena()
-        elif opcion == 4:
+            usuario, dni = cambiar_contrasena()
+            crear_registro(usuario, "Cambio contraseña", "OK" if usuario is not None else "WARNING")
             break
-  
+        elif opcion == 4:
+            usuario,dni = None, None
+            break
+
+    return usuario,dni
   
