@@ -154,7 +154,6 @@ def manejar_apertura_archivo(nombre_archivo, modo_apertura, directorio="archivos
     try:
         archivo = open(f"{directorio}/{nombre_archivo}", modo_apertura, encoding="UTF-8") 
     except FileNotFoundError:
-        print("El archivo no ha sido encontrado, suspendiendo operacion...")
         archivo = None
     
     return archivo
@@ -163,7 +162,7 @@ def completar_archivo_stock():
 
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
 
-    archivo_stock = manejar_apertura_archivo("reportes/stock.csv", "wt", "reportes")
+    archivo_stock = manejar_apertura_archivo("stock.csv", "wt", "reportes")
 
     if archivo_autos is not None:
 
@@ -187,7 +186,7 @@ def completar_archivo_stock():
 def calcular_precios_promedios_tipo():
    
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
-    archivo_precios_promedios = open("reportes/precios_promedios.csv", "wt", encoding="UTF-8")
+    archivo_precios_promedios = open("informes/precios_promedios.csv", "wt", encoding="UTF-8")
 
     archivo_precios_promedios.write("marca, tipo, promedio\n")
 
@@ -531,8 +530,8 @@ def cambiar_contrasena():
         for usuario in usuarios:
             if usuario['dni'] == str(dniabuscar):
                 try:
-                    contraNueva = input('ingrese su nueva contrasena ')
-                    contraCheq = input('ingrese de nuevo su contrasena ')
+                    contraNueva = input('Ingrese su nueva contraseña: ')
+                    contraCheq = input('Ingrese de nuevo su contraseña: ')
                     if contraNueva == contraCheq:         
                         usuario['contraseña'] = contraNueva         
                     else:
@@ -543,7 +542,7 @@ def cambiar_contrasena():
         
         break
 
-    with open("reportes/usuarios.csv", "wt", encoding="UTF-8") as archivo:
+    with open("informes/usuarios.csv", "wt", encoding="UTF-8") as archivo:
         archivo.write('dni, nombre, contraseña, es_admin\n')
         
         for usuario in usuarios:

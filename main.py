@@ -13,7 +13,7 @@ def generar_directorio(nombre_directorio):
     directorio_existente = os.path.exists(ruta_completa)
 
     if not directorio_existente:
-        os.makedirs(ruta_completa)
+        os.makedirs(ruta_completa, exist_ok=True)
 
 def main():
     
