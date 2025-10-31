@@ -3,6 +3,7 @@ import json
 import random
 from faker import Faker
 import datetime
+
 def verificar_numero_valido(mensaje_input, rango=None):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
@@ -149,12 +150,12 @@ def desplegar_menu_informes():
     for i, informe in enumerate(informes_disponibles):
         print(f"{i + 1} - {informe}")
 
-def manejar_apertura_archivo(direccion, modo_apertura):
+def manejar_apertura_archivo(nombre_archivo, modo_apertura, directorio="archivos"):
     try:
-        archivo = open(direccion, modo_apertura, encoding="UTF-8") 
+        archivo = open(f"{directorio}/{nombre_archivo}", modo_apertura, encoding="UTF-8") 
     except FileNotFoundError:
         print("El archivo no ha sido encontrado, suspendiendo operacion...")
-        return None
+        archivo = None
     
     return archivo
 
@@ -162,7 +163,7 @@ def completar_archivo_stock():
 
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
 
-    archivo_stock = open("stock.csv", "wt", encoding="UTF-8")
+    archivo_stock = manejar_apertura_archivo("reportes/stock.csv", "wt", "reportes")
 
     if archivo_autos is not None:
 
@@ -186,7 +187,7 @@ def completar_archivo_stock():
 def calcular_precios_promedios_tipo():
    
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
-    archivo_precios_promedios = open("precios_promedios.csv", "wt", encoding="UTF-8")
+    archivo_precios_promedios = open("reportes/precios_promedios.csv", "wt", encoding="UTF-8")
 
     archivo_precios_promedios.write("marca, tipo, promedio\n")
 
@@ -437,7 +438,7 @@ def encargar_autos(usuario,dni):
                     actualizar_clientes(dni)
         else:
             crear_registro(usuario, "Ver resumen", "No")
-            finalizar_compra = True # Pasa a la parte de finalizar compra si el usuario ingresa 2
+            finalizar_compra = True
             crear_registro(usuario, "Finalizar compra", "Sí")
             if len(encargo_data["modelos_seleccionados"]) > 0:
                 actualizar_clientes(dni)
@@ -469,7 +470,7 @@ def aplicar_descuento_precio_final(usuario):
 
 
 def completar_clientes():
-    archivo = open("usuarios.csv", "wt", encoding="UTF-8")
+    archivo = manejar_apertura_archivo("usuarios.csv", "wt", "archivos")
 
     fake = Faker('es_AR')
 
@@ -478,21 +479,12 @@ def completar_clientes():
     for i in range(10):
         dni = random.randint(10000000, 99999999)
 
-        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani") # agregaer vaidacion tiago
+        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani")
         password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
         es_admin = 1 if i <= 1 else 0
         archivo.write(f"{dni}, {nombre}, {password},{es_admin}\n")
 
     archivo.close()
-
-def manejar_apertura_archivo(direccion, modo_apertura):
-    try:
-        archivo = open(direccion, modo_apertura, encoding="UTF-8") 
-    except FileNotFoundError:
-        print("El archivo no ha sido encontrado, suspendiendo operacion...")
-        return None
-
-    return archivo
 
 def actualizar_clientes(dni_usuario: str):
     archivo = manejar_apertura_archivo("clientes.csv", "r")
@@ -551,11 +543,11 @@ def cambiar_contrasena():
         
         break
 
-    with open("usuarios.csv", "wt", encoding="UTF-8") as archivo:
+    with open("reportes/usuarios.csv", "wt", encoding="UTF-8") as archivo:
         archivo.write('dni, nombre, contraseña, es_admin\n')
-        print("HOla")
+        
         for usuario in usuarios:
             archivo.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
-    print('su contrasena fue cambiada con exituwu')
+    print('su contrasena fue cambiada con exito')
 
 
