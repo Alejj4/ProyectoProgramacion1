@@ -1,0 +1,95 @@
+import datetime
+import os
+
+def imprimir_separador():
+    print("-"*78)
+    
+
+def mostrar_opciones_disponibles(datos):
+    for i, dato in enumerate(datos):
+        print(f"{i + 1} - {dato}")
+        
+
+def verificar_numero_valido(mensaje_input, rango=None):
+    """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
+    
+    while True:
+        try:
+            dato = int(input(mensaje_input)) - 1
+
+            if rango is not None and not dato in rango:
+                raise IndexError("Opcion no disponible, por favor intente de nuevo")
+
+            dato += 1
+            break
+        except ValueError:
+            imprimir_separador()
+            print("El dato ingresado es inválido, el mismo debe ser un número")
+            imprimir_separador()
+        except IndexError as e:
+            imprimir_separador()
+            print(e)
+            imprimir_separador()
+
+    return dato
+
+
+def manejar_apertura_archivo(nombre_archivo, modo_apertura, directorio="archivos"):
+    try:
+        archivo = open(f"{directorio}/{nombre_archivo}", modo_apertura, encoding="UTF-8") 
+    except FileNotFoundError:
+        archivo = None
+    
+    return archivo
+
+
+def crear_registro(usuario,accion,valor):
+    registro = manejar_apertura_archivo("log.txt","a")
+    fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario} 🤑 | {accion}: {valor} \n"
+    registro.write(f"{registro_entrada} \n")
+    registro.close()
+    return usuario,accion,valor
+
+
+def mostrar_matriz(matriz):
+    esquina = 'Marcas/Tipo'
+    columnas = ['Hatchback', 'Sedan', 'Suv', 'PickUp']
+    filas = ['Toyota', 'Schipani', 'Chevrolet', 'Ford']
+    ancho = 15
+
+    # encabezado
+    print(esquina.ljust(ancho), end='')
+    for col in columnas:
+        print(col.ljust(ancho), end='')
+    print()
+
+    # filas
+    for i in range(len(filas)):
+        print(filas[i].ljust(ancho), end='')
+        for fil in matriz[i]:
+            print(str(fil).ljust(ancho), end='')
+        print()
+
+
+def desplegar_menu_informes():
+    informes_disponibles = ["Los 3 autos más caros y baratos.", "Los autos más y menos vendidos.", "DNI de los clientes."]
+
+    print("A continuación se presentan los distintos informes que puede consultar:")
+    for i, informe in enumerate(informes_disponibles):
+        print(f"{i + 1} - {informe}")
+
+
+def generar_directorio(nombre_directorio):
+    
+    # Obteniendo la ruta actual del archivo
+    ruta_actual = os.getcwd()
+
+    # Obteniendo la ruta completa donde deberia estar el archivo
+    ruta_completa = os.path.join(ruta_actual, nombre_directorio)
+    
+    # Verificar que si el archivo ya existe
+    directorio_existente = os.path.exists(ruta_completa)
+
+    if not directorio_existente:
+        os.makedirs(ruta_completa, exist_ok=True)
