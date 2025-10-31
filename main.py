@@ -12,7 +12,7 @@ def main():
     generar_directorio("informes")
 
     ventas_archivo = manejar_apertura_archivo("ventas.csv", "wt", "archivos")
-    ventas_archivo.write(f"Nombre, Equipamiento, Precio, Color \n")
+    ventas_archivo.write("Nombre, Equipamiento, Precio, Color \n")
     completar_clientes()
 
     completar_archivo_stock()

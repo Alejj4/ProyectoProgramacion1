@@ -2,7 +2,7 @@ import random
 
 from faker import Faker
 
-from .utils import imprimir_separador, manejar_apertura_archivo, mostrar_opciones_disponibles, crear_registro, verificar_numero_valido
+from modulos.utils import imprimir_separador, manejar_apertura_archivo, mostrar_opciones_disponibles, crear_registro, verificar_numero_valido
 
 
 

@@ -1,6 +1,6 @@
-import json, random
+from modulos.utils import manejar_apertura_archivo, mostrar_opciones_disponibles, verificar_numero_valido, imprimir_separador, crear_registro, mostrar_matriz
 
-from .utils import manejar_apertura_archivo, mostrar_opciones_disponibles, verificar_numero_valido, imprimir_separador, crear_registro, mostrar_matriz
+import json, random
 
 def completar_archivo_stock():
 

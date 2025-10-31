@@ -1,8 +1,8 @@
 import random as rn
 
-from .utils import imprimir_separador, verificar_numero_valido, mostrar_opciones_disponibles, crear_registro
-from .autos import desplegar_menu_de_catalogo, pedir_datos_compra, obtener_modelos_disponibles, mostrar_modelos_disponibles, pedir_dato_de_autos
-from .usuarios import actualizar_clientes
+from modulos.utils import imprimir_separador, verificar_numero_valido, mostrar_opciones_disponibles, crear_registro
+from modulos.autos import desplegar_menu_de_catalogo, pedir_datos_compra, obtener_modelos_disponibles, mostrar_modelos_disponibles, pedir_dato_de_autos
+from modulos.usuarios import actualizar_clientes
 
 
 
