@@ -1,9 +1,7 @@
 from modulos.autos import calcular_precios_promedios_tipo, completar_archivo_stock
-from modulos.compras import aplicar_descuento_precio_final, encargar_autos
 from modulos.usuarios import completar_clientes, menu_inicio
 from modulos.utils import generar_directorio, imprimir_separador, manejar_apertura_archivo
-
-
+from modulos.interfaces import interfaz_usuario, interfaz_admin
 
 
 def main():
@@ -11,37 +9,40 @@ def main():
     generar_directorio("archivos")
     generar_directorio("informes")
 
+    archivo_log = manejar_apertura_archivo("log.txt", "wt")
+    archivo_log.close()
+
     ventas_archivo = manejar_apertura_archivo("ventas.csv", "wt", "archivos")
     ventas_archivo.write("Nombre, Equipamiento, Precio, Color \n")
     completar_clientes()
+    ventas_archivo.close()
 
     completar_archivo_stock()
 
     calcular_precios_promedios_tipo()
 
     imprimir_separador()
-    usuario,dni = menu_inicio()
-    encargo_data = encargar_autos(usuario,dni) # La totalidad de autos que el usuario seleccionó y va a comprar
     
-    print("Finalizando operacion")
-    
-    imprimir_separador()
-    
-    if len(encargo_data["modelos_seleccionados"]) > 0:
-        aplicar_descuento = aplicar_descuento_precio_final(usuario)
-        
-        if aplicar_descuento:
-            monto_final = round(encargo_data["monto_total"]*0.80, 2)
-            encargo_data["monto_total"] = monto_final
+    while True:
+        usuario = menu_inicio()
 
-            print(f"El precio final con el descuento del 20% aplicado es de: {monto_final} mil dolares.")
-        for modelo in encargo_data["modelos_seleccionados"]:
-            ventas_archivo.write(f"{modelo['nombre']},{modelo['equipamiento']},{modelo['precio']},{modelo['color']} \n")
-        
-    else:
-        print("No se realizó ningún pedido")
+
+        if usuario is None: # Finaliza el programa
+            print("Finalizando el programa")
+            break
+
+        elif int(usuario["es_admin"]) == 1: # Inicia sesion un admin
+            interfaz_admin()
+            
+            imprimir_separador()
+
+        elif int(usuario["es_admin"]) == 0: # Inicia sesion un usuario normal
+            print(f"Bienvenido/a nuevamente, {usuario["nombre"]}")
+            interfaz_usuario()
+            imprimir_separador()
     
-    ventas_archivo.close()
+
+
 
 if __name__ == "__main__":
     main()
