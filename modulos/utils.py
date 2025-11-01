@@ -1,5 +1,6 @@
 import datetime
 import os
+import json
 
 def imprimir_separador():
     print("-"*78)
@@ -29,7 +30,7 @@ def obtener_datos_de_usuario_autenticado():
 
 def mostrar_opciones_disponibles(datos):
     for i, dato in enumerate(datos):
-        print(f"{i + 1} - {dato.capitalize()}")
+        print(f"{i + 1} - {str(dato).capitalize()}")
         
 
 def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no disponible, por favor intente de nuevo", opciones_disponibles=None, retornar_indice=False):
@@ -125,3 +126,11 @@ def generar_directorio(nombre_directorio):
 
     if not directorio_existente:
         os.makedirs(ruta_completa, exist_ok=True)
+
+
+def obtener_diccionario_autos():
+    archivo_autos = manejar_apertura_archivo("autos.json", "rt", "archivos")
+    autos_data = json.load(archivo_autos)
+
+    archivo_autos.close()
+    return autos_data
