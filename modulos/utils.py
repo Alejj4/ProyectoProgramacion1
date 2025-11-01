@@ -14,10 +14,10 @@ def obtener_datos_de_usuario_autenticado():
                 dni, nombre, contraseña, es_admin = linea.split(",")
 
                 usuario_data = {
-                    "dni":dni, 
-                    "nombre":nombre, 
-                    "contraseña":contraseña, 
-                    "es_admin":es_admin
+                    "dni":str(dni).strip(), 
+                    "nombre":str(nombre).strip(), 
+                    "contraseña":str(contraseña).strip(), 
+                    "es_admin":str(es_admin).strip()
                 }
 
     return usuario_data
