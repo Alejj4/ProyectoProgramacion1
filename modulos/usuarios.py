@@ -221,15 +221,15 @@ def menu_inicio():
         imprimir_separador()
         if opcion == 1:
             usuario = register()
-            crear_registro(usuario,"Registro", "OK")
+            crear_registro("Registro", "OK")
             break
         elif opcion == 2:
             usuario = login()
-            crear_registro(usuario,"Login","OK")
+            crear_registro("Login","OK")
             break       
         elif opcion == 3:
             usuario = cambiar_contrasena()
-            crear_registro(usuario, "Cambio contraseña", "OK" if usuario is not None else "WARNING")
+            crear_registro("Cambio contraseña", "OK" if usuario is not None else "WARNING")
         elif opcion == 4:
             usuario = None
             break
