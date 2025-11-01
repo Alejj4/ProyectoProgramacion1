@@ -6,7 +6,7 @@ from modulos.utils import imprimir_separador, manejar_apertura_archivo, mostrar_
 
 
 def rango_documento():
-    return range(1000000,99999999)
+    return range(1000000,10000000)
 
 def register():
     
@@ -92,51 +92,51 @@ def dni_existe():
     except FileNotFoundError:
         print("No se encontró el archivo usuarios.csv.")
     while True:
-        dni = verificar_numero_valido("Ingrese su DNI o -1 para volver para atras: ", rango=rango_documento(), mensaje_error="Documento invalido")
+        dni = verificar_numero_valido("Ingrese su DNI o -1 para volver: ", rango=rango_documento(), mensaje_error="Documento invalido")
         break
     return dni,dni_existentes
 
 
 def cambiar_contrasena(): 
     usuarios_lista = [] 
-    dni_buscado = verificar_numero_valido('Ingrese su dni: ', rango=rango_documento(), mensaje_error="Documento invalido")
-    
-    archivo = manejar_apertura_archivo('usuarios.csv','r') 
-    for i, linea in enumerate(archivo): 
-        if i != 0: 
-            datauser = linea.split(',') 
-            usuarios_lista.append({
-                'dni':datauser[0].strip(), 
-                'nombre':datauser[1].strip(), 
-                'contraseña':datauser[2].strip(), 
-                'es_admin':datauser[3].strip()
-            })    
-    archivo.close()
-
     usuario_actualizado = None
+    dni_buscado = verificar_numero_valido('Ingrese su dni para actualizar su contraseña o -1 para salir: ', rango=rango_documento(), mensaje_error="El documento ingresado es invalido")
+    
+    if dni_buscado != -1:
+        archivo_usuarios = manejar_apertura_archivo('usuarios.csv','r') 
+        for i, linea in enumerate(archivo_usuarios): 
+            if i != 0: 
+                datauser = linea.split(',') 
+                usuarios_lista.append({
+                    'dni':datauser[0].strip(), 
+                    'nombre':datauser[1].strip(), 
+                    'contraseña':datauser[2].strip(), 
+                    'es_admin':datauser[3].strip()
+                })    
+        archivo_usuarios.close()
 
-    for usuario in usuarios_lista:
-        if usuario['dni'] == dni_buscado:
-            while True:
-                try:
-                    contraseña = input('Ingrese su nueva contraseña: ').strip()
-                    confirmacion_contraseña = input('Ingrese de nuevo su contraseña: ').strip()
+
+        for usuario in usuarios_lista:
+            if usuario['dni'] == dni_buscado:
+                while True:
+                    try:
+                        contraseña = input('Ingrese su nueva contraseña: ').strip()
+                        confirmacion_contraseña = input('Ingrese de nuevo su contraseña: ').strip()
 
 
-                    if "" in [contraseña, confirmacion_contraseña]:
-                        raise ValueError("Los campos de contraseña no pueden ser vacias")
+                        if "" in [contraseña, confirmacion_contraseña]:
+                            raise ValueError("Los campos de contraseña no pueden ser vacias")
 
-                    if contraseña != confirmacion_contraseña:
-                        raise ValueError('Las contraseñas no coinciden, intente nuevamente')
-                    
-                    
-                    usuario['contraseña'] = contraseña
-                    usuario_actualizado = usuario
-                    print('Su contraseña fue cambiada con éxito')
-                    
-                    break
-                except ValueError as e:
-                    print(e)
+                        if contraseña != confirmacion_contraseña:
+                            raise ValueError('Las contraseñas no coinciden, intente nuevamente')
+                        
+                        
+                        usuario['contraseña'] = contraseña
+                        usuario_actualizado = usuario
+                        
+                        break
+                    except ValueError as e:
+                        print(e)
                     
     if usuario_actualizado is not None:
 
@@ -146,16 +146,14 @@ def cambiar_contrasena():
         for usuario in usuarios_lista:
             archivo_usuarios.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
         
+        print('Su contraseña fue cambiada con éxito')
         archivo_usuarios.close()
 
-        usuario = usuario_actualizado
-    else:
-        usuario = None
-
-    return usuario
+    imprimir_separador()
+    return usuario_actualizado
 
 
-def completar_clientes():
+def completar_usuarios():
     archivo = manejar_apertura_archivo("usuarios.csv", "wt", "archivos")
 
     fake = Faker('es_AR')
@@ -163,11 +161,19 @@ def completar_clientes():
     archivo.write("dni, nombre, contraseña, es_admin\n")
     
     for i in range(10):
-        dni = random.randint(10000000, 99999999)
+        
+        if i == 2:
+            dni = 45684868
+            nombre = "Lautaro Gomez"
+            password = "contraseña"
+            es_admin = 1
+        else:
+            dni = random.randint(10000000, 99999999)
 
-        nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani")
-        password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
-        es_admin = 1 if i <= 1 else 0
+            nombre = fake.name() if (i != 0 and i != 1) else ("Tiziano Schipani" if i == 0 else "Alfonso Schipani")
+            password = fake.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True)
+            es_admin = 1 if i <= 1 else 0
+
         archivo.write(f"{dni}, {nombre}, {password},{es_admin}\n")
 
     archivo.close()
@@ -208,10 +214,14 @@ def menu_inicio():
     
     while True:
         print('Bienvenido a Schipani Motors Sport, elija una opcion.')
+
         opciones_disponibles = ["Registrarse","Loguearse",'Cambiar contraseña','salir']
         mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(len(opciones_disponibles)))
+
+        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(len(opciones_disponibles)),opciones_disponibles=opciones_disponibles)
+
         imprimir_separador()
+
         if opcion == 1:
             usuario = register()
             crear_registro("Registro", "OK")
@@ -226,5 +236,8 @@ def menu_inicio():
         elif opcion == 4:
             usuario = None
             break
+        else:
+            print("Opcion no disponible, por favor intente de nuevo")
+            imprimir_separador()
 
     return usuario
