@@ -1,11 +1,7 @@
 from modulos.compras import aplicar_descuento_precio_final, encargar_autos
+from modulos.admin import cargar_auto
 from modulos.utils import imprimir_separador, manejar_apertura_archivo, obtener_datos_de_usuario_autenticado, mostrar_opciones_disponibles, verificar_numero_valido
 
-
-def cargar_auto():
-    archivo_autos = manejar_apertura_archivo("autos.json", "rt", "archivos")
-    print(archivo_autos)
-    archivo_autos.close()
 
 def modificar_precios():
     pass
