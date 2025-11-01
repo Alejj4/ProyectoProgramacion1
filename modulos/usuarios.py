@@ -17,19 +17,19 @@ def register():
         else:
             break
     imprimir_separador()
-    nombre_de_usuario = input("Ingrese su nombre de usuario: ")
+    usuario_nombre = input("Ingrese su nombre: ")
     imprimir_separador()
     password = input("Ingrese su contraseña: ")
     imprimir_separador()
     archivo = manejar_apertura_archivo("usuarios.csv", "at")
-    archivo.write(f"{dni}, {nombre_de_usuario}, {password}, {0}\n")
+    archivo.write(f"{dni}, {usuario_nombre}, {password}, {0}\n")
     print("Su registro ha sido exitoso, disfrute de su compra")
     imprimir_separador()
     archivo.close()
 
     usuario_data = {
         'dni':str(dni).strip(), 
-        'nombre':nombre_de_usuario.strip(), 
+        'nombre':usuario_nombre.strip(), 
         'contraseña':password.strip(), 
         'es_admin':0
     }
