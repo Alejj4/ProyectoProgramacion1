@@ -8,6 +8,10 @@ def obtener_diccionario_autos():
     archivo_autos.close()
     return autos_data
 
+def obtener_rango_precios():
+    """Funcion que retorna los precios minimos y maximos que puede tener un vehiculo"""
+    return 20, 100
+
 def obtener_datos_modelos():
     """Funcion unicamente dedicada a obtener los datos (marca y tipo) referentes a los que el admin quiere acceder para realizar una operacion"""
     marca_seleccionada = None
@@ -50,7 +54,7 @@ def cargar_auto():
         mostrar_opciones_disponibles(equipamientos_disponibles)
         equipamiento = verificar_numero_valido("Ingrese el numero de equipamiento que desee asignar: ", rango=range(len(equipamientos_disponibles)),opciones_disponibles=equipamientos_disponibles)
 
-        precio_min, precio_max = 20, 100
+        precio_min, precio_max = obtener_rango_precios()
         precio = verificar_numero_valido("Ingrese el precio del modelo: ",rango=range(precio_min, precio_max), mensaje_error=f"El precio ingresado está fuera de rango (entre {precio_min} y {precio_max})")
 
         autos_data[marca_seleccionada][tipo_seleccionado].append({"nombre":nombre, "equipamiento": equipamiento, "precio":precio})
