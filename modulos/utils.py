@@ -7,10 +7,10 @@ def imprimir_separador():
 
 def mostrar_opciones_disponibles(datos):
     for i, dato in enumerate(datos):
-        print(f"{i + 1} - {dato}")
+        print(f"{i + 1} - {dato.capitalize()}")
         
 
-def verificar_numero_valido(mensaje_input, rango=None):
+def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no disponible, por favor intente de nuevo"):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
     while True:
@@ -18,7 +18,7 @@ def verificar_numero_valido(mensaje_input, rango=None):
             dato = int(input(mensaje_input)) - 1
 
             if rango is not None and not dato in rango:
-                raise IndexError("Opcion no disponible, por favor intente de nuevo")
+                raise IndexError(mensaje_error)
 
             dato += 1
             break
