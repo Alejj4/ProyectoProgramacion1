@@ -2,6 +2,19 @@ from modulos.compras import aplicar_descuento_precio_final, encargar_autos
 from modulos.utils import imprimir_separador, manejar_apertura_archivo, obtener_datos_de_usuario_autenticado, mostrar_opciones_disponibles, verificar_numero_valido
 
 
+def cargar_auto():
+    archivo_autos = manejar_apertura_archivo("autos.json", "rt", "archivos")
+    print(archivo_autos)
+    archivo_autos.close()
+
+def modificar_precios():
+    pass
+
+def obtener_informes():
+    pass
+
+
+
 def interfaz_admin():
     usuario_data = None
 
@@ -21,11 +34,11 @@ def interfaz_admin():
             opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(4), opciones_disponibles=opciones_disponibles)
 
             if opcion_seleccionada == 1:
-                pass
+                cargar_auto()
             elif opcion_seleccionada == 2:
-                pass
+                modificar_precios()
             elif opcion_seleccionada == 3:
-                pass
+                obtener_informes()
             elif opcion_seleccionada == -1:
                 imprimir_separador()
                 print("Opcion no disponible, por favor intente de nuevo")
