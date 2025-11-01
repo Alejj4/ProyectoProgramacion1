@@ -46,7 +46,7 @@ def manejar_apertura_archivo(nombre_archivo, modo_apertura, directorio="archivos
 def crear_registro(usuario,accion,valor):
     registro = manejar_apertura_archivo("log.txt","a")
     fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario} 🤑 | {accion}: {valor} \n"
+    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario["nombre"] if usuario is not None else "Usuario anonimo"} | {accion}: {valor} \n"
     registro.write(f"{registro_entrada} \n")
     registro.close()
     return usuario,accion,valor
