@@ -18,7 +18,7 @@ def interfaz_admin():
             opciones_disponibles = ["Cargar nuevo vehiculo", "Modificar precios", "Obtener informes", "Salir"]
             
             mostrar_opciones_disponibles(opciones_disponibles)
-            opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(4))
+            opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(4), opciones_disponibles=opciones_disponibles)
 
             if opcion_seleccionada == 1:
                 pass
@@ -26,6 +26,10 @@ def interfaz_admin():
                 pass
             elif opcion_seleccionada == 3:
                 pass
+            elif opcion_seleccionada == -1:
+                imprimir_separador()
+                print("Opcion no disponible, por favor intente de nuevo")
+                imprimir_separador()
             else:
                 break    
     

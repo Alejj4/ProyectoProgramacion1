@@ -71,7 +71,7 @@ def encargar_autos():
 
         colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
         mostrar_opciones_disponibles(colores_disponibles)
-        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(len(colores_disponibles))) - 1
+        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(len(colores_disponibles)), opciones_disponibles=colores_disponibles) - 1
         imprimir_separador()
         color_seleccionado = colores_disponibles[color_indice]
         
@@ -85,16 +85,19 @@ def encargar_autos():
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
         print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado['nombre']} - {nombre_marca} - {nombre_tipo}")
 
-        mostrar_opciones_disponibles(["Ver resumen", "Finalizar operación"])
-        decision = verificar_numero_valido("Ingrese la opción deseada: ", rango=range(2))
+        opciones = ["Ver resumen", "Finalizar operación"]
+        mostrar_opciones_disponibles(opciones)
+        decision = verificar_numero_valido("Ingrese la opción deseada: ", rango=range(2),opciones_disponibles=opciones)
 
         if decision == 1:
             mostrar_resumen(encargo_data)
             crear_registro( "Ver resumen", "Sí")
             print("¿Desea pasar a finalizar la operación? ")
-            mostrar_opciones_disponibles(["Sí", "No (Encargar un nuevo vehículo)"])
+
+            respuestas_validas = ["Sí", "No (Encargar un nuevo vehículo)"]
+            mostrar_opciones_disponibles(respuestas_validas)
             
-            respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2))
+            respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2), opciones_disponibles=respuestas_validas)
 
             finalizar_compra = respuesta == 1
             crear_registro( "Finalizar compra", "Sí" if finalizar_compra else "No")
