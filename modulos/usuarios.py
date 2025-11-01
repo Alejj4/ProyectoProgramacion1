@@ -53,26 +53,23 @@ def login():
         encontrado=False
         
         for i, linea in enumerate(archivo):
-                if i == 0:
-                    continue
+            if i == 0:
+                continue
 
-                partes = linea.strip().split(",")
-
-                dni, nombre, contraseña_actual, es_admin = [p.strip() for p in partes]
-
-                if dni == str(dni_ingreso) and contraseña_actual == contraseña:
-                    encontrado=True
-                    usuario_data = {
-                        'dni':dni.strip(), 
-                        'nombre':nombre.strip(), 
-                        'contraseña':contraseña.strip(), 
-                        'es_admin': es_admin
-                    }
-
-                    break
-                else:
-                    encontrado = False
-                    usuario_data = None    
+            partes = linea.strip().split(",")
+            dni, nombre, contraseña_actual, es_admin = [p.strip() for p in partes]
+            if dni == str(dni_ingreso) and contraseña_actual == contraseña:
+                encontrado=True
+                usuario_data = {
+                    'dni':dni.strip(), 
+                    'nombre':nombre.strip(), 
+                    'contraseña':contraseña.strip(), 
+                    'es_admin': es_admin
+                }
+                break
+            else:
+                encontrado = False
+                usuario_data = None    
 
 
         if not encontrado:  

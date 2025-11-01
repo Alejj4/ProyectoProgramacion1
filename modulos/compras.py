@@ -108,26 +108,26 @@ def encargar_autos(usuario,dni):
     return encargo_data
 
 def aplicar_descuento_precio_final(usuario):
-       """Función que se basa en un juego donde si el usuario gana, obtiene un descuento sobre el monto final de la compra"""
+    """Función que se basa en un juego donde si el usuario gana, obtiene un descuento sobre el monto final de la compra"""
 
-       aplicar_descuento = False
+    aplicar_descuento = False
 
-       print("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto?")
-       des = verificar_numero_valido("Ingrese 1 si quiere y 2 si no quiere: ", rango=range(2))
+    print("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto?")
+    des = verificar_numero_valido("Ingrese 1 si quiere y 2 si no quiere: ", rango=range(2))
 
-       if des == 2: 
-              print("Como usted desee.")
-              crear_registro(usuario,"Descuento", "No")
-       else: 
-              print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligió el programa usted se gana el descuento asi de facil.")
-              ran = rn.randint(1,5)
-              crear_registro(usuario,"descuento", "Sí")
-              numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(5))
-              
-              if numran != ran:
-                    print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)
-              else:
-                    print("¡Felicitaciones! Su numero coincide, usted se gano un descuento del 20%.")
-                    aplicar_descuento = True
-       return aplicar_descuento
+    if des == 2: 
+        print("Como usted desee.")
+        crear_registro(usuario,"Descuento", "No")
+    else: 
+        print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligió el programa usted se gana el descuento asi de facil.")
+        ran = rn.randint(1,5)
+        crear_registro(usuario,"descuento", "Sí")
+        numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(5))
+          
+        if numran != ran:
+            print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)
+        else:
+            print("¡Felicitaciones! Su numero coincide, usted se gano un descuento del 20%.")
+            aplicar_descuento = True
+    return aplicar_descuento
 
