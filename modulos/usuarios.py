@@ -6,7 +6,7 @@ from modulos.utils import imprimir_separador, manejar_apertura_archivo, mostrar_
 
 
 def rango_documento():
-    return range(1000000,10000000)
+    return range(1000000,100000000)
 
 def register():
     
