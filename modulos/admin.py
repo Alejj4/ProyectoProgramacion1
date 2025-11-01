@@ -70,7 +70,7 @@ def cargar_auto():
         print("¿Desea añadir un nuevo modelo?")
         opciones_disponibles = ["Sí", "No (salir)"]
         mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = verificar_numero_valido("Ingrese la opcion que desee: ", rango=range(2), opciones_disponibles=opciones_disponibles)
+        opcion = verificar_numero_valido("Ingrese la opcion que desee: ", rango=range(len(opciones_disponibles)), opciones_disponibles=opciones_disponibles)
 
         if opcion == 2:
             print("Volviendo al menu")
