@@ -66,6 +66,12 @@ def login():
                     'contraseña':contraseña.strip(), 
                     'es_admin': es_admin
                 }
+
+                with open("archivos/usuario_autenticado.csv", "a", encoding="UTF-8") as archivo_login:
+                    archivo_login.write(f"{usuario_data["dni"]}, {usuario_data["nombre"]}, {usuario_data["contraseña"]}, {usuario_data["es_admin"]}")
+
+                
+
                 break
             else:
                 encontrado = False
@@ -77,8 +83,6 @@ def login():
             imprimir_separador()
             continue 
         break
-
-    
 
     archivo.close()
     return usuario_data
@@ -206,6 +210,9 @@ def actualizar_clientes(dni_usuario: str):
 
 
 def menu_inicio():
+    with open("archivos/usuario_autenticado.csv", "wt", encoding="UTF-8") as archivo_login:
+        archivo_login.write("dni, nombre, contraseña, es_admin\n")
+    
     while True:
         print('Bienvenido a Schipani Motors Sport, elija una opcion.')
         opciones_disponibles = ["Registrarse","Loguearse",'Cambiar contraseña','salir']
@@ -223,7 +230,6 @@ def menu_inicio():
         elif opcion == 3:
             usuario = cambiar_contrasena()
             crear_registro(usuario, "Cambio contraseña", "OK" if usuario is not None else "WARNING")
-            break
         elif opcion == 4:
             usuario = None
             break

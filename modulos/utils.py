@@ -3,7 +3,25 @@ import os
 
 def imprimir_separador():
     print("-"*78)
-    
+
+
+def obtener_datos_de_usuario_autenticado():
+    usuario_data = None
+
+    with open("archivos/usuario_autenticado.csv", "r", encoding="UTF-8") as archivo:
+        for i, linea in enumerate(archivo):
+            if i != 0:
+                dni, nombre, contraseña, es_admin = linea.split(",")
+
+                usuario_data = {
+                    "dni":dni, 
+                    "nombre":nombre, 
+                    "contraseña":contraseña, 
+                    "es_admin":es_admin
+                }
+
+    return usuario_data
+
 
 def mostrar_opciones_disponibles(datos):
     for i, dato in enumerate(datos):
@@ -43,7 +61,9 @@ def manejar_apertura_archivo(nombre_archivo, modo_apertura, directorio="archivos
     return archivo
 
 
-def crear_registro(usuario,accion,valor):
+def crear_registro(accion,valor):
+    usuario = obtener_datos_de_usuario_autenticado()
+    
     registro = manejar_apertura_archivo("log.txt","a")
     fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario["nombre"] if usuario is not None else "Usuario anonimo"} | {accion}: {valor} \n"
