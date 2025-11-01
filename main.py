@@ -1,5 +1,5 @@
 from modulos.autos import calcular_precios_promedios_tipo, completar_archivo_stock
-from modulos.usuarios import completar_clientes, menu_inicio
+from modulos.usuarios import completar_usuarios, menu_inicio
 from modulos.utils import generar_directorio, imprimir_separador, manejar_apertura_archivo
 from modulos.interfaces import interfaz_usuario, interfaz_admin
 
@@ -14,7 +14,7 @@ def main():
 
     ventas_archivo = manejar_apertura_archivo("ventas.csv", "wt", "archivos")
     ventas_archivo.write("Nombre, Equipamiento, Precio, Color \n")
-    completar_clientes()
+    completar_usuarios()
     ventas_archivo.close()
 
     completar_archivo_stock()
