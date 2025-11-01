@@ -1,10 +1,40 @@
 from modulos.compras import aplicar_descuento_precio_final, encargar_autos
-from modulos.utils import imprimir_separador, manejar_apertura_archivo
+from modulos.utils import imprimir_separador, manejar_apertura_archivo, obtener_datos_de_usuario_autenticado, mostrar_opciones_disponibles, verificar_numero_valido
 
+
+def interfaz_admin():
+    usuario_data = None
+
+    try:
+        usuario_data = obtener_datos_de_usuario_autenticado()
+
+        if usuario_data is None:
+            raise ValueError("No se encontró el archivo con los datos del usuario logueado")
+
+        while True:
+            print(f"PANEL DE ADMINISTRADOR ({usuario_data.get("nombre")})")
+            imprimir_separador()
+            print("Opciones de panel de admin")
+            opciones_disponibles = ["Cargar nuevo vehiculo", "Modificar precios", "Obtener informes", "Salir"]
+            
+            mostrar_opciones_disponibles(opciones_disponibles)
+            opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(4))
+
+            if opcion_seleccionada == 1:
+                pass
+            elif opcion_seleccionada == 2:
+                pass
+            elif opcion_seleccionada == 3:
+                pass
+            else:
+                break    
+    
+    except KeyError:
+        print("Se produjo un error en los datos del usuario.")
+    except ValueError as e:
+        print(e)
 
 def interfaz_usuario():
-
-    ventas_archivo = manejar_apertura_archivo("ventas.csv", "a", "archivos")
 
     encargo_data = encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
     
@@ -20,8 +50,11 @@ def interfaz_usuario():
             encargo_data["monto_total"] = monto_final
 
             print(f"El precio final con el descuento del 20% aplicado es de: {monto_final} mil dolares.")
+        
+        ventas_archivo = manejar_apertura_archivo("ventas.csv", "a", "archivos")
         for modelo in encargo_data["modelos_seleccionados"]:
             ventas_archivo.write(f"{modelo['nombre']},{modelo['equipamiento']},{modelo['precio']},{modelo['color']} \n")
+        ventas_archivo.close()
         
     else:
         print("No se realizó ningún pedido")
