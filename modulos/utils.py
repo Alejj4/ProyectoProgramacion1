@@ -32,7 +32,7 @@ def mostrar_opciones_disponibles(datos):
         print(f"{i + 1} - {dato.capitalize()}")
         
 
-def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no disponible, por favor intente de nuevo", opciones_disponibles=None):
+def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no disponible, por favor intente de nuevo", opciones_disponibles=None, retornar_indice=False):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
     while True:
@@ -57,6 +57,9 @@ def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no 
 
             if opciones_disponibles:
                 mostrar_opciones_disponibles(opciones_disponibles)
+
+    if dato != -1 and retornar_indice:
+        dato -= 1
 
     return dato
 
