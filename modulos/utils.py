@@ -1,6 +1,5 @@
 import datetime
 import os
-import json
 
 def imprimir_separador():
     print("-"*78)
@@ -126,11 +125,3 @@ def generar_directorio(nombre_directorio):
 
     if not directorio_existente:
         os.makedirs(ruta_completa, exist_ok=True)
-
-
-def obtener_diccionario_autos():
-    archivo_autos = manejar_apertura_archivo("autos.json", "rt", "archivos")
-    autos_data = json.load(archivo_autos)
-
-    archivo_autos.close()
-    return autos_data
