@@ -38,6 +38,7 @@ def register():
 
 def login():
     usuario_data = None
+    encontrado=False
     
     while True:
         dni_ingreso,_ = dni_existe()
@@ -50,7 +51,6 @@ def login():
         contraseña=input("Ingrese su contraseña: ").strip()
         imprimir_separador()
         archivo=manejar_apertura_archivo("usuarios.csv", "r")
-        encontrado=False
         
         for i, linea in enumerate(archivo):
             if i == 0:
@@ -69,13 +69,6 @@ def login():
 
                 with open("archivos/usuario_autenticado.csv", "a", encoding="UTF-8") as archivo_login:
                     archivo_login.write(f"{usuario_data["dni"]}, {usuario_data["nombre"]}, {usuario_data["contraseña"]}, {usuario_data["es_admin"]}")
-
-                
-
-                break
-            else:
-                encontrado = False
-                usuario_data = None    
 
 
         if not encontrado:  

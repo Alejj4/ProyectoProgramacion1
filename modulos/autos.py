@@ -24,8 +24,8 @@ def completar_archivo_stock():
                     stock_disponible = random.randint(1, 5)
                     archivo_stock.write(f"{marca}, {modelo['nombre']}, {stock_disponible}\n")
     
-        archivo_stock.close()
-        archivo_autos.close()
+    archivo_stock.close()
+    archivo_autos.close()
 
 
 def calcular_precios_promedios_tipo():
@@ -101,7 +101,6 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
     disponibles = []
 
     autos = json.load(archivo_autos)
-    archivo_autos.close()
     stock_data = {}
     
     for i, linea in enumerate(archivo_stock):
@@ -131,12 +130,15 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
                 "stock":stock
             })
 
-    archivo_stock.close()
 
     total_disponibles = contar_modelos_disponibles(disponibles)
     imprimir_separador()
     print(f"Total de modelos disponibles en {nombre_marca} - {nombre_tipo}: {total_disponibles}")
     imprimir_separador()
+
+    
+    archivo_stock.close()
+    archivo_autos.close()
     return disponibles
 
 
