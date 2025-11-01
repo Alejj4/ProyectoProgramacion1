@@ -8,17 +8,21 @@ def imprimir_separador():
 def obtener_datos_de_usuario_autenticado():
     usuario_data = None
 
-    with open("archivos/usuario_autenticado.csv", "r", encoding="UTF-8") as archivo:
-        for i, linea in enumerate(archivo):
-            if i != 0:
-                dni, nombre, contraseña, es_admin = linea.split(",")
+    try:
+        with open("archivos/usuario_autenticado.csv", "r", encoding="UTF-8") as archivo:
+            for i, linea in enumerate(archivo):
+                if i != 0:
+                    dni, nombre, contraseña, es_admin = linea.split(",")
 
-                usuario_data = {
-                    "dni":str(dni).strip(), 
-                    "nombre":str(nombre).strip(), 
-                    "contraseña":str(contraseña).strip(), 
-                    "es_admin":str(es_admin).strip()
-                }
+                    usuario_data = {
+                        "dni":str(dni).strip(), 
+                        "nombre":str(nombre).strip(), 
+                        "contraseña":str(contraseña).strip(), 
+                        "es_admin":str(es_admin).strip()
+                    }
+                    
+    except FileNotFoundError:
+        print("No se encontró el archivo con los datos del usuario logueado")
 
     return usuario_data
 
