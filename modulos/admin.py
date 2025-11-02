@@ -75,3 +75,40 @@ def cargar_auto():
         if opcion == 2:
             print("Volviendo al menu")
             break
+
+
+def modificar_precios():
+    """Funcion en la que un admin puede modificar los precios de un modelo especifico"""
+    modelo_seleccionado_indice = -1
+    precio_min, precio_max = obtener_rango_precios()
+
+    marca_seleccionada, tipo_seleccionado = obtener_datos_modelos()
+    autos_data = obtener_diccionario_autos()
+
+    modelos_disponibles = autos_data[marca_seleccionada][tipo_seleccionado]
+
+    if len(modelos_disponibles) > 0:
+        print(f"{marca_seleccionada} - {tipo_seleccionado} cuenta con los siguientes modelos")
+
+        mostrar_opciones_disponibles(modelos_disponibles)
+
+        modelo_seleccionado_indice = verificar_numero_valido("Ingrese el modelo al que desea cambiarle el precio o ingrese -1 para volver: ", rango=range(1, len(modelos_disponibles) + 1),opciones_disponibles=modelos_disponibles)
+
+        if modelo_seleccionado_indice != -1:
+            modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice - 1]
+
+            print("Modelo seleccionado: ")
+            print(f"{modelo_seleccionado['nombre']}, precio: {modelo_seleccionado['precio']}")
+
+            nuevo_precio = verificar_numero_valido("Ingrese un nuevo precio para este modelo: ", rango=range(precio_min, precio_max + 1), mensaje_error=f"El precio es invalido, debe ser un numero entero entre {precio_min} y {precio_max}")
+
+            autos_data[marca_seleccionada][tipo_seleccionado][modelo_seleccionado_indice - 1]["precio"] = nuevo_precio
+
+            archivo_autos = manejar_apertura_archivo("autos.json", "wt", "archivos")
+            archivo_autos.write(json.dumps(autos_data, indent=4))
+            archivo_autos.close()
+
+            print(f"Precio del modelo '{modelo_seleccionado['nombre']}' actualizado a {nuevo_precio} con éxito.")
+            print("Volviendo al menu principal")
+    else:
+        print(f"{marca_seleccionada} - {tipo_seleccionado} aun no cuenta con modelos disponibles")
