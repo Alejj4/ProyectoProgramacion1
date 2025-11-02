@@ -49,29 +49,45 @@ def interfaz_admin():
 
 def interfaz_usuario():
 
-    encargo_data = encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
+    while True:
+        encargo_data = encargar_autos() # La totalidad de autos que el usuario seleccionó y va a comprar
     
-    print("Finalizando operacion")
-    
-    imprimir_separador()
-    
-    if len(encargo_data["modelos_seleccionados"]) > 0:
-        aplicar_descuento = aplicar_descuento_precio_final()
+        print("Finalizando operacion")
         
-        if aplicar_descuento:
-            monto_final = round(encargo_data["monto_total"]*0.80, 2)
-            encargo_data["monto_total"] = monto_final
-
-            print(f"El precio final con el descuento del 20% aplicado es de: {monto_final} mil dolares.")
+        imprimir_separador()
         
-        ventas_archivo = manejar_apertura_archivo("ventas.csv", "a", "archivos")
-        for modelo in encargo_data["modelos_seleccionados"]:
-            ventas_archivo.write(f"{modelo['nombre']},{modelo['equipamiento']},{modelo['precio']},{modelo['color']} \n")
+        if len(encargo_data["modelos_seleccionados"]) > 0:
+            aplicar_descuento = aplicar_descuento_precio_final()
+            
+            if aplicar_descuento:
+                monto_final = round(encargo_data["monto_total"]*0.80, 2)
+                encargo_data["monto_total"] = monto_final
 
-        print("Su compra fue realizada con exito!")
-        ventas_archivo.close()
+                print(f"El precio final con el descuento del 20% aplicado es de: {monto_final} mil dolares.")
+            
+            ventas_archivo = manejar_apertura_archivo("ventas.csv", "a", "archivos")
+            for modelo in encargo_data["modelos_seleccionados"]:
+                ventas_archivo.write(f"{modelo['nombre']},{modelo['equipamiento']},{modelo['precio']},{modelo['color']} \n")
+
+            print("Su compra fue realizada con exito!")
+            ventas_archivo.close()
+            
+            
+            
+
+        else:
+            print("No se realizó ningún pedido")
+
+        respuestas_validas = ["Sí", "No (Realizar una nueva operacion)"]
         
-    else:
-        print("No se realizó ningún pedido")
+        while True:
+            print("¿Desea cerrar sesion?")
+            mostrar_opciones_disponibles(respuestas_validas)
+            salir = verificar_numero_valido("Ingrese la opcion que desee: ",rango=range(1, len(respuestas_validas) + 1), opciones_disponibles=respuestas_validas)
 
+            if salir != -1:
+                break
+
+        if salir == 1:
+            break
         
