@@ -122,59 +122,87 @@ def dni_existe():
         break
     return str(dni),dni_existentes
 
-
 def cambiar_contrasena(): 
-    usuarios_lista = [] 
+    """
+    Permite al usuario cambiar su contraseña. 
+    - Verifica el DNI dentro del rango permitido.
+    - Permite salir con -1.
+    - Confirma que la contraseña ingresada se repita correctamente.
+    - Actualiza el archivo 'usuarios.csv'.
+    """
+    
     usuario_actualizado = None
     dni_min, dni_max = rango_documento()
-    dni_buscado = verificar_numero_valido('Ingrese su dni para actualizar su contraseña o -1 para salir: ', rango=range(dni_min, dni_max + 1), mensaje_error="El documento ingresado es invalido")
     
-    if dni_buscado != -1:
-        archivo_usuarios = manejar_apertura_archivo('usuarios.csv','r') 
-        for i, linea in enumerate(archivo_usuarios): 
-            if i != 0: 
-                datauser = linea.split(',') 
-                usuarios_lista.append({
-                    'dni':datauser[0].strip(), 
-                    'nombre':datauser[1].strip(), 
-                    'contraseña':datauser[2].strip(), 
-                    'es_admin':datauser[3].strip()
-                })    
+    while True:
+        # Pedimos DNI
+        dni_buscado = verificar_numero_valido(
+            'Ingrese su dni para actualizar su contraseña o -1 para salir: ',
+            rango=range(dni_min, dni_max + 1),
+            mensaje_error="El documento ingresado es invalido"
+        )
+        
+        if dni_buscado == -1:
+            # Usuario quiere salir
+            break
+        
+        # Abrimos el archivo y cargamos los usuarios
+        archivo_usuarios = manejar_apertura_archivo('usuarios.csv','r')
+        usuarios_lista = []
+        
+        for i, linea in enumerate(archivo_usuarios):
+            if i == 0:
+                continue
+            partes = linea.strip().split(',')
+            usuarios_lista.append({
+                'dni': partes[0].strip(),
+                'nombre': partes[1].strip(),
+                'contraseña': partes[2].strip(),
+                'es_admin': partes[3].strip()
+            })
         archivo_usuarios.close()
-
-
+        
+        # Buscamos el usuario
+        usuario_encontrado = None
         for usuario in usuarios_lista:
             if usuario['dni'] == str(dni_buscado):
-                while True:
-                    try:
-                        nueva_contra = input('Ingrese su nueva contraseña: ').strip()
-                        confirmacion = input('Ingrese de nuevo su contraseña: ').strip()
-
-                        if "" in [nueva_contra, confirmacion]:
-                            raise ValueError("Los campos de contraseña no pueden ser vacíos")
-
-                        if nueva_contra != confirmacion:
-                            raise ValueError('Las contraseñas no coinciden, intente nuevamente')
-
-                        usuario['contraseña'] = nueva_contra
-                        usuario_actualizado = usuario
-                        break
-
-                    except ValueError as e:
-                        print(e)
-                    
-    if usuario_actualizado is not None:
-
+                usuario_encontrado = usuario
+                break
+        
+        if usuario_encontrado is None:
+            print("El DNI ingresado no existe. Intente nuevamente.")
+            imprimir_separador()
+            continue
+        
+        # Pedimos nueva contraseña
+        while True:
+            nueva_contra = input('Ingrese su nueva contraseña: ').strip()
+            confirmacion = input('Ingrese de nuevo su contraseña: ').strip()
+            
+            if "" in [nueva_contra, confirmacion]:
+                print("Los campos de contraseña no pueden ser vacíos")
+                continue
+            
+            if nueva_contra != confirmacion:
+                print("Las contraseñas no coinciden, intente nuevamente")
+                continue
+            
+            # Actualizamos la contraseña
+            usuario_encontrado['contraseña'] = nueva_contra
+            usuario_actualizado = usuario_encontrado
+            break
+        
+        # Guardamos los cambios en el archivo
         archivo_usuarios = manejar_apertura_archivo("usuarios.csv", "wt")
         archivo_usuarios.write('dni, nombre, contraseña, es_admin\n')
-        
         for usuario in usuarios_lista:
             archivo_usuarios.write(f"{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n")
-        
-        print('Su contraseña fue cambiada con éxito')
         archivo_usuarios.close()
-
-    imprimir_separador()
+        
+        print("Su contraseña fue cambiada con éxito")
+        imprimir_separador()
+        break  # Salimos del loop principal
+    
     return usuario_actualizado
 
 
