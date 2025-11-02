@@ -21,13 +21,13 @@ def interfaz_admin():
             raise ValueError("No se encontró el archivo con los datos del usuario logueado")
 
         while True:
-            print(f"PANEL DE ADMINISTRADOR ({usuario_data.get("nombre")})")
+            print(f"PANEL DE ADMINISTRADOR ({usuario_data.get('nombre')})")
             imprimir_separador()
             print("Opciones de panel de admin")
             opciones_disponibles = ["Cargar nuevo vehiculo", "Modificar precios", "Obtener informes", "Salir"]
             
             mostrar_opciones_disponibles(opciones_disponibles)
-            opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(4), opciones_disponibles=opciones_disponibles)
+            opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(1, len(opciones_disponibles) + 1), opciones_disponibles=opciones_disponibles)
 
             if opcion_seleccionada == 1:
                 cargar_auto()

@@ -71,7 +71,7 @@ def encargar_autos():
 
         colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
         mostrar_opciones_disponibles(colores_disponibles)
-        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(len(colores_disponibles)), opciones_disponibles=colores_disponibles) - 1
+        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(1, len(colores_disponibles) + 1), opciones_disponibles=colores_disponibles)
         imprimir_separador()
         color_seleccionado = colores_disponibles[color_indice]
         
@@ -87,7 +87,7 @@ def encargar_autos():
 
         opciones = ["Ver resumen", "Finalizar operación"]
         mostrar_opciones_disponibles(opciones)
-        decision = verificar_numero_valido("Ingrese la opción deseada: ", rango=range(2),opciones_disponibles=opciones)
+        decision = verificar_numero_valido("Ingrese la opción deseada: ", rango=range(1, len(opciones) + 1),opciones_disponibles=opciones)
 
         if decision == 1:
             mostrar_resumen(encargo_data)
@@ -97,7 +97,7 @@ def encargar_autos():
             respuestas_validas = ["Sí", "No (Encargar un nuevo vehículo)"]
             mostrar_opciones_disponibles(respuestas_validas)
             
-            respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(2), opciones_disponibles=respuestas_validas)
+            respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(1, len(respuestas_validas) + 1), opciones_disponibles=respuestas_validas)
 
             finalizar_compra = respuesta == 1
             crear_registro( "Finalizar compra", "Sí" if finalizar_compra else "No")
@@ -119,7 +119,7 @@ def aplicar_descuento_precio_final():
     aplicar_descuento = False
 
     print("¿Desea participar de un juego para conseguir un descuento del 20% para la compra de su auto?")
-    des = verificar_numero_valido("Ingrese 1 si quiere y 2 si no quiere: ", rango=range(2))
+    des = verificar_numero_valido("Ingrese 1 si quiere y 2 si no quiere: ", rango=range(1, 3))
 
     if des == 2: 
         print("Como usted desee.")
@@ -128,7 +128,7 @@ def aplicar_descuento_precio_final():
         print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligió el programa usted se gana el descuento asi de facil.")
         ran = rn.randint(1,5)
         crear_registro("descuento", "Sí")
-        numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(5))
+        numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(1, 6))
           
         if numran != ran:
             print("Lo lamentamos, pero su numero no coincide, el numero correcto era:", ran)

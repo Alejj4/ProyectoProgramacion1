@@ -10,7 +10,7 @@ def obtener_diccionario_autos():
 
 def obtener_rango_precios():
     """Funcion que retorna los precios minimos y maximos que puede tener un vehiculo"""
-    return 20, 100
+    return 1, 200
 
 def obtener_datos_modelos():
     """Funcion unicamente dedicada a obtener los datos (marca y tipo) referentes a los que el admin quiere acceder para realizar una operacion"""
@@ -22,16 +22,16 @@ def obtener_datos_modelos():
     marcas_disponibles = list(autos_data.keys())
 
     mostrar_opciones_disponibles(marcas_disponibles)
-    marca_indice = verificar_numero_valido("Ingrese la marca de auto que desea modificar o ingrese -1 para volver: ", rango=range(len(marcas_disponibles)), opciones_disponibles=marcas_disponibles, retornar_indice=True)
+    marca_numero = verificar_numero_valido("Ingrese la marca de auto que desea modificar o ingrese -1 para volver: ", rango=range(1, len(marcas_disponibles) + 1), opciones_disponibles=marcas_disponibles)
 
-    if marca_indice != -1:
-        marca_seleccionada = marcas_disponibles[marca_indice]
+    if marca_numero != -1:
+        marca_seleccionada = marcas_disponibles[marca_numero - 1]
         tipos_disponibles = list(autos_data[marca_seleccionada].keys())
 
         mostrar_opciones_disponibles(tipos_disponibles)
-        tipo_indice = verificar_numero_valido("Ingrese el tipo de auto al que desea acceder: ", rango=range(len(tipos_disponibles)),opciones_disponibles=tipos_disponibles, retornar_indice=True)
+        tipo_numero = verificar_numero_valido("Ingrese el tipo de auto al que desea acceder: ", rango=range(1, len(tipos_disponibles) + 1),opciones_disponibles=tipos_disponibles)
 
-        tipo_seleccionado = tipos_disponibles[tipo_indice]
+        tipo_seleccionado = tipos_disponibles[tipo_numero - 1]
 
     return marca_seleccionada, tipo_seleccionado
 
@@ -52,10 +52,10 @@ def cargar_auto():
         imprimir_separador()
         equipamientos_disponibles = [1,2,3]
         mostrar_opciones_disponibles(equipamientos_disponibles)
-        equipamiento = verificar_numero_valido("Ingrese el numero de equipamiento que desee asignar: ", rango=range(len(equipamientos_disponibles)),opciones_disponibles=equipamientos_disponibles)
+        equipamiento = verificar_numero_valido("Ingrese el numero de equipamiento que desee asignar: ", rango=range(1, len(equipamientos_disponibles) + 1),opciones_disponibles=equipamientos_disponibles)
 
         precio_min, precio_max = obtener_rango_precios()
-        precio = verificar_numero_valido("Ingrese el precio del modelo: ",rango=range(precio_min, precio_max), mensaje_error=f"El precio ingresado está fuera de rango (entre {precio_min} y {precio_max})")
+        precio = verificar_numero_valido("Ingrese el precio del modelo: ",rango=range(precio_min, precio_max + 1), mensaje_error=f"El precio ingresado está fuera de rango (entre {precio_min} y {precio_max})")
 
         autos_data[marca_seleccionada][tipo_seleccionado].append({"nombre":nombre, "equipamiento": equipamiento, "precio":precio})
 

@@ -71,7 +71,10 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
        a lo ingresado"""
     mostrar_opciones_disponibles(opciones_disponibles)
     dato = verificar_numero_valido(mensaje_input, rango=range(len(opciones_disponibles)), opciones_disponibles=opciones_disponibles)
-    return dato - 1  
+    
+    dato = -1 if dato == 1 else dato - 1
+
+    return dato
 
         
 def pedir_datos_compra():

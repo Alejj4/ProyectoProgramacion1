@@ -6,7 +6,7 @@ from modulos.utils import imprimir_separador, manejar_apertura_archivo, mostrar_
 
 
 def rango_documento():
-    return range(1000000,100000000)
+    return 1000000, 100000000
 
 def register():
     
@@ -29,9 +29,9 @@ def register():
 
     usuario_data = {
         'dni':str(dni).strip(), 
-        'nombre':usuario_nombre.strip(), 
-        'contraseña':password.strip(), 
-        'es_admin':0
+        'nombre':str(usuario_nombre).strip(), 
+        'contraseña':str(password).strip(), 
+        'es_admin':str(0)
     }
 
     return usuario_data
@@ -61,14 +61,14 @@ def login():
             if dni == str(dni_ingreso) and contraseña_actual == contraseña:
                 encontrado=True
                 usuario_data = {
-                    'dni':dni.strip(), 
-                    'nombre':nombre.strip(), 
-                    'contraseña':contraseña.strip(), 
-                    'es_admin': es_admin
+                    'dni':str(dni).strip(), 
+                    'nombre':str(nombre).strip(), 
+                    'contraseña':str(contraseña).strip(), 
+                    'es_admin': str(es_admin)
                 }
 
                 with open("archivos/usuario_autenticado.csv", "a", encoding="UTF-8") as archivo_login:
-                    archivo_login.write(f"{usuario_data["dni"]}, {usuario_data["nombre"]}, {usuario_data["contraseña"]}, {usuario_data["es_admin"]}")
+                    archivo_login.write(f"{usuario_data['dni']}, {usuario_data['nombre']}, {usuario_data['contraseña']}, {usuario_data['es_admin']}")
 
 
         if not encontrado:  
@@ -92,15 +92,17 @@ def dni_existe():
     except FileNotFoundError:
         print("No se encontró el archivo usuarios.csv.")
     while True:
-        dni = verificar_numero_valido("Ingrese su DNI o -1 para volver: ", rango=rango_documento(), mensaje_error="Documento invalido")
+        dni_min, dni_max = rango_documento()
+        dni = verificar_numero_valido("Ingrese su DNI o -1 para volver: ", rango=range(dni_min, dni_max + 1), mensaje_error="Documento invalido")
         break
-    return dni,dni_existentes
+    return str(dni),dni_existentes
 
 
 def cambiar_contrasena(): 
     usuarios_lista = [] 
     usuario_actualizado = None
-    dni_buscado = verificar_numero_valido('Ingrese su dni para actualizar su contraseña o -1 para salir: ', rango=rango_documento(), mensaje_error="El documento ingresado es invalido")
+    dni_min, dni_max = rango_documento()
+    dni_buscado = verificar_numero_valido('Ingrese su dni para actualizar su contraseña o -1 para salir: ', rango=range(dni_min, dni_max + 1), mensaje_error="El documento ingresado es invalido")
     
     if dni_buscado != -1:
         archivo_usuarios = manejar_apertura_archivo('usuarios.csv','r') 
@@ -117,7 +119,7 @@ def cambiar_contrasena():
 
 
         for usuario in usuarios_lista:
-            if usuario['dni'] == dni_buscado:
+            if usuario['dni'] == str(dni_buscado):
                 while True:
                     try:
                         contraseña = input('Ingrese su nueva contraseña: ').strip()
@@ -218,7 +220,7 @@ def menu_inicio():
         opciones_disponibles = ["Registrarse","Loguearse",'Cambiar contraseña','salir']
         mostrar_opciones_disponibles(opciones_disponibles)
 
-        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(len(opciones_disponibles)),opciones_disponibles=opciones_disponibles)
+        opcion = verificar_numero_valido("Ingrese una opción: ", rango=range(1, len(opciones_disponibles) + 1),opciones_disponibles=opciones_disponibles)
 
         imprimir_separador()
 

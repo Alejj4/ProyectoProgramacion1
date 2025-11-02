@@ -32,14 +32,14 @@ def mostrar_opciones_disponibles(datos):
         print(f"{i + 1} - {str(dato).capitalize()}")
         
 
-def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no disponible, por favor intente de nuevo", opciones_disponibles=None, retornar_indice=False):
+def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no disponible, por favor intente de nuevo", opciones_disponibles=None):
     """Funcion que maneja la excepcion ValueError cuando en un input se espera un numero y no otra cosa"""
     
     while True:
         try:
             dato = int(input(mensaje_input))
 
-            if dato != -1 and (rango is not None and not (dato - 1) in rango):
+            if dato != -1 and (rango is not None and not dato in rango):
                 raise IndexError(mensaje_error)
 
 
@@ -58,9 +58,6 @@ def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no 
             if opciones_disponibles:
                 mostrar_opciones_disponibles(opciones_disponibles)
 
-    if dato != -1 and retornar_indice:
-        dato -= 1
-
     return dato
 
 
@@ -78,7 +75,9 @@ def crear_registro(accion,valor):
     
     registro = manejar_apertura_archivo("log.txt","a")
     fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {usuario["nombre"] if usuario is not None else "Usuario anonimo"} | {accion}: {valor} \n"
+    nombre_usuario = usuario["nombre"] if usuario is not None else "Usuario anonimo"
+    
+    registro_entrada = f"Fecha: [{fecha_actual}] | Usuario: {nombre_usuario} | {accion}: {valor} \n"
     registro.write(f"{registro_entrada} \n")
     registro.close()
     return usuario,accion,valor
