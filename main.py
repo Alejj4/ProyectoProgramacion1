@@ -13,7 +13,7 @@ def main():
     archivo_log.close()
 
     ventas_archivo = manejar_apertura_archivo("ventas.csv", "wt", "archivos")
-    ventas_archivo.write("Nombre, Equipamiento, Precio, Color \n")
+    ventas_archivo.write("Marca, Nombre, Equipamiento, Precio, Color \n")
     completar_usuarios()
     ventas_archivo.close()
 

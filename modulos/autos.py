@@ -128,6 +128,7 @@ def obtener_modelos_disponibles(nombre_marca, nombre_tipo):
 
         if stock > 0:
             disponibles.append({
+                "marca":nombre_marca,
                 "nombre":nombre_modelo, 
                 "equipamiento":equipamiento, 
                 "precio":precio, 
