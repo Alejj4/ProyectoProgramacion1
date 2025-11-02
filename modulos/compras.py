@@ -71,9 +71,9 @@ def encargar_autos():
 
         colores_disponibles = ["Verde", "Azul", "Rojo", "Gris", "Blanco", "Negro", "Marron", "Amarillo"]
         mostrar_opciones_disponibles(colores_disponibles)
-        color_indice = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(1, len(colores_disponibles) + 1), opciones_disponibles=colores_disponibles)
+        color_numero = verificar_numero_valido("Seleccione alguno de los colores con los que contamos: ", rango=range(1, len(colores_disponibles) + 1), opciones_disponibles=colores_disponibles)
         imprimir_separador()
-        color_seleccionado = colores_disponibles[color_indice]
+        color_seleccionado = colores_disponibles[color_numero - 1]
         
         #---------------------- Confirmación de compra --------------------------------------------
         

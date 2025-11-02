@@ -70,7 +70,7 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
        poder mostrarle al usuario las opciones de modelos en base
        a lo ingresado"""
     mostrar_opciones_disponibles(opciones_disponibles)
-    dato = verificar_numero_valido(mensaje_input, rango=range(len(opciones_disponibles)), opciones_disponibles=opciones_disponibles)
+    dato = verificar_numero_valido(mensaje_input, rango=range(1, len(opciones_disponibles) + 1), opciones_disponibles=opciones_disponibles)
     
     dato = -1 if dato == -1 else dato - 1
 

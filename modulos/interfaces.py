@@ -67,7 +67,11 @@ def interfaz_usuario():
         ventas_archivo = manejar_apertura_archivo("ventas.csv", "a", "archivos")
         for modelo in encargo_data["modelos_seleccionados"]:
             ventas_archivo.write(f"{modelo['nombre']},{modelo['equipamiento']},{modelo['precio']},{modelo['color']} \n")
+
+        print("Su compra fue realizada con exito!")
         ventas_archivo.close()
         
     else:
         print("No se realizó ningún pedido")
+
+        
