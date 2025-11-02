@@ -37,7 +37,7 @@ def main():
             imprimir_separador()
 
         elif int(usuario["es_admin"]) == 0: # Inicia sesion un usuario normal
-            print(f"Bienvenido/a nuevamente, {usuario["nombre"]}")
+            print(f"Bienvenido/a nuevamente, {usuario['nombre']}")
             interfaz_usuario()
             imprimir_separador()
     

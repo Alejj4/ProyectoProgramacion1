@@ -63,9 +63,11 @@ def register():
 def login():
     usuario_data = None
     encontrado=False
+
+    salir = False
     archivo_usuarios = None
     
-    while True:
+    while not salir:
         dni_ingreso,_ = dni_existe()
         imprimir_separador()
         if int(dni_ingreso) != -1:
@@ -96,10 +98,11 @@ def login():
                 print("DNI o contraseña incorrectos. Intente nuevamente.")
                 imprimir_separador()
                 continue 
-            break
-
-        if archivo_usuarios:
-            archivo_usuarios.close()
+            salir = True
+        else:
+            salir = True
+    if archivo_usuarios:
+        archivo_usuarios.close()
     return usuario_data
 
 def dni_existe():
@@ -233,8 +236,10 @@ def actualizar_clientes(dni_usuario: str):
 def menu_inicio():
     with open("archivos/usuario_autenticado.csv", "wt", encoding="UTF-8") as archivo_login:
         archivo_login.write("dni, nombre, contraseña, es_admin\n")
+
+    salir = False
     
-    while True:
+    while not salir:
         print('Bienvenido a Schipani Motors Sport, elija una opcion.')
 
         opciones_disponibles = ["Registrarse","Loguearse",'Cambiar contraseña','salir']
@@ -250,13 +255,14 @@ def menu_inicio():
         elif opcion == 2:
             usuario = login()
             crear_registro("Login","OK")
-            break       
+            if usuario:
+                salir = True
         elif opcion == 3:
             usuario = cambiar_contrasena()
             crear_registro("Cambio contraseña", "OK" if usuario is not None else "WARNING")
         elif opcion == 4:
             usuario = None
-            break
+            salir = True
         else:
             print("Opcion no disponible, por favor intente de nuevo")
             imprimir_separador()
