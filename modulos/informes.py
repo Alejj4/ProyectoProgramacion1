@@ -1,6 +1,7 @@
 from .utils import verificar_numero_valido, manejar_apertura_archivo
 
 def obtener_3_autos_mas_vendidos():
+    """Funcion para obtener los 3 autos mas vendidos sin discriminar por ningun criterio"""
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:
@@ -49,7 +50,8 @@ def obtener_3_autos_mas_vendidos():
         print("No se encontró el archivo necesario para este informe (ventas.csv)")
 
 
-def obtener_autos_mas_vendidos_marca():
+def obtener_3_autos_mas_vendidos_marca():
+    """Funcion para obtener los 3 autos mas vendidos en base a la marca indicada por el admin"""
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:
@@ -98,7 +100,7 @@ def obtener_autos_mas_vendidos_marca():
                 archivo_salida.close()
             else:
                 print(f"No se registraron ventas para la marca {marca_elegida}")
-                
+
         else:
             print("Saliendo")
 
@@ -108,6 +110,7 @@ def obtener_autos_mas_vendidos_marca():
 
 
 def obtener_ventas_por_marca():
+    """Funcio para obtener cuanto vendió cada marca"""
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:
@@ -117,6 +120,7 @@ def obtener_ventas_por_marca():
 
 
 def obtener_ventas_por_auto():
+    """Funcion para obtener los datos de cuanto vendió cada auto registrado en la base de datos"""
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:

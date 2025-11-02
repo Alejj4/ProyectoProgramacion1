@@ -1,6 +1,6 @@
 import json
 from .utils import manejar_apertura_archivo, mostrar_opciones_disponibles, verificar_numero_valido, imprimir_separador
-from .informes import obtener_3_autos_mas_vendidos, obtener_autos_mas_vendidos_marca, obtener_ventas_por_marca, obtener_ventas_por_auto
+from .informes import obtener_3_autos_mas_vendidos, obtener_3_autos_mas_vendidos_marca, obtener_ventas_por_marca, obtener_ventas_por_auto
 
 def obtener_diccionario_autos():
     archivo_autos = manejar_apertura_archivo("autos.json", "rt", "archivos")
@@ -130,7 +130,7 @@ def obtener_informes():
         if informe_seleccionado == 1:
             obtener_3_autos_mas_vendidos()
         elif informe_seleccionado == 2:
-            obtener_autos_mas_vendidos_marca()
+            obtener_3_autos_mas_vendidos_marca()
         elif informe_seleccionado == 3:
             obtener_ventas_por_marca()
         elif informe_seleccionado == 4:
