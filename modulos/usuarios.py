@@ -223,7 +223,6 @@ def menu_inicio():
         if opcion == 1:
             usuario = register()
             crear_registro("Registro", "OK")
-            break
         elif opcion == 2:
             usuario = login()
             crear_registro("Login","OK")
