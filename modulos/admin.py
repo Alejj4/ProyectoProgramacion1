@@ -1,5 +1,6 @@
 import json
 from .utils import manejar_apertura_archivo, mostrar_opciones_disponibles, verificar_numero_valido, imprimir_separador
+from .informes import obtener_3_autos_mas_vendidos, obtener_autos_mas_vendidos_marca, obtener_ventas_por_marca, obtener_ventas_por_auto
 
 def obtener_diccionario_autos():
     archivo_autos = manejar_apertura_archivo("autos.json", "rt", "archivos")
@@ -114,4 +115,25 @@ def modificar_precios():
         print(f"{marca_seleccionada} - {tipo_seleccionado} aun no cuenta con modelos disponibles")
 
 def obtener_informes():
-    pass
+    informes_a_consultar = ["Los 3 autos mas vendidos", "Autos mas vendidos (por marca)", "Ventas por marca", "Ventas totales por auto"]
+
+    salir = False
+
+    while not salir:
+        print("Como administrador tiene acceso a los siguientes informes del sistema:")
+        mostrar_opciones_disponibles(informes_a_consultar)
+
+        informe_seleccionado = verificar_numero_valido("Ingrese la opcion que desee o -1 para volver al menu principal: ",rango=range(1, len(informes_a_consultar) + 1), opciones_disponibles=informes_a_consultar)
+
+        imprimir_separador()
+
+        if informe_seleccionado == 1:
+            obtener_3_autos_mas_vendidos()
+        elif informe_seleccionado == 2:
+            obtener_autos_mas_vendidos_marca()
+        elif informe_seleccionado == 3:
+            obtener_ventas_por_marca()
+        elif informe_seleccionado == 4:
+            obtener_ventas_por_auto()
+        else:
+            break
