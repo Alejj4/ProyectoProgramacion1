@@ -4,7 +4,34 @@ from modulos.utils import imprimir_separador, verificar_numero_valido, mostrar_o
 from modulos.autos import desplegar_menu_de_catalogo, pedir_datos_compra, obtener_modelos_disponibles, mostrar_modelos_disponibles, pedir_dato_de_autos
 from modulos.usuarios import actualizar_clientes
 
+def actualizar_stock(marca_elegida, modelo_elegido):
+    archivo_stock_lectura = manejar_apertura_archivo("stock.csv", "r")
 
+    texto_actualizado = []
+    
+    for i, linea in enumerate(archivo_stock_lectura):
+        if i == 0:
+            texto_actualizado.append(linea.strip())
+        else:
+            marca_linea, modelo_linea, stock_linea = linea.strip().split(",")
+
+            modificar_linea = marca_linea.lower().strip() == marca_elegida.lower().strip() and modelo_linea.lower().strip() == modelo_elegido.lower().strip()
+
+            if modificar_linea:
+                stock_linea = int(stock_linea.strip()) - 1
+                
+            
+            linea = f"{marca_linea.strip()}, {modelo_linea.strip()}, {str(stock_linea).strip()}"
+
+
+            texto_actualizado.append(linea.strip())
+
+    archivo_stock_lectura.close()
+
+    archivo_stock_escritura = manejar_apertura_archivo("stock.csv", "wt")
+    for linea in texto_actualizado:
+        archivo_stock_escritura.write(linea + "\n")
+    archivo_stock_escritura.close()
 
 def mostrar_resumen(encargo_data):
     imprimir_separador()
@@ -83,6 +110,9 @@ def encargar_autos():
         crear_registro("Color_seleccionado", color_seleccionado)
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
+
+        actualizar_stock(nombre_marca, modelo_seleccionado["nombre"])
+
         print(f"Se agregó exitosamente el siguiente modelo al resumen: {modelo_seleccionado['nombre']} - {nombre_marca} - {nombre_tipo}")
 
         opciones = ["Ver resumen", "Finalizar operación"]
