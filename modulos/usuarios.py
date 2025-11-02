@@ -9,30 +9,54 @@ def rango_documento():
     return 1000000, 100000000
 
 def register():
-    
-    while True:
+    usuario_data = None
+    salir = False
+    while not salir:
         dni,dni_existentes=dni_existe()
         if str(dni) in dni_existentes:
             print("Este DNI ya esta registrado. Intente iniciar sesión o use otro DNI.")
-        else:
-            break
-    imprimir_separador()
-    usuario_nombre = input("Ingrese su nombre: ")
-    imprimir_separador()
-    password = input("Ingrese su contraseña: ")
-    imprimir_separador()
-    archivo = manejar_apertura_archivo("usuarios.csv", "at")
-    archivo.write(f"{dni}, {usuario_nombre}, {password}, {0}\n")
-    print("Su registro ha sido exitoso, disfrute de su compra")
-    imprimir_separador()
-    archivo.close()
+        elif int(dni) != -1:
+            imprimir_separador()
+            datos_validos = False
 
-    usuario_data = {
-        'dni':str(dni).strip(), 
-        'nombre':str(usuario_nombre).strip(), 
-        'contraseña':str(password).strip(), 
-        'es_admin':str(0)
-    }
+            while not datos_validos:
+                usuario_nombre = input("Ingrese su nombre: ").strip()
+                imprimir_separador()
+                
+
+                if usuario_nombre == "" or not usuario_nombre.replace(" ", "").isalpha():
+                    print("El nombre ingresado no es valido")
+                    continue
+                
+
+                password = input("Ingrese su contraseña: ").strip()
+
+                if password == "" or " " in password:
+                    print("La contraseña ingresada no es valida")
+                    continue
+
+
+                datos_validos = True
+                
+            imprimir_separador()
+            archivo = manejar_apertura_archivo("usuarios.csv", "at")
+            archivo.write(f"{dni}, {usuario_nombre}, {password}, {0}\n")
+            print("Su registro ha sido exitoso, disfrute de su compra")
+
+            imprimir_separador()
+            archivo.close()
+
+            usuario_data = {
+                'dni':str(dni).strip(), 
+                'nombre':str(usuario_nombre).strip(), 
+                'contraseña':str(password).strip(), 
+                'es_admin':str(0)
+            }
+            salir = True
+        else:
+            imprimir_separador()
+            salir = True
+    
 
     return usuario_data
 
