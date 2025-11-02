@@ -1,5 +1,5 @@
 from modulos.compras import aplicar_descuento_precio_final, encargar_autos
-from modulos.admin import cargar_auto, modificar_precios, obtener_informes
+from modulos.admin import registrar_auto, modificar_precios, obtener_informes
 from modulos.utils import imprimir_separador, manejar_apertura_archivo, obtener_datos_de_usuario_autenticado, mostrar_opciones_disponibles, verificar_numero_valido
 
 
@@ -22,7 +22,7 @@ def interfaz_admin():
 
             if opcion_seleccionada == 1:
                 imprimir_separador()
-                cargar_auto()
+                registrar_auto()
             elif opcion_seleccionada == 2:
                 imprimir_separador()
                 modificar_precios()

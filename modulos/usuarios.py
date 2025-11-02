@@ -191,7 +191,7 @@ def completar_usuarios():
             dni = 45684868
             nombre = "Lautaro Gomez"
             password = "a"
-            es_admin = 0
+            es_admin = 1
         else:
             dni = random.randint(10000000, 99999999)
 

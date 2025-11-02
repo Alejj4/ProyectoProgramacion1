@@ -32,22 +32,31 @@ def obtener_datos_modelos():
         mostrar_opciones_disponibles(tipos_disponibles)
         tipo_numero = verificar_numero_valido("Ingrese el tipo de auto al que desea acceder: ", rango=range(1, len(tipos_disponibles) + 1),opciones_disponibles=tipos_disponibles)
 
-        tipo_seleccionado = tipos_disponibles[tipo_numero - 1]
+        if tipo_numero != -1:
+            tipo_seleccionado = tipos_disponibles[tipo_numero - 1]
+        else:
+            tipo_numero = None
 
     return marca_seleccionada, tipo_seleccionado
 
 
-def cargar_auto():
+def registrar_auto():
     """Funcion para que el admin pueda cargar autos al archivo autos.json"""
     autos_data = obtener_diccionario_autos()
 
-    while True:
-        marca_seleccionada, tipo_seleccionado = obtener_datos_modelos()
+    salir = False
+    marca_seleccionada, tipo_seleccionado = obtener_datos_modelos()
+
+    if not (marca_seleccionada and tipo_seleccionado):
+        salir= True
+
+    while not salir:
 
         nombre = input(f"Ingrese un nombre para el nuevo modelo a registrar en {marca_seleccionada} - {tipo_seleccionado}: ").capitalize()
 
-        if nombre == "" or nombre.isdigit():
+        if nombre == "" or nombre.isdigit() or nombre == -1:
             print("Se debe ingresar un nombre de modelo para continuar")
+            salir = True
             continue
         
         imprimir_separador()
