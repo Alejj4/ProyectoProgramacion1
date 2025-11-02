@@ -1,3 +1,5 @@
+import json
+
 from .utils import verificar_numero_valido, manejar_apertura_archivo
 
 def obtener_3_autos_mas_vendidos():
@@ -168,10 +170,53 @@ def obtener_ventas_por_marca():
 
 
 def obtener_ventas_por_auto():
-    """Funcion para obtener los datos de cuanto vendió cada auto registrado en la base de datos"""
+    """Genera un informe de ventas por modelo, incluyendo los que no tuvieron ventas (con 0)."""
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:
-        pass
+        
+        autos_lista = []  # Lista para almacenar los autos y sus ventas
+
+        for i, linea in enumerate(archivo_ventas):
+            if i == 0:
+                continue  # Saltar encabezado
+
+            partes = linea.strip().split(",")
+            if len(partes) < 2:
+                continue  # Saltar líneas mal formateadas
+
+            marca = partes[0].strip()
+            nombre = partes[1].strip()
+
+            # Buscar si el auto ya está en la lista
+            encontrado = False
+            for auto in autos_lista:
+                if auto["marca"] == marca and auto["nombre"] == nombre:
+                    auto["ventas"] += 1
+                    encontrado = True
+                    break
+
+            # Si no estaba, agregarlo
+            if not encontrado:
+                autos_lista.append({
+                    "marca": marca,
+                    "nombre": nombre,
+                    "ventas": 1
+                })
+
+        archivo_ventas.close()
+
+        if len(autos_lista) > 0:
+            # Ordenar por cantidad de ventas descendente
+            autos_lista.sort(key=lambda x: x["ventas"], reverse=True)
+
+            archivo_salida = manejar_apertura_archivo("ventas_por_auto.csv", "wt", "informes")
+            archivo_salida.write("Marca,Nombre,Ventas\n")
+
+            for auto in autos_lista:
+                archivo_salida.write(f"{auto['marca']},{auto['nombre']},{auto['ventas']}\n")
+
+            archivo_salida.close()
+
     else:
-        print("No se encontró el archivo necesario para este informe (ventas.csv)")
+        print("No se encontraron datos de ventas ni modelos para generar el informe.")
