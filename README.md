@@ -11,4 +11,3 @@
 
 1 - Informes
 2 - DEBUG del cargar nuevo auto (error al ingresar -1)
-3 - Agregar validacion en el registro
