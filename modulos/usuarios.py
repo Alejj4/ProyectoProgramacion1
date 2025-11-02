@@ -39,45 +39,43 @@ def register():
 def login():
     usuario_data = None
     encontrado=False
+    archivo_usuarios = None
     
     while True:
         dni_ingreso,_ = dni_existe()
         imprimir_separador()
-        if int(dni_ingreso)==-1:
-            menu_inicio()
-            break
-            
-        
-        contraseña=input("Ingrese su contraseña: ").strip()
-        imprimir_separador()
-        archivo=manejar_apertura_archivo("usuarios.csv", "r")
-        
-        for i, linea in enumerate(archivo):
-            if i == 0:
-                continue
-
-            partes = linea.strip().split(",")
-            dni, nombre, contraseña_actual, es_admin = [p.strip() for p in partes]
-            if dni == str(dni_ingreso) and contraseña_actual == contraseña:
-                encontrado=True
-                usuario_data = {
-                    'dni':str(dni).strip(), 
-                    'nombre':str(nombre).strip(), 
-                    'contraseña':str(contraseña).strip(), 
-                    'es_admin': str(es_admin)
-                }
-
-                with open("archivos/usuario_autenticado.csv", "a", encoding="UTF-8") as archivo_login:
-                    archivo_login.write(f"{usuario_data['dni']}, {usuario_data['nombre']}, {usuario_data['contraseña']}, {usuario_data['es_admin']}")
-
-
-        if not encontrado:  
-            print("DNI o contraseña incorrectos. Intente nuevamente.")
+        if int(dni_ingreso) != -1:
+            contraseña=input("Ingrese su contraseña: ").strip()
             imprimir_separador()
-            continue 
-        break
+            archivo_usuarios=manejar_apertura_archivo("usuarios.csv", "r")
+            
+            for i, linea in enumerate(archivo_usuarios):
+                if i == 0:
+                    continue
 
-    archivo.close()
+                partes = linea.strip().split(",")
+                dni, nombre, contraseña_actual, es_admin = [p.strip() for p in partes]
+                if dni == str(dni_ingreso) and contraseña_actual == contraseña:
+                    encontrado=True
+                    usuario_data = {
+                        'dni':str(dni).strip(), 
+                        'nombre':str(nombre).strip(), 
+                        'contraseña':str(contraseña).strip(), 
+                        'es_admin': str(es_admin)
+                    }
+
+                    with open("archivos/usuario_autenticado.csv", "a", encoding="UTF-8") as archivo_login:
+                        archivo_login.write(f"{usuario_data['dni']}, {usuario_data['nombre']}, {usuario_data['contraseña']}, {usuario_data['es_admin']}")
+
+
+            if not encontrado:  
+                print("DNI o contraseña incorrectos. Intente nuevamente.")
+                imprimir_separador()
+                continue 
+            break
+
+        if archivo_usuarios:
+            archivo_usuarios.close()
     return usuario_data
 
 def dni_existe():
@@ -122,31 +120,29 @@ def cambiar_contrasena():
             if usuario['dni'] == str(dni_buscado):
                 while True:
                     try:
-                        contraseña = input('Ingrese su nueva contraseña: ').strip()
-                        confirmacion_contraseña = input('Ingrese de nuevo su contraseña: ').strip()
+                        nueva_contra = input('Ingrese su nueva contraseña: ').strip()
+                        confirmacion = input('Ingrese de nuevo su contraseña: ').strip()
 
+                        if "" in [nueva_contra, confirmacion]:
+                            raise ValueError("Los campos de contraseña no pueden ser vacíos")
 
-                        if "" in [contraseña, confirmacion_contraseña]:
-                            raise ValueError("Los campos de contraseña no pueden ser vacias")
-
-                        if contraseña != confirmacion_contraseña:
+                        if nueva_contra != confirmacion:
                             raise ValueError('Las contraseñas no coinciden, intente nuevamente')
-                        
-                        
-                        usuario['contraseña'] = contraseña
+
+                        usuario['contraseña'] = nueva_contra
                         usuario_actualizado = usuario
-                        
                         break
+
                     except ValueError as e:
                         print(e)
                     
     if usuario_actualizado is not None:
 
-        archivo_usuarios = manejar_apertura_archivo("usuarios.csv", "wt", "informes")
+        archivo_usuarios = manejar_apertura_archivo("usuarios.csv", "wt")
         archivo_usuarios.write('dni, nombre, contraseña, es_admin\n')
         
         for usuario in usuarios_lista:
-            archivo_usuarios.write(f'{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n')
+            archivo_usuarios.write(f"{usuario['dni']}, {usuario['nombre']}, {usuario['contraseña']}, {usuario['es_admin']}\n")
         
         print('Su contraseña fue cambiada con éxito')
         archivo_usuarios.close()
