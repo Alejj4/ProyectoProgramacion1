@@ -57,7 +57,7 @@ def obtener_3_autos_mas_vendidos_marca():
     if archivo_ventas:
 
         print("Estas son las marcas que puede consultar")
-        marcas_disponibles = ['Hatchback', 'Sedan', 'Suv', 'PickUp']
+        marcas_disponibles = ['Hatchback', 'Sedan', 'Suv', 'Pick-Up']
 
         marca_elegida = verificar_numero_valido("Ingrese una marca para obtener el informe correspondiente o -1 para salir: ", rango=(1, len(marcas_disponibles) + 1), opciones_disponibles=marcas_disponibles)
 
@@ -114,7 +114,55 @@ def obtener_ventas_por_marca():
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:
-        pass
+        
+        ventas_por_marca = []
+
+        for i, linea in enumerate(archivo_ventas):
+            if i == 0:
+                continue
+
+            linea_partes = linea.strip().split(",")
+            if len(linea_partes) < 2:
+                continue
+
+            marca = linea_partes[0].strip()
+
+            encontrado = False
+            for venta in ventas_por_marca:
+                if venta["marca"] == marca:
+                    venta["ventas"] += 1
+                    encontrado = True
+
+            if not encontrado:
+                ventas_por_marca.append({
+                    "marca": marca,
+                    "ventas": 1
+                })
+
+        marcas = ['Hatchback', 'Sedan', 'Suv', 'Pick-Up']
+
+        # Agregar marcas sin ventas
+        for marca in marcas:
+            existe = False
+            for venta in ventas_por_marca:
+                if venta["marca"].lower().strip() == marca.lower().strip():
+                    existe = True
+                    break
+            if not existe:
+                ventas_por_marca.append({
+                    "marca": marca,
+                    "ventas": 0
+                })        
+
+        if len(ventas_por_marca) > 0:
+            archivo_salida = manejar_apertura_archivo("ventas_por_marca.csv", "wt", "informes")
+            archivo_salida.write("Marca,Total_Vendido\n")
+            for venta in ventas_por_marca:
+                archivo_salida.write(f"{venta['marca']},{venta['ventas']}\n")
+            archivo_salida.close()
+
+        
+
     else:
         print("No se encontró el archivo necesario para este informe (ventas.csv)")
 
