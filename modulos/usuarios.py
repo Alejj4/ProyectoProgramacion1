@@ -167,8 +167,8 @@ def completar_usuarios():
         if i == 2:
             dni = 45684868
             nombre = "Lautaro Gomez"
-            password = "contraseña"
-            es_admin = 1
+            password = "a"
+            es_admin = 0
         else:
             dni = random.randint(10000000, 99999999)
 

@@ -112,3 +112,6 @@ def modificar_precios():
             print("Volviendo al menu principal")
     else:
         print(f"{marca_seleccionada} - {tipo_seleccionado} aun no cuenta con modelos disponibles")
+
+def obtener_informes():
+    pass

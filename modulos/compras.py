@@ -1,6 +1,6 @@
 import random as rn
 
-from modulos.utils import imprimir_separador, verificar_numero_valido, mostrar_opciones_disponibles, crear_registro, obtener_datos_de_usuario_autenticado
+from modulos.utils import imprimir_separador, verificar_numero_valido, mostrar_opciones_disponibles, crear_registro, obtener_datos_de_usuario_autenticado, manejar_apertura_archivo
 from modulos.autos import desplegar_menu_de_catalogo, pedir_datos_compra, obtener_modelos_disponibles, mostrar_modelos_disponibles, pedir_dato_de_autos
 from modulos.usuarios import actualizar_clientes
 
@@ -136,4 +136,3 @@ def aplicar_descuento_precio_final():
             print("¡Felicitaciones! Su numero coincide, usted se gano un descuento del 20%.")
             aplicar_descuento = True
     return aplicar_descuento
-
