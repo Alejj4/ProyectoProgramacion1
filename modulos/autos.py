@@ -32,7 +32,7 @@ def calcular_precios_promedios_tipo():
    
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
     
-    archivo_precios_promedios = manejar_apertura_archivo("precios_promedios.csv", "wt", "informes")
+    archivo_precios_promedios = manejar_apertura_archivo("precios_promedios.csv", "wt", "archivos")
 
     archivo_precios_promedios.write("marca, tipo, promedio\n")
 

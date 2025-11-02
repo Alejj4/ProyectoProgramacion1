@@ -9,5 +9,6 @@
 
 ### Tareas pendientes (Agregar en caso de que haga falta)
 
-1 - Verificar stock y restarlo despues de una compra
-2 - Informes
+1 - Informes
+2 - DEBUG del cargar nuevo auto (error al ingresar -1)
+3 - Agregar validacion en el registro

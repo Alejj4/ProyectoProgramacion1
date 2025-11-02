@@ -14,7 +14,6 @@ def interfaz_admin():
 
         while True:
             print(f"PANEL DE ADMINISTRADOR ({usuario_data.get('nombre')})")
-            imprimir_separador()
             print("Opciones de panel de admin")
             opciones_disponibles = ["Cargar nuevo vehiculo", "Modificar precios", "Obtener informes", "Salir"]
             
@@ -22,15 +21,16 @@ def interfaz_admin():
             opcion_seleccionada = verificar_numero_valido("Ingrese la opcion que desea: ", rango=range(1, len(opciones_disponibles) + 1), opciones_disponibles=opciones_disponibles)
 
             if opcion_seleccionada == 1:
+                imprimir_separador()
                 cargar_auto()
             elif opcion_seleccionada == 2:
+                imprimir_separador()
                 modificar_precios()
             elif opcion_seleccionada == 3:
+                imprimir_separador()
                 obtener_informes()
             elif opcion_seleccionada == -1:
-                imprimir_separador()
                 print("Opcion no disponible, por favor intente de nuevo")
-                imprimir_separador()
             else:
                 break    
     
