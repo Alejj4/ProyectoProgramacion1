@@ -6,7 +6,7 @@ def completar_archivo_stock():
 
     archivo_autos = manejar_apertura_archivo("autos.json", "rt")
 
-    archivo_stock = manejar_apertura_archivo("stock.csv", "wt", "informes")
+    archivo_stock = manejar_apertura_archivo("stock.csv", "wt")
 
     if archivo_autos is not None:
 
@@ -72,7 +72,7 @@ def pedir_dato_de_autos(mensaje_input, opciones_disponibles):
     mostrar_opciones_disponibles(opciones_disponibles)
     dato = verificar_numero_valido(mensaje_input, rango=range(len(opciones_disponibles)), opciones_disponibles=opciones_disponibles)
     
-    dato = -1 if dato == 1 else dato - 1
+    dato = -1 if dato == -1 else dato - 1
 
     return dato
 
@@ -83,6 +83,7 @@ def pedir_datos_compra():
     marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
 
     marca_indice = pedir_dato_de_autos("Ingrese la marca que desea visualizar, para salir, simplemente ingrese -1: ", marcas_disponibles)
+
     imprimir_separador()
     if not marca_indice == -1:
         nombre_marca = marcas_disponibles[marca_indice]
