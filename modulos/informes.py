@@ -12,7 +12,7 @@ def obtener_3_autos_mas_vendidos():
         ventas_lista = []
         for i, linea in enumerate(archivo_ventas):
             if i == 0:
-                pass
+                continue
             
             linea_partes = linea.split(",")
 
