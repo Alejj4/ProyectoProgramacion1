@@ -79,6 +79,10 @@ def interfaz_usuario():
 
             if salir != -1:
                 break
+            else:
+                imprimir_separador()
+                print("Opcion invalida")
+                imprimir_separador()
 
         if salir == 1:
             break
