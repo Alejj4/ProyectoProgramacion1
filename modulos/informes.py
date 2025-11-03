@@ -1,4 +1,4 @@
-from .utils import verificar_numero_valido, manejar_apertura_archivo, mostrar_opciones_disponibles, imprimir_separador
+from .utils import verificar_numero_valido, manejar_apertura_archivo, mostrar_opciones_disponibles, imprimir_separador, crear_registro
 
 
 def mostrar_mensaje_exitoso():
