@@ -279,18 +279,20 @@ def menu_inicio():
 
         if opcion == 1:
             usuario = register()
-            crear_registro("Registro", "OK")
+            crear_registro("Registro")
         elif opcion == 2:
             usuario = login()
-            crear_registro("Login","OK")
+            crear_registro("Login")
             if usuario:
                 salir = True
         elif opcion == 3:
             usuario = cambiar_contrasena()
-            crear_registro("Cambio contraseña", "OK" if usuario is not None else "WARNING")
+            crear_registro("Cambio contraseña" if usuario is not None else "WARNING")
         elif opcion == 4:
             usuario = None
+            crear_registro("Salir")
             salir = True
+
         else:
             print("Opcion no disponible, por favor intente de nuevo")
             imprimir_separador()

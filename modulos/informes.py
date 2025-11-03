@@ -66,7 +66,7 @@ def obtener_3_autos_mas_vendidos_marca():
         mostrar_opciones_disponibles(marcas_disponibles)
 
         marca_elegida = verificar_numero_valido("Ingrese una marca para obtener el informe correspondiente o -1 para salir: ", rango=(1, len(marcas_disponibles) + 1), opciones_disponibles=marcas_disponibles)
-
+        crear_registro("Ver informe (3 autos mas vendidos)")
         if marca_elegida != -1:
             ventas_lista = []
 
@@ -108,6 +108,7 @@ def obtener_3_autos_mas_vendidos_marca():
                 print(f"No se registraron ventas para la marca {marca_elegida}")
 
         else:
+            crear_registro("Salir")
             print("Saliendo")
 
 
