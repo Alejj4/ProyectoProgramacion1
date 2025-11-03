@@ -1,6 +1,8 @@
-import json
+from .utils import verificar_numero_valido, manejar_apertura_archivo, mostrar_opciones_disponibles, imprimir_separador
 
-from .utils import verificar_numero_valido, manejar_apertura_archivo
+
+def mostrar_mensaje_exitoso():
+    print("Informe generado con exito, puede consultarlo en la carpeta de informes")
 
 def obtener_3_autos_mas_vendidos():
     """Funcion para obtener los 3 autos mas vendidos sin discriminar por ningun criterio"""
@@ -45,6 +47,7 @@ def obtener_3_autos_mas_vendidos():
             for auto in autos_mas_vendidos:
                 archivo_salida.write(f"{auto['marca']},{auto['nombre']},{auto['ventas']}\n")
             archivo_salida.close()
+            mostrar_mensaje_exitoso()
         else:
             print("No se registraron ventas aun")
 
@@ -60,6 +63,7 @@ def obtener_3_autos_mas_vendidos_marca():
 
         print("Estas son las marcas que puede consultar")
         marcas_disponibles = ['Hatchback', 'Sedan', 'Suv', 'Pick-Up']
+        mostrar_opciones_disponibles(marcas_disponibles)
 
         marca_elegida = verificar_numero_valido("Ingrese una marca para obtener el informe correspondiente o -1 para salir: ", rango=(1, len(marcas_disponibles) + 1), opciones_disponibles=marcas_disponibles)
 
@@ -112,7 +116,7 @@ def obtener_3_autos_mas_vendidos_marca():
 
 
 def obtener_ventas_por_marca():
-    """Funcio para obtener cuanto vendió cada marca"""
+    """Funcion para obtener cuanto vendió cada marca"""
     archivo_ventas = manejar_apertura_archivo("ventas.csv", "rt", "archivos")
 
     if archivo_ventas:
@@ -162,7 +166,10 @@ def obtener_ventas_por_marca():
             for venta in ventas_por_marca:
                 archivo_salida.write(f"{venta['marca']},{venta['ventas']}\n")
             archivo_salida.close()
-
+            mostrar_mensaje_exitoso()
+        else:
+            print("No se encontraron autos vendidos")
+            imprimir_separador()
         
 
     else:
@@ -217,6 +224,9 @@ def obtener_ventas_por_auto():
                 archivo_salida.write(f"{auto['marca']},{auto['nombre']},{auto['ventas']}\n")
 
             archivo_salida.close()
-
+            mostrar_mensaje_exitoso()
+        else:
+            print("No se encontraron autos vendidos")
+            imprimir_separador()
     else:
         print("No se encontraron datos de ventas ni modelos para generar el informe.")
