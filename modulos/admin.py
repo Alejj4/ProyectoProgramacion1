@@ -54,9 +54,8 @@ def registrar_auto():
 
         nombre = input(f"Ingrese un nombre para el nuevo modelo a registrar en {marca_seleccionada} - {tipo_seleccionado}: ").capitalize()
 
-        if nombre == "" or nombre.isdigit() or nombre == -1:
+        if nombre == "" or nombre.isdigit() or nombre == "-1":
             print("Se debe ingresar un nombre de modelo para continuar")
-            salir = True
             continue
         
         imprimir_separador()
@@ -80,7 +79,7 @@ def registrar_auto():
         print("¿Desea añadir un nuevo modelo?")
         opciones_disponibles = ["Sí", "No (salir)"]
         mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = verificar_numero_valido("Ingrese la opcion que desee: ", rango=range(len(opciones_disponibles)), opciones_disponibles=opciones_disponibles)
+        opcion = verificar_numero_valido("Ingrese la opcion que desee: ", rango=range(1, len(opciones_disponibles) + 1), opciones_disponibles=opciones_disponibles)
 
         if opcion == 2:
             print("Volviendo al menu")
