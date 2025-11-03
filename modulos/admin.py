@@ -125,7 +125,7 @@ def modificar_precios():
         print(f"{marca_seleccionada} - {tipo_seleccionado} aun no cuenta con modelos disponibles")
 
 def obtener_informes():
-    informes_a_consultar = ["Los 3 autos mas vendidos", "Autos mas vendidos (por marca)", "Ventas por marca", "Ventas totales por auto"]
+    informes_a_consultar = ["Los 3 autos mas vendidos", "Los 3 autos mas vendidos (por marca)", "Ventas por marca", "Ventas totales por auto"]
 
     salir = False
 

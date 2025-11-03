@@ -11,8 +11,8 @@ def interfaz_admin():
 
         if usuario_data is None:
             raise ValueError("No se encontró el archivo con los datos del usuario logueado")
-
-        while True:
+        
+        while obtener_datos_de_usuario_autenticado():
             print(f"PANEL DE ADMINISTRADOR ({usuario_data.get('nombre')})")
             print("Opciones de panel de admin")
             opciones_disponibles = ["Cargar nuevo vehiculo", "Modificar precios", "Obtener informes", "Salir"]
@@ -37,9 +37,6 @@ def interfaz_admin():
             else:
                 crear_registro("Salir")
                 break    
-    
-    except KeyError:
-        print("Se produjo un error en los datos del usuario.")
     except ValueError as e:
         print(e)
 

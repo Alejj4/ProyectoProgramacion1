@@ -39,6 +39,10 @@ def verificar_numero_valido(mensaje_input, rango=None, mensaje_error="Opcion no 
         try:
             dato = int(input(mensaje_input))
 
+            # print(dato)
+            # print(opciones_disponibles)
+            # print(rango)
+
             if dato != -1 and (rango is not None and not dato in rango):
                 raise IndexError(mensaje_error)
 
