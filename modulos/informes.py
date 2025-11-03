@@ -148,7 +148,7 @@ def obtener_ventas_por_marca():
                     "ventas": 1
                 })
 
-        marcas = ['Hatchback', 'Sedan', 'Suv', 'Pick-Up']
+        marcas = ["Toyota", "Schipani", "Chevrolet", "Ford"]
 
         # Agregar marcas sin ventas
         for marca in marcas:
