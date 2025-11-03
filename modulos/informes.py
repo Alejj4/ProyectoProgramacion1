@@ -65,7 +65,7 @@ def obtener_3_autos_mas_vendidos_marca():
         marcas_disponibles = ["Toyota", "Schipani", "Chevrolet", "Ford"]
         mostrar_opciones_disponibles(marcas_disponibles)
 
-        marca_elegida_num = verificar_numero_valido("Ingrese una marca para obtener el informe correspondiente o -1 para salir: ", rango=(1, len(marcas_disponibles) + 1), opciones_disponibles=marcas_disponibles)
+        marca_elegida_num = verificar_numero_valido("Ingrese una marca para obtener el informe correspondiente o -1 para salir: ", rango=range(1, len(marcas_disponibles) + 1), opciones_disponibles=marcas_disponibles)
         crear_registro("Ver informe (3 autos mas vendidos)")
         if marca_elegida_num != -1:
             ventas_lista = []
