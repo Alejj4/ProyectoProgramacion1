@@ -87,11 +87,11 @@ def pedir_datos_compra():
     imprimir_separador()
     if not marca_indice == -1:
         nombre_marca = marcas_disponibles[marca_indice]
-        crear_registro("Marca_seleccionada", nombre_marca)
+        crear_registro(f"Marca seleccionada ({nombre_marca})")
         tipos_disponibles = ["Hatchback", "Sedan", "SUV", "Pick-up"]
         tipo_indice = pedir_dato_de_autos("Ingrese el tipo de auto que desea visualizar, para salir, simplemente ingrese -1: ", tipos_disponibles)
         nombre_tipo = tipos_disponibles[tipo_indice] if tipo_indice != -1 else -1
-        crear_registro("Tipo_seleccionado", nombre_tipo)
+        crear_registro(f"Tipo seleccionado ({nombre_tipo})")
     else:
         nombre_marca, nombre_tipo = -1, -1 #Se sale automaticamente
 

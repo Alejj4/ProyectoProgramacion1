@@ -105,9 +105,9 @@ def encargar_autos():
         #---------------------- Confirmación de compra --------------------------------------------
         
         modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice]
-        crear_registro("Modelo_seleccionado", modelo_seleccionado["nombre"])
+        crear_registro(f"Modelo seleccionado ({modelo_seleccionado["nombre"]})")
         modelo_seleccionado["color"] = color_seleccionado
-        crear_registro("Color_seleccionado", color_seleccionado)
+        crear_registro(f"Color seleccionado ({color_seleccionado})")
         encargo_data["modelos_seleccionados"].append(modelo_seleccionado)
         encargo_data["monto_total"] += modelo_seleccionado["precio"]
 
@@ -121,7 +121,7 @@ def encargar_autos():
 
         if decision == 1:
             mostrar_resumen(encargo_data)
-            crear_registro( "Ver resumen", "Sí")
+            crear_registro("Ver resumen (sí)")
             print("¿Desea pasar a finalizar la operación? ")
 
             respuestas_validas = ["Sí", "No (Encargar un nuevo vehículo)"]
@@ -130,13 +130,13 @@ def encargar_autos():
             respuesta = verificar_numero_valido("Ingrese la opcion deseada: ", rango=range(1, len(respuestas_validas) + 1), opciones_disponibles=respuestas_validas)
 
             finalizar_compra = respuesta == 1
-            crear_registro( "Finalizar compra", "Sí" if finalizar_compra else "No")
+            crear_registro("Finalizar compra (sí)" if finalizar_compra else "No")
             if finalizar_compra and len(encargo_data["modelos_seleccionados"]) > 0:
                 actualizar_clientes(usuario_data["dni"])
         else:
-            crear_registro("Ver resumen", "No")
+            crear_registro("Ver resumen (No)")
             finalizar_compra = True
-            crear_registro("Finalizar compra", "Sí")
+            crear_registro("Finalizar compra (sí)")
             if len(encargo_data["modelos_seleccionados"]) > 0:
                 actualizar_clientes(usuario_data["dni"])
     return encargo_data
@@ -153,11 +153,11 @@ def aplicar_descuento_precio_final():
 
     if des == 2: 
         print("Como usted desee.")
-        crear_registro("Descuento", "No")
+        crear_registro("Descuento (no)")
     else: 
         print("Nos alegra que haya querido participar. El juego trata de que tiene que elegir un numero del 1 al 5, si su numero es igual al que eligió el programa usted se gana el descuento asi de facil.")
         ran = rn.randint(1,5)
-        crear_registro("descuento", "Sí")
+        crear_registro("Descuento (sí)")
         numran = verificar_numero_valido("Ingrese un numero del 1 al 5: ", rango=range(1, 6))
           
         if numran != ran:

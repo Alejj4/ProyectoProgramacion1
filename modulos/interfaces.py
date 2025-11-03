@@ -1,6 +1,6 @@
 from modulos.compras import aplicar_descuento_precio_final, encargar_autos
 from modulos.admin import registrar_auto, modificar_precios, obtener_informes
-from modulos.utils import imprimir_separador, manejar_apertura_archivo, obtener_datos_de_usuario_autenticado, mostrar_opciones_disponibles, verificar_numero_valido
+from modulos.utils import imprimir_separador, manejar_apertura_archivo, obtener_datos_de_usuario_autenticado, mostrar_opciones_disponibles, verificar_numero_valido,crear_registro
 
 
 def interfaz_admin():
@@ -22,16 +22,20 @@ def interfaz_admin():
 
             if opcion_seleccionada == 1:
                 imprimir_separador()
+                crear_registro("Registrar auto")
                 registrar_auto()
             elif opcion_seleccionada == 2:
                 imprimir_separador()
+                crear_registro("Modificar precio")
                 modificar_precios()
             elif opcion_seleccionada == 3:
                 imprimir_separador()
+                crear_registro("Obtener informes")
                 obtener_informes()
             elif opcion_seleccionada == -1:
                 print("Opcion no disponible, por favor intente de nuevo")
             else:
+                crear_registro("Salir")
                 break    
     
     except KeyError:

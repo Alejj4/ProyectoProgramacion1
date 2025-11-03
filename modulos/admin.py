@@ -1,5 +1,5 @@
 import json
-from .utils import manejar_apertura_archivo, mostrar_opciones_disponibles, verificar_numero_valido, imprimir_separador
+from .utils import manejar_apertura_archivo, mostrar_opciones_disponibles, verificar_numero_valido, imprimir_separador, crear_registro
 from .informes import obtener_3_autos_mas_vendidos, obtener_3_autos_mas_vendidos_marca, obtener_ventas_por_marca, obtener_ventas_por_auto
 
 def obtener_diccionario_autos():
@@ -27,13 +27,14 @@ def obtener_datos_modelos():
 
     if marca_numero != -1:
         marca_seleccionada = marcas_disponibles[marca_numero - 1]
+        crear_registro(f"Marca seleccionada ({marca_seleccionada})")
         tipos_disponibles = list(autos_data[marca_seleccionada].keys())
 
         mostrar_opciones_disponibles(tipos_disponibles)
         tipo_numero = verificar_numero_valido("Ingrese el tipo de auto al que desea acceder: ", rango=range(1, len(tipos_disponibles) + 1),opciones_disponibles=tipos_disponibles)
-
         if tipo_numero != -1:
             tipo_seleccionado = tipos_disponibles[tipo_numero - 1]
+            crear_registro(f"Tipo ({tipo_seleccionado})")
         else:
             tipo_numero = None
 
@@ -54,19 +55,18 @@ def registrar_auto():
 
         nombre = input(f"Ingrese un nombre para el nuevo modelo a registrar en {marca_seleccionada} - {tipo_seleccionado}: ").capitalize()
 
-        if nombre == "" or nombre.isdigit() or nombre == -1:
+        if nombre == "" or nombre.isdigit() or nombre == "-1":
             print("Se debe ingresar un nombre de modelo para continuar")
-            salir = True
             continue
-        
+        crear_registro(f"Nombre modelo ({nombre})")
         imprimir_separador()
         equipamientos_disponibles = [1,2,3]
         mostrar_opciones_disponibles(equipamientos_disponibles)
         equipamiento = verificar_numero_valido("Ingrese el numero de equipamiento que desee asignar: ", rango=range(1, len(equipamientos_disponibles) + 1),opciones_disponibles=equipamientos_disponibles)
-
+        crear_registro(f"Equipamiento ({equipamiento})")
         precio_min, precio_max = obtener_rango_precios()
         precio = verificar_numero_valido("Ingrese el precio del modelo: ",rango=range(precio_min, precio_max + 1), mensaje_error=f"El precio ingresado está fuera de rango (entre {precio_min} y {precio_max})")
-
+        crear_registro(f"Precio ({precio})")
         autos_data[marca_seleccionada][tipo_seleccionado].append({"nombre":nombre, "equipamiento": equipamiento, "precio":precio})
 
         print("Modelo registrado con exito!")
@@ -80,10 +80,11 @@ def registrar_auto():
         print("¿Desea añadir un nuevo modelo?")
         opciones_disponibles = ["Sí", "No (salir)"]
         mostrar_opciones_disponibles(opciones_disponibles)
-        opcion = verificar_numero_valido("Ingrese la opcion que desee: ", rango=range(len(opciones_disponibles)), opciones_disponibles=opciones_disponibles)
-
+        opcion = verificar_numero_valido("Ingrese la opcion que desee: ", rango=range(1, len(opciones_disponibles) + 1), opciones_disponibles=opciones_disponibles)
+        crear_registro("Agregar nuevo modelo")
         if opcion == 2:
             print("Volviendo al menu")
+            crear_registro("Salir")
             break
 
 
@@ -106,12 +107,12 @@ def modificar_precios():
 
         if modelo_seleccionado_indice != -1:
             modelo_seleccionado = modelos_disponibles[modelo_seleccionado_indice - 1]
-
+            crear_registro(f"Modificar precio ({modelo_seleccionado['nombre']})")
             print("Modelo seleccionado: ")
             print(f"{modelo_seleccionado['nombre']}, precio: {modelo_seleccionado['precio']}")
 
             nuevo_precio = verificar_numero_valido("Ingrese un nuevo precio para este modelo: ", rango=range(precio_min, precio_max + 1), mensaje_error=f"El precio es invalido, debe ser un numero entero entre {precio_min} y {precio_max}")
-
+            crear_registro("Nuevo precio")
             autos_data[marca_seleccionada][tipo_seleccionado][modelo_seleccionado_indice - 1]["precio"] = nuevo_precio
 
             archivo_autos = manejar_apertura_archivo("autos.json", "wt", "archivos")
@@ -137,12 +138,16 @@ def obtener_informes():
         imprimir_separador()
 
         if informe_seleccionado == 1:
+            crear_registro("Ver informe (3 autos más vendidos)")
             obtener_3_autos_mas_vendidos()
         elif informe_seleccionado == 2:
+            crear_registro("Ver informe ( 3 autos mas vendidos por marca)")
             obtener_3_autos_mas_vendidos_marca()
         elif informe_seleccionado == 3:
+            crear_registro("Ver informe (ventas por marca)")
             obtener_ventas_por_marca()
         elif informe_seleccionado == 4:
+            crear_registro("Ver informe (ventas por auto)")
             obtener_ventas_por_auto()
         else:
             break
